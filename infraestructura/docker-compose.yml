@@ -1,0 +1,156 @@
+# docker-compose.yml — Ecosistema del curso (instancia única compartida)
+#
+# Una sola instancia de cada herramienta sirve a TODOS los cursos.
+# El aislamiento entre cursos se maneja DENTRO de cada app (rooms,
+# cuentas de organizador, boards con permisos) — ver
+# aislamiento_datos_por_curso.md para el procedimiento exacto.
+#
+# Uso: copia .env.example a .env y completa los valores antes de
+# levantar. Ejecutar con: docker compose up -d
+
+networks:
+  curso-net:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
+  claper_db:
+  claper_uploads:
+  hedgedoc_db:
+  focalboard_data:
+
+services:
+
+  # ---------------------------------------------------------------
+  # INFRAESTRUCTURA BASE (siempre activa)
+  # ---------------------------------------------------------------
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - curso-net
+
+  # ---------------------------------------------------------------
+  # FASE 1 — Pizarra y encuestas (Clases 1-2)
+  # ---------------------------------------------------------------
+  excalidraw:
+    image: excalidraw/excalidraw:latest
+    container_name: excalidraw
+    restart: unless-stopped
+    networks:
+      - curso-net
+    # Aislamiento: cada pizarra es una "room" con link único
+    # (#room=id,clave). No requiere configuración adicional — solo
+    # comparte el link correcto con el curso correcto.
+
+  claper-db:
+    image: postgres:15-alpine
+    container_name: claper-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${CLAPER_DB_PASSWORD}
+      POSTGRES_USER: claper
+      POSTGRES_DB: claper
+    volumes:
+      - claper_db:/var/lib/postgresql/data
+    networks:
+      - curso-net
+
+  claper:
+    image: ghcr.io/claperco/claper:latest
+    container_name: claper
+    restart: unless-stopped
+    depends_on:
+      - claper-db
+    environment:
+      DATABASE_URL: postgres://claper:${CLAPER_DB_PASSWORD}@claper-db:5432/claper
+      ENDPOINT_HOST: ${CLAPER_HOST}
+      ENDPOINT_PORT: "443"
+      SECRET_KEY_BASE: ${CLAPER_SECRET_KEY_BASE}
+      MAIL_TRANSPORT: local
+    volumes:
+      - claper_uploads:/app/priv/static/uploads
+    networks:
+      - curso-net
+    # Aislamiento: crea UNA CUENTA DE ORGANIZADOR por curso. Los
+    # eventos de una cuenta no son visibles desde otra cuenta.
+
+  # ---------------------------------------------------------------
+  # FASE 2 — Kanban de logística de roles/grupos (Clases 3-4)
+  # Descomentar cuando llegues a esta fase.
+  # ⚠️ Nota: Focalboard standalone ya no recibe actualizaciones de
+  # seguridad desde jun-2024. Sigue funcionando, pero evalúa Planka
+  # o Vikunja si prefieres una opción con mantenimiento activo.
+  # Aislamiento: un board separado por curso/clase, con permisos de
+  # compartición configurados individualmente — requiere más
+  # cuidado manual que Excalidraw/Claper. Ver
+  # aislamiento_datos_por_curso.md.
+  # ---------------------------------------------------------------
+  # focalboard:
+  #   image: mattermost/focalboard:latest
+  #   container_name: focalboard
+  #   restart: unless-stopped
+  #   volumes:
+  #     - focalboard_data:/data
+  #   networks:
+  #     - curso-net
+
+  # ---------------------------------------------------------------
+  # FASE 3 — Notas colaborativas para feedback entre pares (Clases 5+)
+  # Descomentar cuando llegues a esta fase.
+  # Aislamiento: una nota por pareja/grupo con permiso "limitado"
+  # (no "libre"), compartiendo solo el link con quien corresponde.
+  # ---------------------------------------------------------------
+  # hedgedoc-db:
+  #   image: postgres:15-alpine
+  #   container_name: hedgedoc-db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_PASSWORD: ${HEDGEDOC_DB_PASSWORD}
+  #     POSTGRES_USER: hedgedoc
+  #     POSTGRES_DB: hedgedoc
+  #   volumes:
+  #     - hedgedoc_db:/var/lib/postgresql/data
+  #   networks:
+  #     - curso-net
+  #
+  # hedgedoc:
+  #   image: quay.io/hedgedoc/hedgedoc:1.9-debian
+  #   container_name: hedgedoc
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - hedgedoc-db
+  #   environment:
+  #     CMD_DB_URL: postgres://hedgedoc:${HEDGEDOC_DB_PASSWORD}@hedgedoc-db:5432/hedgedoc
+  #     CMD_DOMAIN: ${HEDGEDOC_HOST}
+  #     CMD_PROTOCOL_USESSL: "true"
+  #     CMD_URL_ADDPORT: "false"
+  #     CMD_ALLOW_ANONYMOUS: "false"
+  #   networks:
+  #     - curso-net
+
+  # ---------------------------------------------------------------
+  # OPCIONAL — Trivias/repasos gamificados (Razzia o QuizLive)
+  # Aislamiento: código de sesión temporal por partida, sin
+  # configuración adicional necesaria.
+  # Requieren construir la imagen desde el repositorio:
+  #   Razzia:   https://github.com/Ralex91/Razzia
+  #   QuizLive: https://github.com/sivasooryagiri/quizlive
+  # ---------------------------------------------------------------
+
+  # ---------------------------------------------------------------
+  # OPCIONAL — LMS (LearnHouse o Frappe LMS)
+  # Es la ÚNICA herramienta con concepto nativo de "curso" e
+  # inscripción de estudiantes — aislamiento real, no improvisado.
+  # Evaluar si el resto de mecanismos (rooms/eventos/boards) no te
+  # da suficiente garantía de separación.
+  # ---------------------------------------------------------------

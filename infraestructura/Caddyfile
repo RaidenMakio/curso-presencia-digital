@@ -1,0 +1,21 @@
+# Caddyfile — reverse proxy con HTTPS automático (Let's Encrypt)
+# Un subdominio por herramienta, compartido por todos los cursos.
+# Reemplaza tudominio.com por tu dominio real antes de usar.
+
+pizarra.tudominio.com {
+    reverse_proxy excalidraw:80
+}
+
+polls.tudominio.com {
+    reverse_proxy claper:4000
+}
+
+# Descomentar según vayas activando fases en docker-compose.yml
+
+# tareas.tudominio.com {
+#     reverse_proxy focalboard:8000
+# }
+
+# notas.tudominio.com {
+#     reverse_proxy hedgedoc:3000
+# }
