@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 4 — Diseño responsive</title>
+<style>
+  :root {
+    --bg: #fbf7f0;
+    --surface: #ffffff;
+    --ink: #1f2430;
+    --muted: #5d6475;
+    --line: #e4dccb;
+    --accent: #d9552b;
+    --accent-soft: #fbe3d8;
+    --teal: #1f7a7a;
+    --teal-soft: #d9efee;
+    --gold: #b7791f;
+    --gold-soft: #f8ecd0;
+    --code-bg: #1f2430;
+    --code-ink: #f3efe6;
+    --code-tag: #ff9d7a;
+    --code-com: #8f9bb3;
+    --code-str: #8fd6cf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15181f;
+      --surface: #1f2430;
+      --ink: #f3efe6;
+      --muted: #a6adbd;
+      --line: #343b4d;
+      --accent: #ff8a5c;
+      --accent-soft: #3a2a25;
+      --teal: #5fd0c8;
+      --teal-soft: #1d3535;
+      --gold: #f0b95a;
+      --gold-soft: #3a3120;
+      --code-bg: #0f1218;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: max(14px, min(1.6vw, 3vh)); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  /* ---------- slides ---------- */
+  .deck { position: fixed; inset: 0; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2.4rem 4rem 3.6rem;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; animation: enter .28s ease-out; }
+  @keyframes enter { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  h1, h2, h3, p, ul, ol { margin: 0; }
+  h1 { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; }
+  h2 { font-size: 1.9rem; line-height: 1.15; letter-spacing: -0.01em; }
+  h3 { font-size: 1.15rem; }
+  p, li { font-size: 1.15rem; }
+  ul, ol { padding-left: 1.3rem; display: grid; gap: .45rem; }
+  .lead { font-size: 1.35rem; color: var(--muted); max-width: 38rem; }
+  .muted { color: var(--muted); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); font-weight: 600; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .badge {
+    background: var(--accent); color: #fff; padding: .15rem .6rem; border-radius: 99px;
+    font-size: .8rem; letter-spacing: .04em; text-transform: none;
+  }
+
+  /* section divider slides */
+  .slide.divider { background: var(--ink); color: var(--bg); }
+  .slide.divider .eyebrow { color: var(--code-tag); }
+  .slide.divider h1 { font-size: 3.2rem; }
+  .slide.divider .lead { color: var(--code-com); }
+
+  .cols.two { grid-template-columns: repeat(2, 1fr); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.2rem; align-items: start; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.1rem 1.25rem; display: grid; gap: .5rem;
+  }
+  .card h3 { color: var(--accent); }
+  .card.teal h3 { color: var(--teal); }
+  .card.gold h3 { color: var(--gold); }
+  .card .big { font-size: 2.2rem; line-height: 1; }
+  .card a.ex { font-size: .9rem; word-break: break-word; }
+  .card p.ex { font-size: .9rem; }
+  .slide.tight { gap: .7rem; }
+  .slide.tight h2 { font-size: 1.6rem; }
+  .slide.tight .card { padding: .8rem 1rem; gap: .35rem; }
+  .callout {
+    border-left: 5px solid var(--gold); background: var(--gold-soft);
+    padding: .8rem 1.1rem; border-radius: 0 10px 10px 0;
+  }
+  .callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+  /* agenda */
+  .agenda { display: flex; height: 3.4rem; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+  .agenda span {
+    display: grid; place-items: center; font-size: .8rem; font-weight: 700; color: #fff;
+    border-right: 2px solid var(--bg); min-width: 0; padding: 0 .2rem; text-align: center;
+  }
+  .agenda span:last-child { border-right: 0; }
+  .b1 { background: #d9552b; } .b2 { background: #a3660f; } .b3 { background: #1f7a7a; }
+  .b4 { background: #4a6fa5; } .b5 { background: #7a4fa5; } .b6 { background: #5d6475; }
+  .agenda-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .4rem 1.4rem; font-size: 1rem; }
+  .agenda-list div { display: flex; gap: .6rem; align-items: baseline; }
+  .agenda-list b { min-width: 4.4rem; text-align: center; color: #fff; font-weight: 700; font-size: .85rem; padding: .1rem .6rem; border-radius: 99px; }
+
+  /* image slots (imágenes que se copian en img/; ver img/LEEME.md) */
+  .slot {
+    margin: 0; height: var(--h, 8rem); border-radius: 10px; background: #faf0df;
+    border: 1px solid var(--line); position: relative; overflow: hidden;
+  }
+  .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+  .slot .ph { display: none; }
+  .slot.empty { display: none; }
+  .slot .ph b { display: block; color: var(--accent); font-size: .85rem; }
+  .slot .ph code { font-size: .75rem; }
+
+  /* revisión de sitios reales */
+  .fill { border-bottom: 3px dashed var(--accent); color: var(--accent); padding: 0 .3rem; min-width: 8rem; display: inline-block; outline: none; }
+  .fill:focus { background: var(--accent-soft); }
+  .slide.tight .card h3 { font-size: 1.05rem; }
+  .slide.tight .card p { font-size: 1rem; }
+  .chip { display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .1rem .6rem; border-radius: 99px; background: var(--teal-soft); color: var(--teal); }
+  .chip.intl { background: var(--gold-soft); color: var(--gold); }
+
+  /* code */
+  pre, code { font-family: "Cascadia Code", Consolas, "SFMono-Regular", monospace; font-variant-ligatures: none; }
+  pre {
+    margin: 0; background: var(--code-bg); color: var(--code-ink);
+    padding: 1rem 1.25rem; border-radius: 12px; font-size: 1rem; line-height: 1.55; overflow-x: auto;
+    font-variant-ligatures: none;
+  }
+  code.inline { background: var(--accent-soft); color: var(--accent); padding: .05rem .4rem; border-radius: 6px; font-size: .95em; }
+  .k { color: var(--code-tag); } .c { color: var(--code-com); font-style: italic; } .s { color: var(--code-str); } .a { color: var(--code-str); }
+
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.4rem; align-items: start; }
+  .bad, .good { display: grid; gap: .5rem; }
+  .bad > b { color: #c0392b; } .good > b { color: var(--teal); }
+
+  /* table */
+  table { border-collapse: collapse; width: 100%; font-size: 1.1rem; background: var(--surface); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid var(--line); }
+  th { background: var(--accent-soft); color: var(--accent); font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* quiz */
+  .quiz { display: grid; gap: .6rem; }
+  .quiz .q { font-weight: 700; font-size: 1.1rem; }
+  .opts { list-style: none; padding: 0; display: grid; gap: .35rem; }
+  .opts.big { gap: .6rem; }
+  .opts.big li { font-size: 1.35rem; padding: .75rem 1.1rem; }
+  .opts li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .5rem .8rem; font-size: 1.05rem; }
+  .quiz.big { gap: .9rem; }
+  .quiz.big .q { font-size: 1.6rem; line-height: 1.25; }
+  .quiz.big .opts li { font-size: 1.3rem; padding: .7rem 1rem; }
+  .opts.plain li { cursor: default; }
+  .answer { display: none; font-weight: 700; color: var(--teal); }
+  .slide.show .answer { display: block; }
+  .slide.show .opts li.right { border-color: var(--teal); background: var(--teal-soft); }
+  button.reveal, .btn {
+    font: inherit; font-size: .95rem; font-weight: 600; cursor: pointer;
+    background: var(--ink); color: var(--bg); border: 0; border-radius: 99px; padding: .5rem 1.2rem; justify-self: start; align-self: flex-start;
+  }
+  button.reveal:hover, .btn:hover { background: var(--accent); color: #fff; }
+
+  /* steps */
+  .steps { list-style: none; padding: 0; counter-reset: step; display: grid; gap: .8rem; }
+  .steps li {
+    counter-increment: step; display: grid; grid-template-columns: 2.4rem 1fr; gap: .9rem; align-items: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .8rem 1rem;
+  }
+  .steps li::before {
+    content: counter(step); background: var(--accent); color: #fff; font-weight: 700;
+    width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center;
+  }
+
+  /* notes */
+  .notes { display: none; }
+  body.show-notes .notes {
+    display: block; position: fixed; left: 1rem; right: 1rem; bottom: 3.4rem; z-index: 5;
+    background: var(--ink); color: var(--bg); padding: .8rem 1.1rem; border-radius: 12px;
+    font-size: .95rem; max-height: 30vh; overflow-y: auto; opacity: .96;
+  }
+  body.show-notes .slide:not(.active) .notes { display: none; }
+  .notes b { color: var(--code-tag); }
+
+  /* chrome */
+  .bar { position: fixed; top: 0; left: 0; height: 5px; background: var(--accent); width: 0; transition: width .25s; z-index: 10; }
+  .chrome {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .6rem 1rem; font-size: .8rem; color: var(--muted);
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+  }
+  .chrome .keys { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+  .chrome button {
+    font: inherit; cursor: pointer; background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 8px; padding: .25rem .65rem;
+  }
+  .chrome button:hover { border-color: var(--accent); color: var(--accent); }
+  .chrome button:focus-visible, button.reveal:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .counter { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .hint { display: none; }
+  @media (min-width: 1400px) { .hint { display: inline; } }
+
+  .timer {
+    position: fixed; top: 1rem; right: 1rem; z-index: 10; display: none;
+    background: #1f2430; color: #fff; border: 2px solid var(--accent); padding: .3rem 1rem; border-radius: 99px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.3rem;
+  }
+  .timer.on { display: block; }
+  .timer.low, .timer.over { background: #c0392b; color: #fff; }
+  .timer.over { animation: none; }
+
+  @media (max-width: 700px) {
+    .slide { padding: 1.6rem 1.2rem 4rem; }
+    h1 { font-size: 2rem; } h2 { font-size: 1.5rem; }
+    .slide.divider h1 { font-size: 2.3rem; }
+  }
+
+  @media print {
+    body { overflow: visible; }
+    .deck { position: static; }
+    .slide, .slide.active { display: flex !important; position: static; min-height: 100vh; break-after: page; animation: none; }
+    .chrome, .bar, .timer, .notes { display: none !important; }
+    .answer { display: block; }
+  }
+
+  /* clase 4: demos visuales */
+  .rooms { display: grid; grid-template-columns: 1.7fr 1fr; gap: 1.2rem; align-items: start; }
+  .rooms h3 { font-size: 1.05rem; margin-bottom: .35rem; }
+  .room { border: 3px solid var(--ink); border-radius: 10px; padding: .7rem; background: var(--surface); display: flex; gap: .5rem; }
+  .room.small { flex-direction: column; }
+  .fur { border-radius: 8px; padding: .5rem .7rem; font-weight: 700; font-size: 1.05rem; background: var(--accent-soft); border: 1px solid var(--accent); }
+  .room.big .fur { flex: 1; text-align: center; }
+  .k2 { color: #ff9d7a; font-weight: 700; } .pr { color: #8fd6cf; } .vl { color: #f0b95a; }
+  /* mock de sitio en laptop/celular */
+  .frames { display: flex; gap: 1.6rem; justify-content: center; align-items: flex-start; flex-wrap: wrap; }
+  .frames figure { margin: 0; display: grid; gap: .4rem; justify-items: center; text-align: center; }
+  .frames figcaption { font-size: 1rem; max-width: 20rem; }
+  .laptop { width: 342px; height: 200px; border: 5px solid var(--ink); border-radius: 10px 10px 4px 4px; overflow: hidden; position: relative; background: #faf7f2; }
+  .phone { width: 172px; height: 262px; border: 5px solid var(--ink); border-radius: 22px; overflow: hidden; position: relative; background: #faf7f2; }
+  .pg { position: absolute; left: 0; top: 0; transform-origin: 0 0; background: #faf7f2; color: #2b2b2b; font-family: Verdana, sans-serif; }
+  .pg .hd { background: #b23a48; color: #fff; padding: 20px 30px; font: 700 30px Georgia, serif; }
+  .pg .bd { padding: 30px; }
+  .pg .t { font: 700 44px/1.15 Georgia, serif; color: #b23a48; margin-bottom: 12px; }
+  .pg .tx { font-size: 24px; line-height: 1.4; }
+  .pg .im { height: 170px; background: linear-gradient(135deg, #b23a48, #e6b0b6); border-radius: 12px; }
+  .pg .bt { display: inline-block; margin-top: 20px; background: #b23a48; color: #fff; padding: 14px 26px; border-radius: 8px; font-size: 24px; }
+  .pg.d { width: 1200px; transform: scale(.2767); }
+  .pg.d .row { display: flex; gap: 30px; align-items: center; } .pg.d .row > * { flex: 1; }
+  .pg.w { width: 980px; transform: scale(.1653); }
+  .pg.w .row { display: flex; gap: 30px; align-items: center; } .pg.w .row > * { flex: 1; }
+  .pg.m { width: 375px; transform: scale(.432); }
+  .pg.m .hd { font-size: 24px; padding: 16px 20px; }
+  .pg.m .bd { padding: 20px; } .pg.m .t { font-size: 34px; } .pg.m .tx { font-size: 20px; }
+  .pg.m .im { height: 90px; margin-top: 14px; }
+  .pg.m .bt { font-size: 22px; padding: 14px 24px; margin-top: 14px; }
+  /* demo con control deslizante */
+  .demo-bar { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; font-size: 1.05rem; }
+  .demo-bar input[type=range] { flex: 1; min-width: 12rem; accent-color: var(--accent); }
+  .dframe { container-type: inline-size; width: min(var(--w, 800px), 100%); border: 2px solid var(--ink); border-radius: 12px; background: #faf7f2; color: #2b2b2b; overflow: hidden; margin-inline: auto; }
+  .dc { padding: .9rem 1.1rem; font-family: Verdana, sans-serif; }
+  .dh { display: block; font: 700 2rem/1.15 Georgia, serif; color: #b23a48; }
+  .dp { margin: .3rem 0 .6rem; font-size: 1rem; }
+  .dg { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+  .dg i { display: block; height: 3.2rem; border-radius: 8px; background: #b23a48; opacity: .85; }
+  .dg i:nth-child(2) { background: #1f7a7a; } .dg i:nth-child(3) { background: #b7791f; }
+  .dl { display: block; margin-top: .6rem; font-size: .95rem; font-weight: 700; color: #1f7a7a; }
+  .lab-c { display: none; }
+  @container (max-width: 600px) {
+    .dh { font-size: 1.4rem; } .dg { grid-template-columns: 1fr; } .dg i { height: 1.5rem; }
+    .lab-d { display: none; } .lab-c { display: inline; }
+  }
+  /* px vs % */
+  .fr { width: 240px; border: 3px solid var(--ink); border-radius: 14px; padding: .5rem; overflow: hidden; background: #fff; display: grid; gap: .4rem; margin: 0 auto; }
+  .fr .bx { border-radius: 8px; padding: .5rem .6rem; font-weight: 700; font-size: .9rem; white-space: nowrap; text-align: left; }
+  .fr .bx.px { width: 400px; background: #f7d0d0; border: 2px solid #c0392b; color: #7a1f1f; }
+  .fr .bx.pc { width: 100%; max-width: 400px; background: #d9efee; border: 2px solid #1f7a7a; color: #0f4d4d; }
+  .pxwrap { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; align-items: start; }
+  .pxwrap > div { display: grid; gap: .5rem; justify-items: center; text-align: center; }
+  /* conversatorios */
+  .conv-b { background: var(--teal); color: #fff; }
+  .live { border: 2px dashed var(--accent); border-radius: 12px; padding: .5rem 1rem; min-height: 5.5rem; outline: none; font-size: 1.05rem; }
+  .live:focus { background: var(--accent-soft); }
+  .live ul { margin: 0; padding-left: 1.2rem; }
+  .prompt { background: var(--surface); border: 2px solid var(--teal); border-radius: 12px; padding: .8rem 1.1rem; font-size: 1.05rem; line-height: 1.45; }
+  .prompt em { color: var(--accent); font-style: normal; font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="timer" id="timer" role="timer" aria-label="Cronómetro del bloque"></div>
+
+<main class="deck" id="deck">
+
+  <section class="slide divider" data-title="Portada" data-timer="off">
+    <span class="eyebrow">Curso · Crea tu presencia digital</span>
+    <h1>Clase 4<br>Diseño responsive:<br>celular y computadora</h1>
+    <p class="lead">Hoy hacemos que tu sitio se vea bien en cualquier pantalla. Y desde hoy, además de aprender, conversamos y trabajamos con IA.</p>
+    <aside class="notes"><b>Antes de empezar:</b> tener el sitio de Valeria (HTML + CSS de la Clase 3) sin viewport, con una imagen de ancho fijo 600px y un botón chico. Pedir 2 voluntarios/as para el Bloque 3 (nadie obligado). Tener abierta una IA (Gemini, Copilot, ChatGPT, Claude…).</aside>
+  </section>
+
+  <section class="slide" data-title="Objetivos" data-timer="off">
+    <span class="eyebrow">Qué vamos a lograr</span>
+    <h2>Al terminar la clase vas a tener…</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Sitio ajustado en celular</h3><p>Sin texto diminuto ni imágenes que se salen.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>Sitio ajustado en computadora</h3><p>Que siga viéndose bien en pantalla grande.</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Espaciados y tamaños corregidos</h3><p>Con viewport, una media query y unidades flexibles.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Agenda" data-timer="off">
+    <span class="eyebrow">Recorrido de las 2 horas</span>
+    <h2>Cómo va a ser la clase</h2>
+    <div class="agenda" aria-hidden="true">
+      <span class="b1" style="flex:15">15</span>
+      <span class="b2" style="flex:25">25</span>
+      <span class="b3" style="flex:45">45</span>
+      <span class="b4" style="flex:10">10</span>
+    </div>
+    <div class="agenda-list">
+      <div><b class="b1">15 min</b> Analogía, diagnóstico y 💬 primer conversatorio</div>
+      <div><b class="b2">25 min</b> Teoría + cuestionario</div>
+      <div><b class="b3">45 min</b> Del ejemplo a tu sitio: 💬 miramos sitios y trabajamos con IA</div>
+      <div><b class="b4">10 min</b> 💬 Qué nos dijo la IA + dudas</div>
+    </div>
+    <p class="muted">Al final: respondemos juntos 6 preguntas de cierre y explicamos la tarea en casa.</p>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 1" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Bloque 1</span>
+    <h1>Analogía, diagnóstico<br>y primer conversatorio</h1>
+    <aside class="notes"><b>Objetivo:</b> anclaje mental (mudanza), diagnóstico anónimo y primera charla conversatoria. Repartir: analogía ≈5, diagnóstico ≈4, conversatorio ≈6.</aside>
+  </section>
+
+  <section class="slide tight" data-title="La mudanza">
+    <h2>Los mismos muebles, dos cuartos distintos</h2>
+    <div class="rooms">
+      <div><h3>🏠 Casa grande</h3><div class="room big"><span class="fur">🛋️ Sillón</span><span class="fur">🍽️ Mesa</span><span class="fur">🛏️ Cama</span></div></div>
+      <div><h3>🏢 Departamento chico</h3><div class="room small"><span class="fur">🛋️ Sillón</span><span class="fur">🍽️ Mesa</span><span class="fur">🛏️ Cama</span></div></div>
+    </div>
+    <p class="muted">Los muebles no cambian: cambia <strong>cómo los acomodás según el tamaño del cuarto</strong>. Si en el departamento chico dejaras todo como en la casa grande, no podrías ni pasar.</p>
+    <div class="callout"><p><strong>Una página web es lo mismo:</strong> el contenido son los muebles y la pantalla es el cuarto.</p></div>
+  </section>
+
+  <section class="slide tight" data-title="De la mudanza a la web">
+    <h2>¿Cómo se ve esto en una página web?</h2>
+    <div class="cols">
+      <div class="card"><h3>📐 El cuarto</h3><p>Es la <strong>pantalla</strong> del dispositivo: celular, tablet o computadora.</p></div>
+      <div class="card teal"><h3>📏 Decirle el tamaño real</h3><p>Es la etiqueta <strong>viewport</strong>. Sin ella, el celular “se hace el grande”.</p></div>
+      <div class="card gold"><h3>🔀 “Si es chico, acomodalo así”</h3><p>Es una <strong>media query</strong> (<code class="inline">@media</code>).</p></div>
+    </div>
+    <div class="callout teal"><p>Y los <strong>muebles que se estiran o achican</strong> para entrar son las <strong>unidades flexibles</strong> (<code class="inline">%</code>, <code class="inline">rem</code>, <code class="inline">vw</code>), en vez de tamaños fijos en <code class="inline">px</code>.</p></div>
+  </section>
+
+  <section class="slide" data-title="¿Qué creés vos?">
+    <span class="eyebrow">Bloque 1 · Respondé con una letra en el chat (anónimo)</span>
+    <h2>Abrís tu sitio en el celular. ¿Qué creés que pasa?</h2>
+    <ul class="opts big plain">
+      <li><strong>A)</strong> Se ve igual que en la compu, pero chiquito</li>
+      <li><strong>B)</strong> Se adapta solo, sin que yo haga nada</li>
+      <li><strong>C)</strong> Depende de lo que yo haya escrito</li>
+    </ul>
+    <p class="muted">No hay respuesta correcta todavía: queremos saber qué pensás hoy, antes de ver la teoría.</p>
+  </section>
+
+  <section class="slide" data-title="¿Qué creés vos?">
+    <span class="eyebrow">Bloque 1 · Respondé con una letra en el chat (anónimo)</span>
+    <h2>¿De qué dispositivo creés que viene la mayoría de las visitas a un sitio como el tuyo?</h2>
+    <ul class="opts big plain">
+      <li><strong>A)</strong> Computadora</li>
+      <li><strong>B)</strong> Celular</li>
+      <li><strong>C)</strong> Mitad y mitad</li>
+    </ul>
+    <p class="muted">Lo comentamos ahora mismo, en nuestra primera charla conversatoria.</p>
+  </section>
+
+  <section class="slide tight" data-title="Conversatorio · reglas">
+    <span class="eyebrow"><span class="badge conv-b">💬 Conversatorio</span> Desde hoy conversamos, no solo escuchamos</span>
+    <h2>Tres reglas para las charlas</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Hablamos del sitio, no de la persona</h3><p>“El botón se ve chico en el celular”, no “hiciste mal el botón”.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>Comentamos con un formato</h3><p><strong>Me gusta…</strong> · <strong>Me confunde…</strong> · <strong>Yo probaría…</strong></p></div>
+      <div class="card gold"><span class="big">3</span><h3>Nadie está obligado</h3><p>Podés hablar por micrófono o escribir en el chat. Cada charla termina con: “¿qué cambio en <em>mi</em> sitio?”.</p></div>
+    </div>
+    <aside class="notes"><b>Decir las reglas en voz alta la primera vez.</b> Reglas completas y plan de conversatorios de las clases 4-8: docs/estrategias_didacticas_curso.md.</aside>
+  </section>
+
+  <section class="slide" data-title="Conversatorio 1">
+    <span class="eyebrow"><span class="badge conv-b">💬 Conversatorio 1</span> ≈6 min · voz o chat</span>
+    <h2>Acordate de una página que te costó usar en el celular: ¿qué pasaba exactamente?</h2>
+    <p class="muted">Texto diminuto, botones difíciles de tocar, una imagen que se sale, zoom y arrastrar… Contá una.</p>
+    <p><strong>Lo que va saliendo</strong> (el profesor anota acá):</p>
+    <div class="live" contenteditable="true" spellcheck="false"><ul><li>&nbsp;</li></ul></div>
+    <p class="muted">Esta lista es la <strong>checklist de revisión</strong> que usamos después con tu propio sitio. Cada problema tiene arreglo: hoy los vemos.</p>
+    <aside class="notes"><b>Moderar:</b> dar la palabra a 2-3 personas o leer respuestas del chat. Anotar cada problema en la lista. No corregir a nadie. Cierre (30 seg): “cada uno de esos problemas tiene arreglo”.</aside>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 2" data-minutes="25">
+    <span class="eyebrow"><span class="badge">25 min</span> Bloque 2</span>
+    <h1>Teoría + cuestionario</h1>
+    <p class="lead">Tramo A: viewport y media queries (≈12 min).<br>Tramo B: unidades flexibles y verificar (≈13 min).</p>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · responsive">
+    <span class="eyebrow">Tramo A · Viewport y media queries</span>
+    <h2>Un sitio <em>responsive</em> se ve bien en cualquier pantalla</h2>
+    <div class="frames">
+      <figure><div class="laptop"><div class="pg d"><div class="hd">Valeria Fotografía</div><div class="bd"><div class="row"><div><div class="t">Capturo momentos únicos</div><div class="tx">Cumpleaños, quince años y eventos pequeños.</div><span class="bt">Escribime</span></div><div class="im"></div></div></div></div></div><figcaption><strong>Computadora:</strong> texto e imagen lado a lado.</figcaption></figure>
+      <figure><div class="phone"><div class="pg m"><div class="hd">Valeria Fotografía</div><div class="bd"><div class="t">Capturo momentos únicos</div><div class="tx">Cumpleaños, quince años y eventos pequeños.</div><div class="im"></div><span class="bt">Escribime</span></div></div></div><figcaption><strong>Celular:</strong> todo en una columna y un botón grande.</figcaption></figure>
+    </div>
+    <p class="muted">Mismo contenido, otra manera de acomodarlo. Dos piezas lo hacen posible: el <strong>viewport</strong> y las <strong>media queries</strong>.</p>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · viewport">
+    <span class="eyebrow">Tramo A · Viewport y media queries</span>
+    <h2>Sin viewport, el celular “se hace el grande”</h2>
+    <div class="frames">
+      <figure><div class="phone"><div class="pg w"><div class="hd">Valeria Fotografía</div><div class="bd"><div class="row"><div><div class="t">Capturo momentos únicos</div><div class="tx">Cumpleaños, quince años y eventos pequeños.</div><span class="bt">Escribime</span></div><div class="im"></div></div></div></div></div><figcaption><strong>✗ Sin viewport:</strong> muestra la página como si fuera de escritorio y la achica. Todo se ve diminuto.</figcaption></figure>
+      <figure><div class="phone"><div class="pg m"><div class="hd">Valeria Fotografía</div><div class="bd"><div class="t">Capturo momentos únicos</div><div class="tx">Cumpleaños, quince años y eventos pequeños.</div><div class="im"></div><span class="bt">Escribime</span></div></div></div><figcaption><strong>✓ Con viewport:</strong> usa el ancho real del celular y el texto se lee sin zoom.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Tramo A · viewport código">
+    <span class="eyebrow">Tramo A · Viewport y media queries</span>
+    <h2>Una línea en el <code class="inline">&lt;head&gt;</code>, siempre</h2>
+<pre><span class="k">&lt;head&gt;</span>
+  <span class="k">&lt;meta</span> <span class="a">charset</span>=<span class="s">"utf-8"</span><span class="k">&gt;</span>
+  <span class="k">&lt;meta</span> <span class="a">name</span>=<span class="s">"viewport"</span> <span class="a">content</span>=<span class="s">"width=device-width, initial-scale=1"</span><span class="k">&gt;</span>
+  <span class="k">&lt;title&gt;</span>Valeria Fotografía<span class="k">&lt;/title&gt;</span>
+  <span class="k">&lt;link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"style.css"</span><span class="k">&gt;</span>
+<span class="k">&lt;/head&gt;</span></pre>
+    <div class="callout"><p>Sin esta línea, <strong>ningún ajuste responsive funciona bien en celular</strong>. Va en toda página.</p></div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · viewport" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué meta etiqueta es necesaria en el <code class="inline">&lt;head&gt;</code> para que el diseño responsive funcione en celular?</p>
+      <ul class="opts"><li class="right">A) <code class="inline">&lt;meta name="viewport"&gt;</code></li><li>B) <code class="inline">&lt;meta name="responsive"&gt;</code></li><li>C) <code class="inline">&lt;meta charset="utf-8"&gt;</code></li><li>D) <code class="inline">&lt;meta name="mobile"&gt;</code></li></ul>
+      <p class="answer">A) <code class="inline">&lt;meta name="viewport"&gt;</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · media query">
+    <span class="eyebrow">Tramo A · Viewport y media queries</span>
+    <h2>Media query: “si el cuarto es chico, acomodalo así”</h2>
+<pre><span class="c">/* Por defecto: pantallas grandes */</span>
+<span class="sel">h1</span> {
+  <span class="prop">font-size</span>: <span class="v">40px</span>;
+}
+
+<span class="c">/* Solo si la pantalla mide 600px o menos */</span>
+<span class="k2">@media</span> (<span class="prop">max-width</span>: <span class="v">600px</span>) {
+  <span class="sel">h1</span> {
+    <span class="prop">font-size</span>: <span class="v">28px</span>;
+  }
+}</pre>
+    <div class="cols">
+      <div class="card"><h3><code class="inline">@media</code></h3><p>Inicia la media query.</p></div>
+      <div class="card teal"><h3><code class="inline">(max-width: 600px)</code></h3><p>La condición: “600px de ancho <strong>o menos</strong>”. Ese ancho es el <strong>breakpoint</strong>.</p></div>
+      <div class="card gold"><h3>Reglas adentro</h3><p>Son reglas normales. <strong>Pisan</strong> a las de afuera solo cuando se cumple la condición.</p></div>
+    </div>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · demo">
+    <span class="eyebrow">Tramo A · Probalo vos</span>
+    <h2>Achicá la pantalla y mirá cómo cambia</h2>
+    <div class="demo-bar">
+      <label for="wr">Ancho de pantalla: <b><span id="dw">800</span> px</b></label>
+      <input id="wr" type="range" min="320" max="800" step="10" value="800"
+             oninput="document.getElementById('dframe').style.setProperty('--w', this.value + 'px'); document.getElementById('dw').textContent = this.value;"
+             onchange="this.blur()">
+    </div>
+    <div class="dframe" id="dframe">
+      <div class="dc">
+        <b class="dh">Valeria Fotografía</b>
+        <p class="dp">Capturo momentos únicos en cumpleaños y eventos pequeños.</p>
+        <div class="dg"><i></i><i></i><i></i></div>
+        <span class="dl"><span class="lab-d">Vista computadora: 3 columnas y título grande</span><span class="lab-c">Vista celular (600px o menos): 1 columna y título chico</span></span>
+      </div>
+    </div>
+    <p class="muted">En un sitio real, la media query mira el ancho de la <strong>pantalla</strong>; acá el control simula esa pantalla achicándose.</p>
+    <aside class="notes">Mover el control. El cambio ocurre en 600px (el breakpoint). Usa container queries solo para poder simular dentro de la diapositiva; la idea es la misma que <code>@media (max-width: 600px)</code>. Hacer clic afuera del control para volver a navegar con las flechas.</aside>
+  </section>
+
+  <section class="slide" data-title="Chequeo · @media" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué palabra clave de CSS se usa para aplicar estilos según el ancho de pantalla?</p>
+      <ul class="opts"><li>A) <code class="inline">@responsive</code></li><li class="right">B) <code class="inline">@media</code></li><li>C) <code class="inline">@screen</code></li><li>D) <code class="inline">@width</code></li></ul>
+      <p class="answer">B) <code class="inline">@media</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Chequeo · max-width" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">En <code class="inline">@media (max-width: 600px) { ... }</code>, ¿cuándo se aplican esos estilos?</p>
+      <ul class="opts"><li class="right">A) Cuando la pantalla mide 600px o menos</li><li>B) Cuando la pantalla mide 600px o más</li><li>C) Siempre</li><li>D) Nunca, es solo un comentario</li></ul>
+      <p class="answer">A) Cuando la pantalla mide 600px o menos</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · errores comunes">
+    <span class="eyebrow">Tramo A · Viewport y media queries</span>
+    <h2>Tres errores frecuentes: “mi media query no funciona”</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Está arriba de todo</h3><p>El CSS se lee de arriba abajo: la regla que va <strong>después</strong> gana. Las media queries van <strong>al final</strong> del archivo.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>Faltan llaves</h3><p><code class="inline">@media</code> lleva <strong>dos pares</strong> de llaves: uno para la media query y otro para cada regla adentro.</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Falta el viewport</h3><p>Sin la meta etiqueta, el celular no usa su ancho real y la media query “no se nota”.</p></div>
+    </div>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · px vs %">
+    <span class="eyebrow">Tramo B · Unidades flexibles y verificar</span>
+    <h2>Los muebles de tamaño fijo no entran en el cuarto chico</h2>
+    <div class="pxwrap">
+      <div>
+        <div class="fr"><div class="bx px">width: 400px →→→</div></div>
+        <p class="muted"><strong>✗ Medida fija (<code class="inline">px</code>)</strong><br>En un celular angosto se sale de la pantalla.</p>
+      </div>
+      <div>
+        <div class="fr"><div class="bx pc">width: 100%</div></div>
+        <p class="muted"><strong>✓ Medida flexible (<code class="inline">%</code>)</strong><br>Se adapta al ancho disponible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · unidades">
+    <span class="eyebrow">Tramo B · Unidades flexibles y verificar</span>
+    <h2>Tres unidades flexibles</h2>
+    <div class="cols">
+      <div class="card"><h3><code class="inline">%</code></h3><p>Relativo al <strong>contenedor</strong>.</p><p class="ex"><code class="inline">width: 90%</code> = el 90 % de su caja madre.</p></div>
+      <div class="card teal"><h3><code class="inline">rem</code></h3><p>Relativo al tamaño de <strong>fuente base</strong> de la página.</p><p class="ex"><code class="inline">padding: 2rem</code>: textos y espacios que escalan juntos.</p></div>
+      <div class="card gold"><h3><code class="inline">vw</code> / <code class="inline">vh</code></h3><p>Relativo al <strong>ancho / alto de la ventana</strong> del navegador.</p><p class="ex"><code class="inline">width: 50vw</code> = la mitad del ancho de la ventana.</p></div>
+    </div>
+    <div class="callout teal"><p>Regla práctica: para <strong>anchos</strong>, <code class="inline">%</code>; para <strong>textos y espacios</strong>, <code class="inline">rem</code>. <code class="inline">px</code> queda para detalles pequeños, como bordes.</p></div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · unidad relativa" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Cuál de estas es una unidad relativa (flexible)?</p>
+      <ul class="opts"><li>A) <code class="inline">px</code></li><li class="right">B) <code class="inline">rem</code></li><li>C) <code class="inline">pt</code></li><li>D) <code class="inline">cm</code></li></ul>
+      <p class="answer">B) <code class="inline">rem</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Chequeo · vw y %" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué diferencia hay entre <code class="inline">vw</code> y <code class="inline">%</code> como unidades?</p>
+      <ul class="opts"><li class="right">A) <code class="inline">vw</code> es relativo al ancho de la ventana del navegador; <code class="inline">%</code> es relativo al elemento contenedor</li><li>B) Son exactamente lo mismo</li><li>C) <code class="inline">vw</code> solo funciona en celulares</li><li>D) <code class="inline">%</code> no es una unidad válida en CSS</li></ul>
+      <p class="answer">A) <code class="inline">vw</code> es relativo al ancho de la ventana del navegador; <code class="inline">%</code> es relativo al elemento contenedor</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · galería">
+    <span class="eyebrow">Tramo B · Unidades flexibles y verificar</span>
+    <h2>Imágenes que se adaptan: <code class="inline">width</code> + <code class="inline">max-width</code></h2>
+<pre><span class="sel">.galeria img</span> {
+  <span class="prop">width</span>: <span class="v">100%</span>;
+  <span class="prop">max-width</span>: <span class="v">400px</span>;
+}</pre>
+    <div class="cols two">
+      <div class="card"><h3><code class="inline">width: 100%</code></h3><p>Se adapta al ancho disponible: nunca se sale en el celular.</p></div>
+      <div class="card teal"><h3><code class="inline">max-width: 400px</code></h3><p>En pantalla grande no crece de más: se queda en 400px.</p></div>
+    </div>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · verificar">
+    <span class="eyebrow">Tramo B · Unidades flexibles y verificar</span>
+    <h2>No alcanza con “se ve bien en mi compu”</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>DevTools</h3><p><code class="inline">F12</code> (o clic derecho → <em>Inspeccionar</em>) y el ícono de <strong>celular / tablet</strong>. Simula pantallas de distintos tamaños.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>Celular real</h3><p>Siempre que se pueda: abrí tu sitio en tu teléfono. El simulador ayuda, pero no lo reemplaza.</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Qué revisar</h3><p>Texto legible <strong>sin zoom</strong>, imágenes que <strong>no se corten</strong> y botones <strong>fáciles de tocar</strong> con el dedo.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · DevTools" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">Las DevTools reemplazan por completo la necesidad de probar en un celular real.</p>
+      <ul class="opts"><li>Verdadero</li><li class="right">Falso</li></ul>
+      <p class="answer">Falso</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · ejemplo">
+    <span class="eyebrow">Ejemplo práctico</span>
+    <h2>Todo junto: viewport, imágenes flexibles y una media query</h2>
+    <div class="split">
+<pre><span class="c">&lt;!-- en el head --&gt;</span>
+<span class="k">&lt;meta</span> <span class="a">name</span>=<span class="s">"viewport"</span>
+      <span class="a">content</span>=<span class="s">"width=device-width,
+               initial-scale=1"</span><span class="k">&gt;</span></pre>
+<pre><span class="sel">.galeria img</span> {
+  <span class="prop">width</span>: <span class="v">100%</span>;
+  <span class="prop">max-width</span>: <span class="v">400px</span>;
+}
+
+<span class="k2">@media</span> (<span class="prop">max-width</span>: <span class="v">600px</span>) {
+  <span class="sel">body</span> { <span class="prop">font-size</span>: <span class="v">16px</span>; }
+  <span class="sel">.galeria img</span> { <span class="prop">max-width</span>: <span class="v">100%</span>; }
+}</pre>
+    </div>
+    <p class="muted">Las imágenes nunca pasan de 400px en pantalla grande, ocupan todo el ancho en celular, y el texto queda cómodo de leer en pantallas chicas.</p>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 3" data-minutes="45">
+    <span class="eyebrow"><span class="badge">45 min</span> Bloque 3</span>
+    <h1>Del ejemplo a tu sitio</h1>
+    <p class="lead">Ejemplo en vivo (≈10) · 💬 conversatorio mirando sitios (≈10) · práctica con IA de ayudante (≈25).</p>
+  </section>
+
+  <section class="slide tight" data-title="Ejemplo guiado">
+    <span class="eyebrow">Bloque 3 · Ejemplo guiado ≈10 min · Sitio de Valeria (o de un/a voluntario/a)</span>
+    <h2>Lo hacemos en vivo</h2>
+    <ol class="steps">
+      <li><div><strong>Modo celular.</strong> <code class="inline">F12</code> → ícono de celular (≈375px). Listamos qué se ve mal: todo diminuto, una imagen que se sale, un botón chico.</div></li>
+      <li><div><strong>Viewport + imagen flexible.</strong> Lo agregamos en el <code class="inline">&lt;head&gt;</code> y cambiamos el ancho fijo por <code class="inline">width: 100%; max-width: 600px;</code>.</div></li>
+      <li><div><strong>Una media query</strong> al final de <code class="inline">style.css</code>: botón más grande y título más chico en pantallas de 600px o menos.</div></li>
+      <li><div><strong>Verificamos</strong> en modo celular <em>y</em> computadora: ¿se arregló y no se rompió nada?</div></li>
+    </ol>
+  </section>
+
+  <section class="slide tight" data-title="Conversatorio 2">
+    <span class="eyebrow"><span class="badge conv-b">💬 Conversatorio 2</span> ≈10 min · 2 sitios de voluntarios/as, en modo celular, <em>antes</em> de arreglarlos</span>
+    <h2>Mirando sitios en el celular</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>La persona presenta</h3><p>En una frase: <strong>¿qué transmite su proyecto?</strong> (≈30 seg).</p></div>
+      <div class="card teal"><span class="big">2</span><h3>El grupo comenta</h3><p><strong>Me gusta…</strong> · <strong>Me confunde…</strong> · <strong>Yo probaría…</strong> (voz o chat).</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Conectamos con la teoría</h3><p>“Eso se arregla con el viewport / con <code class="inline">%</code> / con una media query.”</p></div>
+    </div>
+    <div class="callout"><p><strong>Recordá:</strong> hablamos del sitio, no de la persona. Cierre: anotá <strong>qué te llevás para tu propio sitio</strong>.</p></div>
+    <aside class="notes"><b>Si nadie se ofrece:</b> usar el sitio de Valeria o el del voluntario del ejemplo guiado, o leer comentarios anónimos del chat. Nadie está obligado a mostrar su sitio. ≈4-5 min por sitio.</aside>
+  </section>
+
+  <section class="slide tight" data-title="Práctica">
+    <span class="eyebrow">Bloque 3 · Práctica ≈25 min · Ahora tu sitio</span>
+    <h2>Cuatro pasos, con una IA de ayudante</h2>
+    <ol class="steps">
+      <li><div><strong>Diagnóstico propio (≈5).</strong> Tu sitio en modo celular: anotá <strong>3 cosas que se ven mal</strong>. Después mirá también el modo computadora.</div></li>
+      <li><div><strong>Arreglo base (≈5).</strong> Viewport en el <code class="inline">&lt;head&gt;</code> y anchos fijos que desbordan → <code class="inline">%</code> o <code class="inline">max-width</code>.</div></li>
+      <li><div><strong>Ayudante de IA (≈10).</strong> Para lo que no supiste resolver (siguiente diapositiva).</div></li>
+      <li><div><strong>Verificación (≈5).</strong> Modo celular y modo computadora otra vez. Anotá <strong>qué te respondió la IA y si te sirvió</strong>.</div></li>
+    </ol>
+    <aside class="notes"><b>Acompañamiento:</b> responder dudas en el chat y circular por la pantalla compartida de quien quiera mostrar. Esto avanza los 3 entregables; quien no termine, lo completa como tarea.</aside>
+  </section>
+
+  <section class="slide tight" data-title="IA · plantilla">
+    <span class="eyebrow">Bloque 3 · Ayudante de IA · Gemini, Copilot, ChatGPT, Claude… la que uses</span>
+    <h2>Pedile ayuda con esta plantilla</h2>
+    <div class="prompt">Soy estudiante de un curso de HTML y CSS. Mi sitio se ve mal en celular: <em>[describí el problema con tus palabras: “la imagen se sale de la pantalla”, “el texto es muy chico”…]</em>. Este es mi CSS: <em>[pegá solo el CSS relevante]</em>. Explicame en pocas palabras qué causa el problema y dame <strong>una</strong> media query para pantallas de hasta 600px, con comentarios que expliquen cada línea. No cambies nada más.</div>
+    <p class="muted">Cuanto más concreto sea lo que le contás, mejor responde. Fijate que la plantilla pide <strong>explicación</strong>, no solo código.</p>
+  </section>
+
+  <section class="slide tight" data-title="IA · reglas">
+    <span class="eyebrow">Bloque 3 · Ayudante de IA</span>
+    <h2>La IA ayuda; vos decidís</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Primero intentá vos</h3><p>Anotá qué falla y probá algo. Después preguntá.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>Pedí explicación</h3><p><strong>Pegá solo lo que entendés.</strong> Si algo no se entiende, preguntale de nuevo.</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Probalo siempre</h3><p>En DevTools, en modo celular. La IA puede equivocarse con total seguridad.</p></div>
+    </div>
+    <div class="callout"><p><strong>Privacidad:</strong> no pegues datos personales (teléfono, dirección, correo) en la IA.</p></div>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 4" data-minutes="10">
+    <span class="eyebrow"><span class="badge">10 min</span> Bloque 4</span>
+    <h1>Qué nos dijo la IA<br>y dudas</h1>
+  </section>
+
+  <section class="slide tight" data-title="Conversatorio 3">
+    <span class="eyebrow"><span class="badge conv-b">💬 Conversatorio 3</span> ≈7 min · voz o chat</span>
+    <h2>Qué nos dijo la IA</h2>
+    <ul>
+      <li>¿Alguien le pidió ayuda? <strong>¿Qué le pidieron y qué les respondió?</strong></li>
+      <li>¿Le hicieron caso tal cual? ¿Había algo que <strong>no entendieron</strong> o que <strong>no funcionó</strong>?</li>
+      <li>¿Usó <code class="inline">px</code> o <code class="inline">%</code>? ¿Puso el breakpoint en <code class="inline">600px</code> como vimos hoy? Comparen con lo que aprendimos.</li>
+      <li>¿En qué situación <strong>no</strong> confiarían en lo que responde?</li>
+    </ul>
+    <div class="callout teal"><p><strong>Idea para llevarte:</strong> la IA es un ayudante, no quien decide. Explica y sugiere; quien verifica y se hace cargo del sitio sos vos.</p></div>
+  </section>
+
+  <section class="slide" data-title="Dudas">
+    <span class="eyebrow">Bloque 4 · Dudas · si nadie pregunta, arrancamos con estas</span>
+    <h2>Preguntas para abrir la conversación</h2>
+    <ul>
+      <li>¿A alguien le sigue desbordando una imagen? ¿Revisaron el <code class="inline">max-width</code> y que la media query esté <strong>al final</strong> del archivo?</li>
+      <li>¿Se ve bien en modo celular <strong>y</strong> en modo computadora, o arreglaron uno y se rompió el otro?</li>
+    </ul>
+  </section>
+
+  <section class="slide divider" data-title="Examen" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Cierre de clase</span>
+    <h1>Examen relámpago</h1>
+    <p class="lead">Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos.</p>
+    <aside class="notes"><b>Dinámica:</b> una pregunta por diapositiva. Se responde en el chat, se comenta y recién ahí se muestra la respuesta con R. Banco: # 1, 2, 6, 7, 9, 12. Detalle y rúbrica completa en <b>examen.md</b>.</aside>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué meta etiqueta es necesaria en el <code class="inline">&lt;head&gt;</code> para que el diseño responsive funcione en celular?</p>
+      <ul class="opts"><li class="right">A) <code class="inline">&lt;meta name="viewport"&gt;</code></li><li>B) <code class="inline">&lt;meta name="responsive"&gt;</code></li><li>C) <code class="inline">&lt;meta charset="utf-8"&gt;</code></li><li>D) <code class="inline">&lt;meta name="mobile"&gt;</code></li></ul>
+      <p class="answer">A) <code class="inline">&lt;meta name="viewport"&gt;</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué palabra clave de CSS se usa para aplicar estilos según el ancho de pantalla?</p>
+      <ul class="opts"><li>A) <code class="inline">@responsive</code></li><li class="right">B) <code class="inline">@media</code></li><li>C) <code class="inline">@screen</code></li><li>D) <code class="inline">@width</code></li></ul>
+      <p class="answer">B) <code class="inline">@media</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">En <code class="inline">@media (max-width: 600px) { ... }</code>, ¿cuándo se aplican esos estilos?</p>
+      <ul class="opts"><li class="right">A) Cuando la pantalla mide 600px o menos</li><li>B) Cuando la pantalla mide 600px o más</li><li>C) Siempre</li><li>D) Nunca, es solo un comentario</li></ul>
+      <p class="answer">A) Cuando la pantalla mide 600px o menos</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Cuál de estas es una unidad relativa (flexible)?</p>
+      <ul class="opts"><li>A) <code class="inline">px</code></li><li class="right">B) <code class="inline">rem</code></li><li>C) <code class="inline">pt</code></li><li>D) <code class="inline">cm</code></li></ul>
+      <p class="answer">B) <code class="inline">rem</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">Las DevTools reemplazan por completo la necesidad de probar en un celular real.</p>
+      <ul class="opts"><li>Verdadero</li><li class="right">Falso</li></ul>
+      <p class="answer">Falso</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué diferencia hay entre <code class="inline">vw</code> y <code class="inline">%</code> como unidades?</p>
+      <ul class="opts"><li class="right">A) <code class="inline">vw</code> es relativo al ancho de la ventana del navegador; <code class="inline">%</code> es relativo al elemento contenedor</li><li>B) Son exactamente lo mismo</li><li>C) <code class="inline">vw</code> solo funciona en celulares</li><li>D) <code class="inline">%</code> no es una unidad válida en CSS</li></ul>
+      <p class="answer">A) <code class="inline">vw</code> es relativo al ancho de la ventana del navegador; <code class="inline">%</code> es relativo al elemento contenedor</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cómo se evalúa" data-timer="off">
+    <span class="eyebrow">Tarea en casa · Evaluación</span>
+    <h2>Así se evalúa tu tarea de hoy</h2>
+    <table>
+      <thead><tr><th>Ítem</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Las 6 preguntas de cierre, respondidas juntos en clase (10 c/u)</td><td>60</td></tr>
+        <tr><td>Meta etiqueta <code class="inline">viewport</code> presente en el <code class="inline">&lt;head&gt;</code></td><td>10</td></tr>
+        <tr><td>Al menos una media query funcional en tu <code class="inline">.css</code></td><td>15</td></tr>
+        <tr><td>Sin texto cortado ni imágenes desbordadas, en modo celular y en modo computadora</td><td>15</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Lo que entregás en casa es tu sitio ajustado: se revisa con estos criterios.</p>
+  </section>
+
+  <section class="slide" data-title="Tarea" data-timer="off">
+    <span class="eyebrow">Tarea en casa</span>
+    <h2>Terminá de ajustar tu sitio</h2>
+    <ol class="steps">
+      <li><div>Agregá <code class="inline">&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code> en el <code class="inline">&lt;head&gt;</code> si todavía no lo tenés.</div></li>
+      <li><div>Mirá tu sitio en <code class="inline">F12</code> → modo celular, anotá qué se ve mal y corregilo con al menos una media query en tu <code class="inline">style.css</code>.</div></li>
+      <li><div>Revisá de nuevo en modo celular y computadora. Si podés, probalo también en tu <strong>celular real</strong>.</div></li>
+    </ol>
+    <div class="callout teal"><p><strong>Entregables:</strong> sitio ajustado en celular y en computadora, con espaciados y tamaños corregidos. Se revisa al empezar la Clase 5.</p></div>
+  </section>
+
+  <section class="slide divider" data-title="Fin" data-timer="off">
+    <span class="eyebrow">Para llevarte</span>
+    <h1>Mismos muebles,<br>otro cuarto.</h1>
+    <p class="lead">El viewport le dice el tamaño real; la media query dice “si es chico, acomodalo así”; las unidades flexibles hacen que todo entre. En la Clase 5 usamos IA otra vez, ahora para crear imágenes: un banner o logo para tu sitio.</p>
+  </section>
+
+</main>
+
+<nav class="chrome" aria-label="Controles de la presentación">
+  <div class="keys">
+    <button type="button" id="prev" aria-label="Diapositiva anterior">←</button>
+    <button type="button" id="next" aria-label="Diapositiva siguiente">→</button>
+    <button type="button" id="btnFull">Pantalla completa (F)</button>
+    <button type="button" id="btnNotes">Notas (N)</button>
+    <button type="button" id="btnTimer" aria-pressed="true">Cronómetro (T)</button>
+    <span class="hint">Espacio: siguiente · R: mostrar respuestas</span>
+  </div>
+  <span class="counter" id="counter" aria-live="polite"></span>
+</nav>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var timerEl = document.getElementById('timer');
+  var idx = 0;
+  var timerId = null;
+  var remaining = 0;
+
+  function clamp(n) { return Math.max(0, Math.min(slides.length - 1, n)); }
+
+  function show(n, updateHash) {
+    idx = clamp(n);
+    slides.forEach(function (s, i) {
+      s.classList.toggle('active', i === idx);
+      s.classList.remove('show');
+      s.setAttribute('aria-hidden', i === idx ? 'false' : 'true');
+    });
+    slides[idx].scrollTop = 0;
+    syncTimer();
+    bar.style.width = ((idx + 1) / slides.length * 100) + '%';
+    counter.textContent = (idx + 1) + ' / ' + slides.length + ' · ' + (slides[idx].getAttribute('data-title') || '');
+    document.title = 'Clase 4 — ' + (idx + 1) + '/' + slides.length;
+    if (updateHash !== false) {
+      try { history.replaceState(null, '', '#' + (idx + 1)); } catch (e) { location.hash = '#' + (idx + 1); }
+    }
+  }
+
+  function skipped(i) { return slides[i].hasAttribute('data-skip'); }
+  function next() {
+    var n = idx + 1;
+    while (n < slides.length - 1 && skipped(n)) n += 1;
+    show(n);
+  }
+  function prev() {
+    var n = idx - 1;
+    while (n > 0 && skipped(n)) n -= 1;
+    show(n);
+  }
+
+  function toggleReveal() {
+    var s = slides[idx];
+    if (s.hasAttribute('data-quiz')) s.classList.toggle('show');
+  }
+
+  function toggleFull() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) { /* no soportado */ }
+  }
+
+  function toggleNotes() { document.body.classList.toggle('show-notes'); }
+
+  function fmt(sec) {
+    var m = Math.floor(sec / 60), r = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  var timerHidden = false;
+
+  function paintTimer() {
+    var over = remaining < 0;
+    timerEl.textContent = (over ? '+' : '') + fmt(Math.abs(remaining));
+    timerEl.classList.toggle('over', over);
+    timerEl.classList.toggle('low', !over && remaining <= 60);
+    timerEl.classList.toggle('on', timerId !== null && !timerHidden);
+  }
+
+  function stopTimer() {
+    clearInterval(timerId); timerId = null;
+    paintTimer();
+  }
+
+  function startTimer(mins) {
+    clearInterval(timerId);
+    remaining = mins * 60;
+    timerId = setInterval(function () { remaining -= 1; paintTimer(); }, 1000);
+    paintTimer();
+  }
+
+  // T o el botón: esconde / muestra el cronómetro (sigue corriendo por detrás)
+  function toggleTimer() {
+    timerHidden = !timerHidden;
+    document.getElementById('btnTimer').setAttribute('aria-pressed', String(!timerHidden));
+    paintTimer();
+  }
+
+  // el cronómetro arranca solo al llegar a la diapositiva de cada bloque
+  function syncTimer() {
+    var s = slides[idx];
+    var mins = parseInt(s.getAttribute('data-minutes') || '', 10);
+    if (mins) startTimer(mins);
+    else if (s.getAttribute('data-timer') === 'off') stopTimer();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target && (e.target.isContentEditable || /^(INPUT|TEXTAREA)$/.test(e.target.tagName))) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'PageDown': case ' ': case 'Enter':
+        if (e.target.tagName === 'BUTTON' && (e.key === ' ' || e.key === 'Enter')) return;
+        e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': e.preventDefault(); prev(); break;
+      case 'Home': show(0); break;
+      case 'End': show(slides.length - 1); break;
+      case 'f': case 'F': toggleFull(); break;
+      case 'n': case 'N': toggleNotes(); break;
+      case 't': case 'T': toggleTimer(); break;
+      case 'r': case 'R': toggleReveal(); break;
+    }
+  });
+
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('btnFull').addEventListener('click', toggleFull);
+  document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+  document.getElementById('btnTimer').addEventListener('click', toggleTimer);
+  Array.prototype.forEach.call(document.querySelectorAll('button.reveal'), function (b) {
+    b.addEventListener('click', toggleReveal);
+  });
+
+  // imágenes de ejemplo: se buscan en img/<nombre>.(jpg|png|webp|...)
+  var EXTS = ['jpg', 'png', 'webp', 'jpeg', 'svg', 'gif'];
+  Array.prototype.forEach.call(document.querySelectorAll('.slot[data-img]'), function (fig) {
+    var name = fig.getAttribute('data-img'), n = 0, img = document.createElement('img');
+    img.alt = fig.getAttribute('data-alt') || '';
+    img.onerror = function () {
+      n += 1;
+      if (n < EXTS.length) img.src = 'img/' + name + '.' + EXTS[n];
+      else {
+        fig.classList.add('empty');
+        var sl = fig.closest('.slide');
+        if (sl && sl.hasAttribute('data-needs-img') && !sl.querySelector('.slot:not(.empty)')) sl.setAttribute('data-skip', '');
+      }
+    };
+    img.src = 'img/' + name + '.' + EXTS[0];
+    fig.insertBefore(img, fig.firstChild);
+  });
+
+  // swipe en pantallas táctiles
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 60) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  window.addEventListener('hashchange', function () {
+    var n = parseInt(location.hash.slice(1), 10);
+    if (n && n - 1 !== idx) show(n - 1, false);
+  });
+
+  var start = parseInt(location.hash.slice(1), 10);
+  show(start ? start - 1 : 0, false);
+})();
+</script>
+</body>
+</html>

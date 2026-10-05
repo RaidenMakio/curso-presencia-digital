@@ -7,6 +7,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 1: Definición del proyecto + estructura básica (HTML)
+**Material:** [Clase guiada (2h)](../clases/clase-01-definicion-proyecto-html/clase-guiada.md) · [Teoría](../clases/clase-01-definicion-proyecto-html/teoria.md) · [Guía de estudio](../clases/clase-01-definicion-proyecto-html/guia-estudio.md) · [Recursos](../clases/clase-01-definicion-proyecto-html/recursos.md) · [Tarea](../clases/clase-01-definicion-proyecto-html/tarea.md) · [Examen](../clases/clase-01-definicion-proyecto-html/examen.md) · [Banco de preguntas](../clases/clase-01-definicion-proyecto-html/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Definir la idea de proyecto (portafolio, emprendimiento o marca personal)
 - Aprender la estructura básica de una página web con HTML
@@ -19,6 +21,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 2: Secciones de contenido (inicio, sobre mí/proyecto, galería o servicios)
+**Material:** [Clase guiada (2h)](../clases/clase-02-secciones-contenido/clase-guiada.md) · [Teoría](../clases/clase-02-secciones-contenido/teoria.md) · [Guía de estudio](../clases/clase-02-secciones-contenido/guia-estudio.md) · [Recursos](../clases/clase-02-secciones-contenido/recursos.md) · [Tarea](../clases/clase-02-secciones-contenido/tarea.md) · [Examen](../clases/clase-02-secciones-contenido/examen.md) · [Banco de preguntas](../clases/clase-02-secciones-contenido/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Aplicar etiquetas HTML para organizar texto, imágenes y listas
 - Redactar contenido propio para cada sección
@@ -31,6 +35,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 3: Estilo visual (CSS): colores y tipografía
+**Material:** [Clase guiada](../clases/clase-03-estilo-visual-css/clase-guiada.md) · [Teoría](../clases/clase-03-estilo-visual-css/teoria.md) · [Guía de estudio](../clases/clase-03-estilo-visual-css/guia-estudio.md) · [Recursos](../clases/clase-03-estilo-visual-css/recursos.md) · [Tarea](../clases/clase-03-estilo-visual-css/tarea.md) · [Examen](../clases/clase-03-estilo-visual-css/examen.md) · [Banco de preguntas](../clases/clase-03-estilo-visual-css/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Vincular CSS al HTML
 - Definir y aplicar una identidad visual coherente (colores y tipografía)
@@ -43,6 +49,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 4: Diseño responsive (celular y computadora)
+**Material:** [Clase guiada](../clases/clase-04-diseno-responsive/clase-guiada.md) · [Teoría](../clases/clase-04-diseno-responsive/teoria.md) · [Guía de estudio](../clases/clase-04-diseno-responsive/guia-estudio.md) · [Recursos](../clases/clase-04-diseno-responsive/recursos.md) · [Tarea](../clases/clase-04-diseno-responsive/tarea.md) · [Examen](../clases/clase-04-diseno-responsive/examen.md) · [Banco de preguntas](../clases/clase-04-diseno-responsive/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Aprender el uso básico de media queries y unidades flexibles
 - Verificar la visualización del sitio en distintos dispositivos
@@ -55,6 +63,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 5: Banner/logo con IA generativa de imágenes
+**Material:** [Clase guiada](../clases/clase-05-banner-logo-ia/clase-guiada.md) · [Teoría](../clases/clase-05-banner-logo-ia/teoria.md) · [Guía de estudio](../clases/clase-05-banner-logo-ia/guia-estudio.md) · [Recursos](../clases/clase-05-banner-logo-ia/recursos.md) · [Tarea](../clases/clase-05-banner-logo-ia/tarea.md) · [Examen](../clases/clase-05-banner-logo-ia/examen.md) · [Banco de preguntas](../clases/clase-05-banner-logo-ia/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Escribir prompts efectivos para generación de imágenes con IA
 - Integrar la imagen generada al diseño del sitio
@@ -67,6 +77,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 6: Enlaces, redes sociales y contacto
+**Material:** [Clase guiada](../clases/clase-06-enlaces-redes-contacto/clase-guiada.md) · [Teoría](../clases/clase-06-enlaces-redes-contacto/teoria.md) · [Guía de estudio](../clases/clase-06-enlaces-redes-contacto/guia-estudio.md) · [Recursos](../clases/clase-06-enlaces-redes-contacto/recursos.md) · [Tarea](../clases/clase-06-enlaces-redes-contacto/tarea.md) · [Examen](../clases/clase-06-enlaces-redes-contacto/examen.md) · [Banco de preguntas](../clases/clase-06-enlaces-redes-contacto/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Crear enlaces funcionales e íconos de redes sociales
 - Incorporar una vía de contacto clara
@@ -79,6 +91,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 7: Ajustes finales y práctica guiada
+**Material:** [Clase guiada](../clases/clase-07-ajustes-finales/clase-guiada.md) · [Teoría](../clases/clase-07-ajustes-finales/teoria.md) · [Guía de estudio](../clases/clase-07-ajustes-finales/guia-estudio.md) · [Recursos](../clases/clase-07-ajustes-finales/recursos.md) · [Tarea](../clases/clase-07-ajustes-finales/tarea.md) · [Examen](../clases/clase-07-ajustes-finales/examen.md) · [Banco de preguntas](../clases/clase-07-ajustes-finales/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Aplicar retroalimentación para corregir errores visuales y de contenido
 - Revisar la coherencia general del sitio
@@ -91,6 +105,8 @@ Que el estudiante diseñe, construya y publique su propio sitio web con identida
 ---
 
 ## Clase 8: Publicación y presentación final
+**Material:** [Clase guiada](../clases/clase-08-publicacion-presentacion/clase-guiada.md) · [Teoría](../clases/clase-08-publicacion-presentacion/teoria.md) · [Guía de estudio](../clases/clase-08-publicacion-presentacion/guia-estudio.md) · [Recursos](../clases/clase-08-publicacion-presentacion/recursos.md) · [Tarea](../clases/clase-08-publicacion-presentacion/tarea.md) · [Examen](../clases/clase-08-publicacion-presentacion/examen.md) · [Banco de preguntas](../clases/clase-08-publicacion-presentacion/banco-preguntas.md)
+
 **Objetivos específicos:**
 - Aprender el proceso de publicación gratuita del sitio
 - Presentar y compartir el resultado final

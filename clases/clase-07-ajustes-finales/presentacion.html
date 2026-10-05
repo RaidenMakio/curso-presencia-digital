@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 7 — Ajustes finales</title>
+<style>
+  :root {
+    --bg: #fbf7f0;
+    --surface: #ffffff;
+    --ink: #1f2430;
+    --muted: #5d6475;
+    --line: #e4dccb;
+    --accent: #d9552b;
+    --accent-soft: #fbe3d8;
+    --teal: #1f7a7a;
+    --teal-soft: #d9efee;
+    --gold: #b7791f;
+    --gold-soft: #f8ecd0;
+    --code-bg: #1f2430;
+    --code-ink: #f3efe6;
+    --code-tag: #ff9d7a;
+    --code-com: #8f9bb3;
+    --code-str: #8fd6cf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15181f;
+      --surface: #1f2430;
+      --ink: #f3efe6;
+      --muted: #a6adbd;
+      --line: #343b4d;
+      --accent: #ff8a5c;
+      --accent-soft: #3a2a25;
+      --teal: #5fd0c8;
+      --teal-soft: #1d3535;
+      --gold: #f0b95a;
+      --gold-soft: #3a3120;
+      --code-bg: #0f1218;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: max(14px, min(1.6vw, 3vh)); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  /* ---------- slides ---------- */
+  .deck { position: fixed; inset: 0; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2.4rem 4rem 3.6rem;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; animation: enter .28s ease-out; }
+  @keyframes enter { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  h1, h2, h3, p, ul, ol { margin: 0; }
+  h1 { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; }
+  h2 { font-size: 1.9rem; line-height: 1.15; letter-spacing: -0.01em; }
+  h3 { font-size: 1.15rem; }
+  p, li { font-size: 1.15rem; }
+  ul, ol { padding-left: 1.3rem; display: grid; gap: .45rem; }
+  .lead { font-size: 1.35rem; color: var(--muted); max-width: 38rem; }
+  .muted { color: var(--muted); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); font-weight: 600; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .badge {
+    background: var(--accent); color: #fff; padding: .15rem .6rem; border-radius: 99px;
+    font-size: .8rem; letter-spacing: .04em; text-transform: none;
+  }
+
+  /* section divider slides */
+  .slide.divider { background: var(--ink); color: var(--bg); }
+  .slide.divider .eyebrow { color: var(--code-tag); }
+  .slide.divider h1 { font-size: 3.2rem; }
+  .slide.divider .lead { color: var(--code-com); }
+
+  .cols.two { grid-template-columns: repeat(2, 1fr); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.2rem; align-items: start; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.1rem 1.25rem; display: grid; gap: .5rem;
+  }
+  .card h3 { color: var(--accent); }
+  .card.teal h3 { color: var(--teal); }
+  .card.gold h3 { color: var(--gold); }
+  .card .big { font-size: 2.2rem; line-height: 1; }
+  .card a.ex { font-size: .9rem; word-break: break-word; }
+  .card p.ex { font-size: .9rem; }
+  .slide.tight { gap: .7rem; }
+  .slide.tight h2 { font-size: 1.6rem; }
+  .slide.tight .card { padding: .8rem 1rem; gap: .35rem; }
+  .callout {
+    border-left: 5px solid var(--gold); background: var(--gold-soft);
+    padding: .8rem 1.1rem; border-radius: 0 10px 10px 0;
+  }
+  .callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+  /* agenda */
+  .agenda { display: flex; height: 3.4rem; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+  .agenda span {
+    display: grid; place-items: center; font-size: .8rem; font-weight: 700; color: #fff;
+    border-right: 2px solid var(--bg); min-width: 0; padding: 0 .2rem; text-align: center;
+  }
+  .agenda span:last-child { border-right: 0; }
+  .b1 { background: #d9552b; } .b2 { background: #a3660f; } .b3 { background: #1f7a7a; }
+  .b4 { background: #4a6fa5; } .b5 { background: #7a4fa5; } .b6 { background: #5d6475; }
+  .agenda-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .4rem 1.4rem; font-size: 1rem; }
+  .agenda-list div { display: flex; gap: .6rem; align-items: baseline; }
+  .agenda-list b { min-width: 4.4rem; text-align: center; color: #fff; font-weight: 700; font-size: .85rem; padding: .1rem .6rem; border-radius: 99px; }
+
+  /* image slots (imágenes que se copian en img/; ver img/LEEME.md) */
+  .slot {
+    margin: 0; height: var(--h, 8rem); border-radius: 10px; background: #faf0df;
+    border: 1px solid var(--line); position: relative; overflow: hidden;
+  }
+  .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+  .slot .ph { display: none; }
+  .slot.empty { display: none; }
+  .slot .ph b { display: block; color: var(--accent); font-size: .85rem; }
+  .slot .ph code { font-size: .75rem; }
+
+  /* revisión de sitios reales */
+  .fill { border-bottom: 3px dashed var(--accent); color: var(--accent); padding: 0 .3rem; min-width: 8rem; display: inline-block; outline: none; }
+  .fill:focus { background: var(--accent-soft); }
+  .slide.tight .card h3 { font-size: 1.05rem; }
+  .slide.tight .card p { font-size: 1rem; }
+  .chip { display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .1rem .6rem; border-radius: 99px; background: var(--teal-soft); color: var(--teal); }
+  .chip.intl { background: var(--gold-soft); color: var(--gold); }
+
+  /* code */
+  pre, code { font-family: "Cascadia Code", Consolas, "SFMono-Regular", monospace; font-variant-ligatures: none; }
+  pre {
+    margin: 0; background: var(--code-bg); color: var(--code-ink);
+    padding: 1rem 1.25rem; border-radius: 12px; font-size: 1rem; line-height: 1.55; overflow-x: auto;
+    font-variant-ligatures: none;
+  }
+  code.inline { background: var(--accent-soft); color: var(--accent); padding: .05rem .4rem; border-radius: 6px; font-size: .95em; }
+  .k { color: var(--code-tag); } .c { color: var(--code-com); font-style: italic; } .s { color: var(--code-str); } .a { color: var(--code-str); }
+
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.4rem; align-items: start; }
+  .bad, .good { display: grid; gap: .5rem; }
+  .bad > b { color: #c0392b; } .good > b { color: var(--teal); }
+
+  /* table */
+  table { border-collapse: collapse; width: 100%; font-size: 1.1rem; background: var(--surface); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid var(--line); }
+  th { background: var(--accent-soft); color: var(--accent); font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* quiz */
+  .quiz { display: grid; gap: .6rem; }
+  .quiz .q { font-weight: 700; font-size: 1.1rem; }
+  .opts { list-style: none; padding: 0; display: grid; gap: .35rem; }
+  .opts.big { gap: .6rem; }
+  .opts.big li { font-size: 1.35rem; padding: .75rem 1.1rem; }
+  .opts li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .5rem .8rem; font-size: 1.05rem; }
+  .quiz.big { gap: .9rem; }
+  .quiz.big .q { font-size: 1.6rem; line-height: 1.25; }
+  .quiz.big .opts li { font-size: 1.3rem; padding: .7rem 1rem; }
+  .opts.plain li { cursor: default; }
+  .answer { display: none; font-weight: 700; color: var(--teal); }
+  .slide.show .answer { display: block; }
+  .slide.show .opts li.right { border-color: var(--teal); background: var(--teal-soft); }
+  button.reveal, .btn {
+    font: inherit; font-size: .95rem; font-weight: 600; cursor: pointer;
+    background: var(--ink); color: var(--bg); border: 0; border-radius: 99px; padding: .5rem 1.2rem; justify-self: start; align-self: flex-start;
+  }
+  button.reveal:hover, .btn:hover { background: var(--accent); color: #fff; }
+
+  /* steps */
+  .steps { list-style: none; padding: 0; counter-reset: step; display: grid; gap: .8rem; }
+  .steps li {
+    counter-increment: step; display: grid; grid-template-columns: 2.4rem 1fr; gap: .9rem; align-items: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .8rem 1rem;
+  }
+  .steps li::before {
+    content: counter(step); background: var(--accent); color: #fff; font-weight: 700;
+    width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center;
+  }
+
+  /* notes */
+  .notes { display: none; }
+  body.show-notes .notes {
+    display: block; position: fixed; left: 1rem; right: 1rem; bottom: 3.4rem; z-index: 5;
+    background: var(--ink); color: var(--bg); padding: .8rem 1.1rem; border-radius: 12px;
+    font-size: .95rem; max-height: 30vh; overflow-y: auto; opacity: .96;
+  }
+  body.show-notes .slide:not(.active) .notes { display: none; }
+  .notes b { color: var(--code-tag); }
+
+  /* chrome */
+  .bar { position: fixed; top: 0; left: 0; height: 5px; background: var(--accent); width: 0; transition: width .25s; z-index: 10; }
+  .chrome {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .6rem 1rem; font-size: .8rem; color: var(--muted);
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+  }
+  .chrome .keys { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+  .chrome button {
+    font: inherit; cursor: pointer; background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 8px; padding: .25rem .65rem;
+  }
+  .chrome button:hover { border-color: var(--accent); color: var(--accent); }
+  .chrome button:focus-visible, button.reveal:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .counter { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .hint { display: none; }
+  @media (min-width: 1400px) { .hint { display: inline; } }
+
+  .timer {
+    position: fixed; top: 1rem; right: 1rem; z-index: 10; display: none;
+    background: #1f2430; color: #fff; border: 2px solid var(--accent); padding: .3rem 1rem; border-radius: 99px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.3rem;
+  }
+  .timer.on { display: block; }
+  .timer.low, .timer.over { background: #c0392b; color: #fff; }
+  .timer.over { animation: none; }
+
+  @media (max-width: 700px) {
+    .slide { padding: 1.6rem 1.2rem 4rem; }
+    h1 { font-size: 2rem; } h2 { font-size: 1.5rem; }
+    .slide.divider h1 { font-size: 2.3rem; }
+  }
+
+  @media print {
+    body { overflow: visible; }
+    .deck { position: static; }
+    .slide, .slide.active { display: flex !important; position: static; min-height: 100vh; break-after: page; animation: none; }
+    .chrome, .bar, .timer, .notes { display: none !important; }
+    .answer { display: block; }
+  }
+
+  /* clase 7: demos visuales */
+  .inspect { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; }
+  .i-box { border: 3px solid var(--ink); border-radius: 14px; padding: 1rem 1.1rem; background: var(--surface); }
+  .i-box h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .i-arrow { font-size: 2rem; color: var(--accent); text-align: center; }
+  .fbtemp { background: var(--surface); border: 2px solid var(--teal); border-radius: 12px; padding: .9rem 1.1rem; font-size: 1.05rem; line-height: 1.5; }
+  .fbtemp b { color: var(--teal); }
+  .fbcompare { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
+  .fbcompare .tag { display: inline-block; font-size: .85rem; font-weight: 700; padding: .15rem .6rem; border-radius: 6px; margin-bottom: .4rem; }
+  .fbcompare .vague .tag { background: var(--accent-soft); color: #7a2a12; }
+  .fbcompare .concrete .tag { background: var(--teal-soft); color: #0f4d4d; }
+  .fbcompare .card { font-size: 1rem; }
+  .conv-b { background: var(--teal); color: #fff; }
+  .checkgrid { display: grid; gap: .6rem; }
+  .checkrow { display: grid; grid-template-columns: 10rem 1fr; gap: .8rem; align-items: center; padding: .6rem .9rem; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); }
+  .checkrow b { color: var(--accent); }
+  .checkrow.done { border-color: var(--teal); }
+  .checkrow.done b { color: var(--teal); }
+  .checkrow .mk { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="timer" id="timer" role="timer" aria-label="Cronómetro del bloque"></div>
+
+<main class="deck" id="deck">
+
+  <section class="slide divider" data-title="Portada" data-timer="off">
+    <span class="eyebrow">Curso · Crea tu presencia digital</span>
+    <h1>Clase 7<br>Ajustes finales<br>y práctica guiada</h1>
+    <p class="lead">Antes de abrir la puerta a las visitas, un último recorrido de inspección — con alguien de confianza que vea lo que a vos ya no se te nota.</p>
+    <aside class="notes"><b>Antes de empezar:</b> avisar con anticipación que todos traigan su sitio real (no hay ejemplo hoy). Preparar el ejemplo de feedback de Martín a Valeria. Parejas por chat, sin sala.</aside>
+  </section>
+
+  <section class="slide" data-title="Objetivos" data-timer="off">
+    <span class="eyebrow">Qué vamos a lograr</span>
+    <h2>Al terminar la clase vas a tener…</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Una lista de correcciones</h3><p>Aplicadas a tu sitio real.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>El sitio revisado</h3><p>Sección por sección, con una checklist.</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Tu versión casi final</h3><p>Lista para publicar en la Clase 8.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Agenda" data-timer="off">
+    <span class="eyebrow">Recorrido de las 2 horas</span>
+    <h2>Cómo va a ser la clase</h2>
+    <div class="agenda" aria-hidden="true">
+      <span class="b1" style="flex:15">15</span>
+      <span class="b2" style="flex:15">15</span>
+      <span class="b3" style="flex:55">55</span>
+      <span class="b4" style="flex:10">10</span>
+    </div>
+    <div class="agenda-list">
+      <div><b class="b1">15 min</b> Analogía y diagnóstico</div>
+      <div><b class="b2">15 min</b> Lo esencial + cuestionario</div>
+      <div><b class="b3">55 min</b> Revisión cruzada, correcciones y 💬 conversatorio</div>
+      <div><b class="b4">10 min</b> Dudas y preguntas</div>
+    </div>
+    <p class="muted">Al final: respondemos juntos 6 preguntas de cierre y explicamos la tarea en casa.</p>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 1" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Bloque 1</span>
+    <h1>Analogía y diagnóstico:<br>el recorrido de inspección</h1>
+    <aside class="notes"><b>Objetivo:</b> anclaje mental. Cimientos → habitaciones → decoración → tamaño de cuarto → cartel → puertas y timbre → hoy, el recorrido de inspección antes de la mudanza.</aside>
+  </section>
+
+  <section class="slide tight" data-title="La noche antes de mudarte">
+    <h2>Ya no notás lo que a otro le salta a la vista</h2>
+    <p class="muted">Pintaste, acomodaste los muebles, colgaste el cartel. De tanto vivir ahí mientras la armabas, <strong>dejaste de notar</strong> un enchufe sin tapa, una puerta que roza el piso, una mancha en la pared.</p>
+    <div class="callout"><p>Por eso invitás a alguien de confianza a recorrer la casa <strong>antes</strong> de que lleguen las visitas de verdad. Esa persona nota en segundos lo que a vos se te volvió invisible.</p></div>
+  </section>
+
+  <section class="slide tight" data-title="De la analogía a la web">
+    <h2>¿Cómo se ve esto en una página web?</h2>
+    <div class="cols">
+      <div class="card"><h3>🚪 El recorrido de inspección</h3><p>Es la <strong>revisión de coherencia</strong>: repasar el sitio sección por sección.</p></div>
+      <div class="card teal"><h3>🧑‍🤝‍🧑 La persona de confianza</h3><p>Es tu <strong>pareja</strong>, dándote <strong>feedback estructurado</strong>.</p></div>
+      <div class="card gold"><h3>📝 Anotar qué arreglar</h3><p>Es tu <strong>lista de correcciones</strong>, que aplicás antes de publicar.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="¿Qué creés vos?">
+    <span class="eyebrow">Bloque 1 · Respondé con una letra en el chat (anónimo)</span>
+    <h2>Cuando alguien te da una sugerencia sobre algo que hiciste, ¿cómo reaccionás primero?</h2>
+    <ul class="opts big plain">
+      <li><strong>A)</strong> A la defensiva</li>
+      <li><strong>B)</strong> Con curiosidad, quiero saber qué vio</li>
+      <li><strong>C)</strong> Depende de quién me lo diga</li>
+    </ul>
+    <p class="muted">No hay respuesta correcta todavía: queremos saber qué pensás hoy, antes de ver la teoría.</p>
+  </section>
+
+  <section class="slide tight" data-title="¿Qué creés vos?">
+    <span class="eyebrow">Bloque 1 · Respondé Sí o No en el chat</span>
+    <h2>¿Creés que podés ver los errores de tu propio sitio tan fácil como los vería otra persona?</h2>
+    <div class="cols two">
+      <div class="card"><h3>Sí</h3><p>Confío en mi propia mirada.</p></div>
+      <div class="card teal"><h3>No</h3><p>Necesito otros ojos.</p></div>
+    </div>
+    <p><strong>¿Por qué creés eso?</strong> Escribilo en el chat.</p>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 2" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Bloque 2</span>
+    <h1>Lo esencial + cuestionario</h1>
+    <p class="lead">Tramo A: retroalimentación (≈7 min).<br>Tramo B: revisar la coherencia del sitio (≈8 min).</p>
+  </section>
+
+  <section class="slide" data-title="Tramo A · plantilla">
+    <span class="eyebrow">Tramo A · Retroalimentación</span>
+    <h2>Nadie ve los propios errores tan fácil como otra persona</h2>
+    <p>Por eso esta clase se trabaja <strong>en pareja</strong>, revisando el <strong>sitio real</strong> de cada uno, con una plantilla simple:</p>
+    <div class="fbtemp"><b>1 cosa que me gustó:</b> …<br><b>1 sugerencia:</b> …</div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · plantilla" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Cuáles son las 2 partes de la plantilla de feedback estructurado vista en esta clase?</p>
+      <ul class="opts"><li class="right">A) "1 cosa que me gustó" + "1 sugerencia"</li><li>B) "Bien" + "Mal"</li><li>C) Nota del 1 al 10 + comentario</li><li>D) Solo errores encontrados</li></ul>
+      <p class="answer">A) "1 cosa que me gustó" + "1 sugerencia"</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · concreta, no vaga">
+    <span class="eyebrow">Tramo A · Retroalimentación</span>
+    <h2>Concreta, y primero el contenido</h2>
+    <div class="fbcompare">
+      <div class="bad vague"><span class="tag">✗ Vaga</span><div class="card">"No me gustó mucho."</div></div>
+      <div class="good concrete"><span class="tag">✓ Concreta</span><div class="card">"El texto de contacto es difícil de leer sobre el fondo oscuro."</div></div>
+    </div>
+    <p class="muted">Se corrige primero el <strong>contenido</strong> (ortografía, texto sin reemplazar), después lo <strong>visual</strong> (colores, espaciados). Recibir una sugerencia no es una crítica personal.</p>
+  </section>
+
+  <section class="slide" data-title="Chequeo · orden" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">Según la teoría, ¿qué se corrige primero: errores de contenido o errores visuales?</p>
+      <ul class="opts"><li class="right">A) Errores de contenido primero</li><li>B) Errores visuales primero</li><li>C) Da igual el orden</li><li>D) Ninguno se corrige en esta clase</li></ul>
+      <p class="answer">A) Errores de contenido primero</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · checklist">
+    <span class="eyebrow">Tramo B · Revisar la coherencia del sitio</span>
+    <h2>Se repasa completo, sección por sección</h2>
+    <div class="checkgrid">
+      <div class="checkrow"><b>Paleta</b><span>¿Los mismos 2-3 colores se repiten en todo el sitio?</span></div>
+      <div class="checkrow"><b>Tipografía</b><span>¿La misma fuente (o las 2 elegidas) en todas las secciones?</span></div>
+      <div class="checkrow"><b>Contenido</b><span>¿Ninguna sección con texto de ejemplo sin reemplazar?</span></div>
+      <div class="checkrow"><b>Enlaces</b><span>¿Todos los enlaces de la Clase 6 siguen funcionando?</span></div>
+      <div class="checkrow"><b>Responsive</b><span>¿Se ve bien en celular y computadora (DevTools)?</span></div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · paleta" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué se revisa al chequear la "paleta de colores" en la checklist de coherencia?</p>
+      <p class="muted">Respondé con tus palabras en el chat.</p>
+      <p class="answer">Respuesta esperada: que los mismos 2-3 colores se repitan en todo el sitio, sin colores sueltos</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Chequeo · checklist" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Cuáles de estos puntos forman parte de la checklist de coherencia de esta clase?</p>
+      <ul class="opts"><li class="right">A) Paleta, tipografía, contenido, enlaces, responsive</li><li>B) Solo el precio del hosting</li><li>C) Solo la ortografía</li><li>D) Solo los colores</li></ul>
+      <p class="answer">A) Paleta, tipografía, contenido, enlaces, responsive</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Chequeo · enlaces" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">Al revisar enlaces en esta clase, ¿qué se está verificando en realidad?</p>
+      <ul class="opts"><li class="right">A) Que sigan funcionando como en la Clase 6</li><li>B) Que tengan colores llamativos</li><li>C) Que estén en mayúsculas</li><li>D) Que sean muy largos</li></ul>
+      <p class="answer">A) Que sigan funcionando como en la Clase 6</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · versión casi final">
+    <span class="eyebrow">Tramo B · Revisar la coherencia del sitio</span>
+    <h2>Checklist sin pendientes = versión casi final</h2>
+    <div class="checkgrid">
+      <div class="checkrow done"><b>Paleta</b><span class="mk">✓ Revisado</span></div>
+      <div class="checkrow done"><b>Tipografía</b><span class="mk">✓ Revisado</span></div>
+      <div class="checkrow done"><b>Contenido</b><span class="mk">✓ Revisado</span></div>
+      <div class="checkrow done"><b>Enlaces</b><span class="mk">✓ Revisado</span></div>
+      <div class="checkrow done"><b>Responsive</b><span class="mk">✓ Revisado</span></div>
+    </div>
+    <p class="muted">Ya corregida y lista para publicar — pero <strong>todavía sin link público</strong>. Eso es la Clase 8.</p>
+  </section>
+
+  <section class="slide" data-title="Chequeo · versión casi final" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">Una "versión casi final" del sitio significa que:</p>
+      <ul class="opts"><li>A) Ya está publicada</li><li class="right">B) Ya está corregida y lista para publicar, pero todavía no tiene link público</li><li>C) Es la primera versión sin revisar</li><li>D) No existe ese concepto en el curso</li></ul>
+      <p class="answer">B) Ya está corregida y lista para publicar, pero todavía no tiene link público</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 3" data-minutes="55">
+    <span class="eyebrow"><span class="badge">55 min</span> Bloque 3</span>
+    <h1>Armá tu sitio</h1>
+    <p class="lead">Hoy trabajamos sobre TU sitio real: ejemplo (≈8) · pareja por chat (≈17) · aplicás correcciones (≈20) · 💬 conversatorio (≈10).</p>
+  </section>
+
+  <section class="slide tight" data-title="Ejemplo guiado">
+    <span class="eyebrow">Bloque 3 · Ejemplo guiado ≈8 min</span>
+    <h2>Modelamos con el feedback de Martín</h2>
+    <ol class="steps">
+      <li><div>Leemos juntos su sugerencia: contraste del texto en "Sobre mí".</div></li>
+      <li><div>Vemos cómo se aplicaría: cambiar el color del texto (contenido primero, después lo visual).</div></li>
+      <li><div>Repasamos la checklist completa sobre el sitio de Valeria, marcando cada punto.</div></li>
+    </ol>
+  </section>
+
+  <section class="slide tight" data-title="Pareja por chat">
+    <span class="eyebrow">Bloque 3 · Revisión cruzada ≈17 min · sin sala, por chat</span>
+    <h2>Con tu sitio real</h2>
+    <ol class="steps">
+      <li><div>Compartí <strong>1-2 capturas</strong> de tu sitio con tu pareja, en el chat.</div></li>
+      <li><div>Recibí su plantilla completa: <strong>1 cosa que me gustó + 1 sugerencia</strong>, concreta.</div></li>
+      <li><div>Repetí al revés: dale el mismo feedback a tu pareja.</div></li>
+      <li><div>Pasá la <strong>checklist de coherencia</strong> sobre tu propio sitio y anotá qué falta.</div></li>
+    </ol>
+    <aside class="notes"><b>Acompañamiento:</b> circular por el chat ayudando a que las sugerencias sean concretas y no vagas.</aside>
+  </section>
+
+  <section class="slide tight" data-title="Aplicá tus correcciones">
+    <span class="eyebrow">Bloque 3 · Aplicá tus correcciones ≈20 min · en tu sitio, ahora mismo</span>
+    <h2>Hoy no esperamos a la tarea: corregimos ya</h2>
+    <ol class="steps">
+      <li><div>Ordená lo que recibiste: <strong>contenido primero</strong> (ortografía, texto sin reemplazar), <strong>después lo visual</strong> (colores, espaciados, tamaños).</div></li>
+      <li><div>Aplicá las correcciones que puedas resolver <strong>ahora mismo</strong>, en tu propio sitio.</div></li>
+      <li><div>Marcá en tu lista las que queden pendientes para terminar en casa.</div></li>
+    </ol>
+    <p class="muted">El profesor circula por el chat resolviendo dudas puntuales.</p>
+  </section>
+
+  <section class="slide tight" data-title="Conversatorio">
+    <span class="eyebrow"><span class="badge conv-b">💬 Conversatorio</span> ≈10 min · voz o chat, nadie obligado</span>
+    <h2>Pasada de revisión cruzada</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Compartís</h3><p>La <strong>mejor sugerencia</strong> que recibiste, y si ya la aplicaste.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>El grupo comenta</h3><p><strong>Me gusta…</strong> · <strong>Me confunde…</strong> · <strong>Yo probaría…</strong></p></div>
+      <div class="card gold"><span class="big">3</span><h3>Conectamos con la checklist</h3><p>¿A qué punto corresponde: paleta, contenido, enlaces…?</p></div>
+    </div>
+    <div class="callout"><p><strong>Cierre:</strong> revisá que tu lista tenga al menos <strong>3 ítems aplicados</strong> hoy.</p></div>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 4" data-minutes="10">
+    <span class="eyebrow"><span class="badge">10 min</span> Bloque 4</span>
+    <h1>Dudas y preguntas</h1>
+  </section>
+
+  <section class="slide" data-title="Dudas">
+    <span class="eyebrow">Bloque 4 · Si nadie pregunta, arrancamos con estas</span>
+    <h2>Preguntas para abrir la conversación</h2>
+    <ul>
+      <li>¿Qué sugerencia te costó más escuchar? ¿Por qué creés que fue así?</li>
+      <li>¿Encontraste algo en tu propio sitio antes de que tu pareja te lo dijera?</li>
+      <li>¿Qué punto de la checklist te quedó pendiente para terminar en casa?</li>
+    </ul>
+  </section>
+
+  <section class="slide divider" data-title="Examen" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Cierre de clase</span>
+    <h1>Examen relámpago</h1>
+    <p class="lead">Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos.</p>
+    <aside class="notes"><b>Dinámica:</b> una pregunta por diapositiva. Se responde en el chat, se comenta y recién ahí se muestra la respuesta con R. Banco: # 1, 3, 5, 6, 8, 13 (la # 5 es de respuesta corta). Detalle y rúbrica completa en <b>examen.md</b>.</aside>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Cuáles son las 2 partes de la plantilla de feedback estructurado vista en esta clase?</p>
+      <ul class="opts"><li class="right">A) "1 cosa que me gustó" + "1 sugerencia"</li><li>B) "Bien" + "Mal"</li><li>C) Nota del 1 al 10 + comentario</li><li>D) Solo errores encontrados</li></ul>
+      <p class="answer">A) "1 cosa que me gustó" + "1 sugerencia"</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">Según la teoría, ¿qué se corrige primero: errores de contenido o errores visuales?</p>
+      <ul class="opts"><li class="right">A) Errores de contenido primero</li><li>B) Errores visuales primero</li><li>C) Da igual el orden</li><li>D) Ninguno se corrige en esta clase</li></ul>
+      <p class="answer">A) Errores de contenido primero</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué se revisa al chequear la "paleta de colores" en la checklist de coherencia?</p>
+      <p class="muted">Respondé con tus palabras en el chat.</p>
+      <p class="answer">Respuesta esperada: que los mismos 2-3 colores se repitan en todo el sitio, sin colores sueltos</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Cuáles de estos puntos forman parte de la checklist de coherencia de esta clase?</p>
+      <ul class="opts"><li class="right">A) Paleta, tipografía, contenido, enlaces, responsive</li><li>B) Solo el precio del hosting</li><li>C) Solo la ortografía</li><li>D) Solo los colores</li></ul>
+      <p class="answer">A) Paleta, tipografía, contenido, enlaces, responsive</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">Al revisar enlaces en esta clase, ¿qué se está verificando en realidad?</p>
+      <ul class="opts"><li class="right">A) Que sigan funcionando como en la Clase 6</li><li>B) Que tengan colores llamativos</li><li>C) Que estén en mayúsculas</li><li>D) Que sean muy largos</li></ul>
+      <p class="answer">A) Que sigan funcionando como en la Clase 6</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">Una "versión casi final" del sitio significa que:</p>
+      <ul class="opts"><li>A) Ya está publicada</li><li class="right">B) Ya está corregida y lista para publicar, pero todavía no tiene link público</li><li>C) Es la primera versión sin revisar</li><li>D) No existe ese concepto en el curso</li></ul>
+      <p class="answer">B) Ya está corregida y lista para publicar, pero todavía no tiene link público</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cómo se evalúa" data-timer="off">
+    <span class="eyebrow">Tarea en casa · Evaluación</span>
+    <h2>Así se evalúa tu tarea de hoy</h2>
+    <table>
+      <thead><tr><th>Ítem</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Las 6 preguntas de cierre, respondidas juntos en clase (10 c/u)</td><td>60</td></tr>
+        <tr><td>Lista de correcciones documentada por escrito</td><td>10</td></tr>
+        <tr><td>Correcciones aplicadas visiblemente en el sitio</td><td>15</td></tr>
+        <tr><td>Checklist de coherencia sin pendientes</td><td>15</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Lo que entregás en casa es tu sitio corregido + tu lista de correcciones: se revisa con estos criterios.</p>
+  </section>
+
+  <section class="slide" data-title="Tarea" data-timer="off">
+    <span class="eyebrow">Tarea en casa</span>
+    <h2>Aplicá tus correcciones</h2>
+    <ol class="steps">
+      <li><div>Anotá en una lista las sugerencias que recibiste de tu pareja.</div></li>
+      <li><div>Aplicá esas correcciones a tu sitio: contenido primero, después lo visual.</div></li>
+      <li><div>Volvé a pasar la checklist de coherencia completa vos mismo/a.</div></li>
+    </ol>
+    <div class="callout teal"><p><strong>Entregables de la Clase 7:</strong> “Lista de correcciones aplicadas”, “Sitio revisado sección por sección”, “Versión casi final lista para publicar”. Es lo que se revisa al empezar la Clase 8.</p></div>
+  </section>
+
+  <section class="slide divider" data-title="Fin" data-timer="off">
+    <span class="eyebrow">Para llevarte</span>
+    <h1>Otros ojos ven<br>lo que vos ya no notás.</h1>
+    <p class="lead">Feedback concreto, corregir contenido primero y después lo visual, y una checklist sin pendientes. En la Clase 8: le damos a la casa una dirección real y abrimos la puerta.</p>
+  </section>
+
+</main>
+
+<nav class="chrome" aria-label="Controles de la presentación">
+  <div class="keys">
+    <button type="button" id="prev" aria-label="Diapositiva anterior">←</button>
+    <button type="button" id="next" aria-label="Diapositiva siguiente">→</button>
+    <button type="button" id="btnFull">Pantalla completa (F)</button>
+    <button type="button" id="btnNotes">Notas (N)</button>
+    <button type="button" id="btnTimer" aria-pressed="true">Cronómetro (T)</button>
+    <span class="hint">Espacio: siguiente · R: mostrar respuestas</span>
+  </div>
+  <span class="counter" id="counter" aria-live="polite"></span>
+</nav>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var timerEl = document.getElementById('timer');
+  var idx = 0;
+  var timerId = null;
+  var remaining = 0;
+
+  function clamp(n) { return Math.max(0, Math.min(slides.length - 1, n)); }
+
+  function show(n, updateHash) {
+    idx = clamp(n);
+    slides.forEach(function (s, i) {
+      s.classList.toggle('active', i === idx);
+      s.classList.remove('show');
+      s.setAttribute('aria-hidden', i === idx ? 'false' : 'true');
+    });
+    slides[idx].scrollTop = 0;
+    syncTimer();
+    bar.style.width = ((idx + 1) / slides.length * 100) + '%';
+    counter.textContent = (idx + 1) + ' / ' + slides.length + ' · ' + (slides[idx].getAttribute('data-title') || '');
+    document.title = 'Clase 7 — ' + (idx + 1) + '/' + slides.length;
+    if (updateHash !== false) {
+      try { history.replaceState(null, '', '#' + (idx + 1)); } catch (e) { location.hash = '#' + (idx + 1); }
+    }
+  }
+
+  function skipped(i) { return slides[i].hasAttribute('data-skip'); }
+  function next() {
+    var n = idx + 1;
+    while (n < slides.length - 1 && skipped(n)) n += 1;
+    show(n);
+  }
+  function prev() {
+    var n = idx - 1;
+    while (n > 0 && skipped(n)) n -= 1;
+    show(n);
+  }
+
+  function toggleReveal() {
+    var s = slides[idx];
+    if (s.hasAttribute('data-quiz')) s.classList.toggle('show');
+  }
+
+  function toggleFull() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) { /* no soportado */ }
+  }
+
+  function toggleNotes() { document.body.classList.toggle('show-notes'); }
+
+  function fmt(sec) {
+    var m = Math.floor(sec / 60), r = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  var timerHidden = false;
+
+  function paintTimer() {
+    var over = remaining < 0;
+    timerEl.textContent = (over ? '+' : '') + fmt(Math.abs(remaining));
+    timerEl.classList.toggle('over', over);
+    timerEl.classList.toggle('low', !over && remaining <= 60);
+    timerEl.classList.toggle('on', timerId !== null && !timerHidden);
+  }
+
+  function stopTimer() {
+    clearInterval(timerId); timerId = null;
+    paintTimer();
+  }
+
+  function startTimer(mins) {
+    clearInterval(timerId);
+    remaining = mins * 60;
+    timerId = setInterval(function () { remaining -= 1; paintTimer(); }, 1000);
+    paintTimer();
+  }
+
+  // T o el botón: esconde / muestra el cronómetro (sigue corriendo por detrás)
+  function toggleTimer() {
+    timerHidden = !timerHidden;
+    document.getElementById('btnTimer').setAttribute('aria-pressed', String(!timerHidden));
+    paintTimer();
+  }
+
+  // el cronómetro arranca solo al llegar a la diapositiva de cada bloque
+  function syncTimer() {
+    var s = slides[idx];
+    var mins = parseInt(s.getAttribute('data-minutes') || '', 10);
+    if (mins) startTimer(mins);
+    else if (s.getAttribute('data-timer') === 'off') stopTimer();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target && (e.target.isContentEditable || /^(INPUT|TEXTAREA)$/.test(e.target.tagName))) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'PageDown': case ' ': case 'Enter':
+        if (e.target.tagName === 'BUTTON' && (e.key === ' ' || e.key === 'Enter')) return;
+        e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': e.preventDefault(); prev(); break;
+      case 'Home': show(0); break;
+      case 'End': show(slides.length - 1); break;
+      case 'f': case 'F': toggleFull(); break;
+      case 'n': case 'N': toggleNotes(); break;
+      case 't': case 'T': toggleTimer(); break;
+      case 'r': case 'R': toggleReveal(); break;
+    }
+  });
+
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('btnFull').addEventListener('click', toggleFull);
+  document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+  document.getElementById('btnTimer').addEventListener('click', toggleTimer);
+  Array.prototype.forEach.call(document.querySelectorAll('button.reveal'), function (b) {
+    b.addEventListener('click', toggleReveal);
+  });
+
+  // imágenes de ejemplo: se buscan en img/<nombre>.(jpg|png|webp|...)
+  var EXTS = ['jpg', 'png', 'webp', 'jpeg', 'svg', 'gif'];
+  Array.prototype.forEach.call(document.querySelectorAll('.slot[data-img]'), function (fig) {
+    var name = fig.getAttribute('data-img'), n = 0, img = document.createElement('img');
+    img.alt = fig.getAttribute('data-alt') || '';
+    img.onerror = function () {
+      n += 1;
+      if (n < EXTS.length) img.src = 'img/' + name + '.' + EXTS[n];
+      else {
+        fig.classList.add('empty');
+        var sl = fig.closest('.slide');
+        if (sl && sl.hasAttribute('data-needs-img') && !sl.querySelector('.slot:not(.empty)')) sl.setAttribute('data-skip', '');
+      }
+    };
+    img.src = 'img/' + name + '.' + EXTS[0];
+    fig.insertBefore(img, fig.firstChild);
+  });
+
+  // swipe en pantallas táctiles
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 60) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  window.addEventListener('hashchange', function () {
+    var n = parseInt(location.hash.slice(1), 10);
+    if (n && n - 1 !== idx) show(n - 1, false);
+  });
+
+  var start = parseInt(location.hash.slice(1), 10);
+  show(start ? start - 1 : 0, false);
+})();
+</script>
+</body>
+</html>

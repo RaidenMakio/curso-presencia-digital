@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Curso Presencia Digital</title>
+  <meta name="description" content="Clases guiadas, presentaciones, bancos de preguntas y guías de estudio del curso Crea tu Presencia Digital.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="assets/theme-vue.css">
+</head>
+<body>
+  <div id="app">Cargando...</div>
+  <script>
+    // Home del curso. Todas las rutas son relativas a esta carpeta (clases/),
+    // así que la carpeta se puede publicar sola (GitHub Pages, Netlify, VPS...).
+    // Solo se indexan (sidebar + buscador) las páginas listadas en _sidebar.md.
+    // Docsify trata "index.htm" como si fuera una carpeta; se fija la base a mano
+    // (carpeta que contiene esta página) para que funcione con .htm y en cualquier ruta.
+    window.$docsify = {
+      name: 'Curso Presencia Digital',
+      basePath: location.pathname.replace(/[^/]*$/, ''),
+      homepage: 'inicio.md',
+      themeColor: '#c2461f',
+      loadSidebar: true,
+      alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+      subMaxLevel: 2,
+      auto2top: true,
+      routerMode: 'hash',
+      search: {
+        paths: 'auto',
+        placeholder: 'Buscar en las clases...',
+        noData: 'Sin resultados.',
+        depth: 3
+      },
+      copyCode: { buttonText: 'Copiar', successText: 'Copiado' },
+      pagination: {
+        previousText: 'Anterior',
+        nextText: 'Siguiente',
+        crossChapter: true,
+        crossChapterText: true
+      }
+    }
+  </script>
+  <script src="assets/docsify-mermaid-lazy.js"></script>
+  <script src="assets/docsify.min.js"></script>
+  <script src="assets/docsify-search.min.js"></script>
+  <script src="assets/docsify-copy-code.min.js"></script>
+  <script src="assets/docsify-pagination.min.js"></script>
+</body>
+</html>

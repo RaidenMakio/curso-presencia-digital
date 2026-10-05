@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clase 5 — Banner/logo con IA</title>
+<style>
+  :root {
+    --bg: #fbf7f0;
+    --surface: #ffffff;
+    --ink: #1f2430;
+    --muted: #5d6475;
+    --line: #e4dccb;
+    --accent: #d9552b;
+    --accent-soft: #fbe3d8;
+    --teal: #1f7a7a;
+    --teal-soft: #d9efee;
+    --gold: #b7791f;
+    --gold-soft: #f8ecd0;
+    --code-bg: #1f2430;
+    --code-ink: #f3efe6;
+    --code-tag: #ff9d7a;
+    --code-com: #8f9bb3;
+    --code-str: #8fd6cf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #15181f;
+      --surface: #1f2430;
+      --ink: #f3efe6;
+      --muted: #a6adbd;
+      --line: #343b4d;
+      --accent: #ff8a5c;
+      --accent-soft: #3a2a25;
+      --teal: #5fd0c8;
+      --teal-soft: #1d3535;
+      --gold: #f0b95a;
+      --gold-soft: #3a3120;
+      --code-bg: #0f1218;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { font-size: max(14px, min(1.6vw, 3vh)); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  /* ---------- slides ---------- */
+  .deck { position: fixed; inset: 0; }
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2.4rem 4rem 3.6rem;
+    overflow-y: auto;
+  }
+  .slide.active { display: flex; animation: enter .28s ease-out; }
+  @keyframes enter { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .slide.active { animation: none; } }
+
+  h1, h2, h3, p, ul, ol { margin: 0; }
+  h1 { font-size: 2.6rem; line-height: 1.1; letter-spacing: -0.02em; }
+  h2 { font-size: 1.9rem; line-height: 1.15; letter-spacing: -0.01em; }
+  h3 { font-size: 1.15rem; }
+  p, li { font-size: 1.15rem; }
+  ul, ol { padding-left: 1.3rem; display: grid; gap: .45rem; }
+  .lead { font-size: 1.35rem; color: var(--muted); max-width: 38rem; }
+  .muted { color: var(--muted); }
+  strong { font-weight: 700; }
+  a { color: var(--accent); font-weight: 600; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .badge {
+    background: var(--accent); color: #fff; padding: .15rem .6rem; border-radius: 99px;
+    font-size: .8rem; letter-spacing: .04em; text-transform: none;
+  }
+
+  /* section divider slides */
+  .slide.divider { background: var(--ink); color: var(--bg); }
+  .slide.divider .eyebrow { color: var(--code-tag); }
+  .slide.divider h1 { font-size: 3.2rem; }
+  .slide.divider .lead { color: var(--code-com); }
+
+  .cols.two { grid-template-columns: repeat(2, 1fr); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.2rem; align-items: start; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.1rem 1.25rem; display: grid; gap: .5rem;
+  }
+  .card h3 { color: var(--accent); }
+  .card.teal h3 { color: var(--teal); }
+  .card.gold h3 { color: var(--gold); }
+  .card .big { font-size: 2.2rem; line-height: 1; }
+  .card a.ex { font-size: .9rem; word-break: break-word; }
+  .card p.ex { font-size: .9rem; }
+  .slide.tight { gap: .7rem; }
+  .slide.tight h2 { font-size: 1.6rem; }
+  .slide.tight .card { padding: .8rem 1rem; gap: .35rem; }
+  .callout {
+    border-left: 5px solid var(--gold); background: var(--gold-soft);
+    padding: .8rem 1.1rem; border-radius: 0 10px 10px 0;
+  }
+  .callout.teal { border-color: var(--teal); background: var(--teal-soft); }
+
+  /* agenda */
+  .agenda { display: flex; height: 3.4rem; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); }
+  .agenda span {
+    display: grid; place-items: center; font-size: .8rem; font-weight: 700; color: #fff;
+    border-right: 2px solid var(--bg); min-width: 0; padding: 0 .2rem; text-align: center;
+  }
+  .agenda span:last-child { border-right: 0; }
+  .b1 { background: #d9552b; } .b2 { background: #a3660f; } .b3 { background: #1f7a7a; }
+  .b4 { background: #4a6fa5; } .b5 { background: #7a4fa5; } .b6 { background: #5d6475; }
+  .agenda-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .4rem 1.4rem; font-size: 1rem; }
+  .agenda-list div { display: flex; gap: .6rem; align-items: baseline; }
+  .agenda-list b { min-width: 4.4rem; text-align: center; color: #fff; font-weight: 700; font-size: .85rem; padding: .1rem .6rem; border-radius: 99px; }
+
+  /* image slots (imágenes que se copian en img/; ver img/LEEME.md) */
+  .slot {
+    margin: 0; height: var(--h, 8rem); border-radius: 10px; background: #faf0df;
+    border: 1px solid var(--line); position: relative; overflow: hidden;
+  }
+  .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+  .slot .ph { display: none; }
+  .slot.empty { display: none; }
+  .slot .ph b { display: block; color: var(--accent); font-size: .85rem; }
+  .slot .ph code { font-size: .75rem; }
+
+  /* revisión de sitios reales */
+  .fill { border-bottom: 3px dashed var(--accent); color: var(--accent); padding: 0 .3rem; min-width: 8rem; display: inline-block; outline: none; }
+  .fill:focus { background: var(--accent-soft); }
+  .slide.tight .card h3 { font-size: 1.05rem; }
+  .slide.tight .card p { font-size: 1rem; }
+  .chip { display: inline-block; font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .1rem .6rem; border-radius: 99px; background: var(--teal-soft); color: var(--teal); }
+  .chip.intl { background: var(--gold-soft); color: var(--gold); }
+
+  /* code */
+  pre, code { font-family: "Cascadia Code", Consolas, "SFMono-Regular", monospace; font-variant-ligatures: none; }
+  pre {
+    margin: 0; background: var(--code-bg); color: var(--code-ink);
+    padding: 1rem 1.25rem; border-radius: 12px; font-size: 1rem; line-height: 1.55; overflow-x: auto;
+    font-variant-ligatures: none;
+  }
+  code.inline { background: var(--accent-soft); color: var(--accent); padding: .05rem .4rem; border-radius: 6px; font-size: .95em; }
+  .k { color: var(--code-tag); } .c { color: var(--code-com); font-style: italic; } .s { color: var(--code-str); } .a { color: var(--code-str); }
+
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.4rem; align-items: start; }
+  .bad, .good { display: grid; gap: .5rem; }
+  .bad > b { color: #c0392b; } .good > b { color: var(--teal); }
+
+  /* table */
+  table { border-collapse: collapse; width: 100%; font-size: 1.1rem; background: var(--surface); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid var(--line); }
+  th { background: var(--accent-soft); color: var(--accent); font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* quiz */
+  .quiz { display: grid; gap: .6rem; }
+  .quiz .q { font-weight: 700; font-size: 1.1rem; }
+  .opts { list-style: none; padding: 0; display: grid; gap: .35rem; }
+  .opts.big { gap: .6rem; }
+  .opts.big li { font-size: 1.35rem; padding: .75rem 1.1rem; }
+  .opts li { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: .5rem .8rem; font-size: 1.05rem; }
+  .quiz.big { gap: .9rem; }
+  .quiz.big .q { font-size: 1.6rem; line-height: 1.25; }
+  .quiz.big .opts li { font-size: 1.3rem; padding: .7rem 1rem; }
+  .opts.plain li { cursor: default; }
+  .answer { display: none; font-weight: 700; color: var(--teal); }
+  .slide.show .answer { display: block; }
+  .slide.show .opts li.right { border-color: var(--teal); background: var(--teal-soft); }
+  button.reveal, .btn {
+    font: inherit; font-size: .95rem; font-weight: 600; cursor: pointer;
+    background: var(--ink); color: var(--bg); border: 0; border-radius: 99px; padding: .5rem 1.2rem; justify-self: start; align-self: flex-start;
+  }
+  button.reveal:hover, .btn:hover { background: var(--accent); color: #fff; }
+
+  /* steps */
+  .steps { list-style: none; padding: 0; counter-reset: step; display: grid; gap: .8rem; }
+  .steps li {
+    counter-increment: step; display: grid; grid-template-columns: 2.4rem 1fr; gap: .9rem; align-items: start;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .8rem 1rem;
+  }
+  .steps li::before {
+    content: counter(step); background: var(--accent); color: #fff; font-weight: 700;
+    width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center;
+  }
+
+  /* notes */
+  .notes { display: none; }
+  body.show-notes .notes {
+    display: block; position: fixed; left: 1rem; right: 1rem; bottom: 3.4rem; z-index: 5;
+    background: var(--ink); color: var(--bg); padding: .8rem 1.1rem; border-radius: 12px;
+    font-size: .95rem; max-height: 30vh; overflow-y: auto; opacity: .96;
+  }
+  body.show-notes .slide:not(.active) .notes { display: none; }
+  .notes b { color: var(--code-tag); }
+
+  /* chrome */
+  .bar { position: fixed; top: 0; left: 0; height: 5px; background: var(--accent); width: 0; transition: width .25s; z-index: 10; }
+  .chrome {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .6rem 1rem; font-size: .8rem; color: var(--muted);
+    background: linear-gradient(to top, var(--bg) 60%, transparent);
+  }
+  .chrome .keys { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+  .chrome button {
+    font: inherit; cursor: pointer; background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 8px; padding: .25rem .65rem;
+  }
+  .chrome button:hover { border-color: var(--accent); color: var(--accent); }
+  .chrome button:focus-visible, button.reveal:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .counter { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .hint { display: none; }
+  @media (min-width: 1400px) { .hint { display: inline; } }
+
+  .timer {
+    position: fixed; top: 1rem; right: 1rem; z-index: 10; display: none;
+    background: #1f2430; color: #fff; border: 2px solid var(--accent); padding: .3rem 1rem; border-radius: 99px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.3rem;
+  }
+  .timer.on { display: block; }
+  .timer.low, .timer.over { background: #c0392b; color: #fff; }
+  .timer.over { animation: none; }
+
+  @media (max-width: 700px) {
+    .slide { padding: 1.6rem 1.2rem 4rem; }
+    h1 { font-size: 2rem; } h2 { font-size: 1.5rem; }
+    .slide.divider h1 { font-size: 2.3rem; }
+  }
+
+  @media print {
+    body { overflow: visible; }
+    .deck { position: static; }
+    .slide, .slide.active { display: flex !important; position: static; min-height: 100vh; break-after: page; animation: none; }
+    .chrome, .bar, .timer, .notes { display: none !important; }
+    .answer { display: block; }
+  }
+
+  /* clase 5: demos visuales */
+  .painter { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; }
+  .p-box { border: 3px solid var(--ink); border-radius: 14px; padding: 1rem 1.1rem; background: var(--surface); }
+  .p-box h3 { font-size: 1.05rem; margin-bottom: .3rem; }
+  .p-arrow { font-size: 2rem; color: var(--accent); }
+  .formula { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; }
+  .formula .part { border-radius: 12px; padding: .9rem 1rem; text-align: center; border: 2px solid var(--line); }
+  .formula .part b { display: block; font-size: 1.15rem; margin-bottom: .3rem; }
+  .formula .part:nth-child(1) { background: var(--accent-soft); border-color: var(--accent); }
+  .formula .part:nth-child(2) { background: var(--teal-soft); border-color: var(--teal); }
+  .formula .part:nth-child(3) { background: var(--gold-soft); border-color: var(--gold); }
+  .formula .part:nth-child(4) { background: var(--surface); border-color: var(--muted); }
+  .promptbox { background: var(--surface); border: 2px solid var(--teal); border-radius: 12px; padding: .8rem 1.1rem; font-size: 1.05rem; line-height: 1.45; font-style: italic; }
+  .promptbox.bad { border-color: var(--accent); background: var(--accent-soft); font-style: normal; }
+  /* mock banner */
+  .site { width: 460px; border: 3px solid var(--ink); border-radius: 12px; overflow: hidden; background: #fff; margin: 0 auto; }
+  .site .banner { height: 110px; background: linear-gradient(135deg, #b23a48, #e6b0b6); display: flex; align-items: center; justify-content: center; color: #fff; font: 700 1.1rem Georgia, serif; }
+  .site .banner.noimg { background: repeating-linear-gradient(45deg, #eee, #eee 10px, #f8f8f8 10px, #f8f8f8 20px); color: #999; font-style: italic; font-weight: 400; font-size: .95rem; }
+  .site .banner.stretched { background-size: 140% 100%; background-position: center; }
+  .site .body { padding: 1rem 1.2rem; font-family: Verdana, sans-serif; color: #2b2b2b; }
+  .site .body b { display: block; font: 700 1.2rem Georgia, serif; color: #b23a48; }
+  .site .body p { margin: .3rem 0 0; font-size: .95rem; }
+  .badtext { background: #fff; border: 2px dashed var(--accent); border-radius: 10px; padding: .8rem 1rem; text-align: center; }
+  .badtext .fake { font: 700 1.6rem Georgia, serif; color: #b23a48; letter-spacing: 1px; filter: blur(.4px); }
+  .badtext .fake span { display: inline-block; transform: rotate(-3deg); }
+  .badtext .fake span:nth-child(2) { transform: rotate(4deg) translateY(2px); }
+  .badtext .fake span:nth-child(4) { transform: rotate(-5deg); }
+  /* peso de archivo */
+  .weigh { display: grid; gap: .6rem; }
+  .weigh .row { display: grid; grid-template-columns: 6rem 1fr 4rem; align-items: center; gap: .7rem; }
+  .weigh .wbar { height: 1.6rem; border-radius: 8px; background: var(--accent); }
+  .weigh .wbar.small { background: var(--teal); }
+  /* object-fit demo */
+  .fitwrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+  .fitwrap figure { margin: 0; display: grid; gap: .4rem; justify-items: center; text-align: center; }
+  .fitbox { width: 100%; height: 90px; border: 3px solid var(--ink); border-radius: 10px; background: linear-gradient(135deg, #b23a48, #f0b95a); }
+  .fitbox.stretch { background-size: 180% 60%; }
+  .fitbox.crop { background-size: 220% 220%; background-position: center; }
+  .conv-b { background: var(--teal); color: #fff; }
+  .live { border: 2px dashed var(--accent); border-radius: 12px; padding: .5rem 1rem; min-height: 5.5rem; outline: none; font-size: 1.05rem; }
+  .live:focus { background: var(--accent-soft); }
+</style>
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<div class="timer" id="timer" role="timer" aria-label="Cronómetro del bloque"></div>
+
+<main class="deck" id="deck">
+
+  <section class="slide divider" data-title="Portada" data-timer="off">
+    <span class="eyebrow">Curso · Crea tu presencia digital</span>
+    <h1>Clase 5<br>Banner/logo<br>con IA generativa</h1>
+    <p class="lead">Hoy le encargamos el cartel de la puerta a un pintor rapidísimo: le damos buenas instrucciones y lo colgamos en la entrada.</p>
+    <aside class="notes"><b>Antes de empezar:</b> tener el sitio de Valeria (paleta de la Clase 3) y una herramienta de IA de imágenes abierta para generar en vivo. Avisar que las parejas de hoy son por chat, sin sala.</aside>
+  </section>
+
+  <section class="slide" data-title="Objetivos" data-timer="off">
+    <span class="eyebrow">Qué vamos a lograr</span>
+    <h2>Al terminar la clase vas a tener…</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Un banner o logo con IA</h3><p>Generado siguiendo la fórmula de prompt.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>La imagen optimizada e insertada</h3><p>Con <code class="inline">&lt;img&gt;</code> y <code class="inline">alt</code> descriptivo.</p></div>
+      <div class="card gold"><span class="big">3</span><h3>Tamaño y posición ajustados</h3><p>Sin desbordar en celular ni computadora.</p></div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Agenda" data-timer="off">
+    <span class="eyebrow">Recorrido de las 2 horas</span>
+    <h2>Cómo va a ser la clase</h2>
+    <div class="agenda" aria-hidden="true">
+      <span class="b1" style="flex:15">15</span>
+      <span class="b2" style="flex:25">25</span>
+      <span class="b3" style="flex:45">45</span>
+      <span class="b4" style="flex:10">10</span>
+    </div>
+    <div class="agenda-list">
+      <div><b class="b1">15 min</b> Analogía y diagnóstico</div>
+      <div><b class="b2">25 min</b> Teoría + cuestionario</div>
+      <div><b class="b3">45 min</b> Del ejemplo a tu sitio: pareja por chat y 💬 conversatorio</div>
+      <div><b class="b4">10 min</b> Dudas y preguntas</div>
+    </div>
+    <p class="muted">Al final: respondemos juntos 6 preguntas de cierre y explicamos la tarea en casa.</p>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 1" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Bloque 1</span>
+    <h1>Analogía y diagnóstico:<br>el cartel de la puerta</h1>
+    <aside class="notes"><b>Objetivo:</b> anclaje mental. Cimientos → habitaciones → decoración → tamaño de cuarto → hoy, el cartel/vidriera.</aside>
+  </section>
+
+  <section class="slide tight" data-title="El pintor rapidísimo">
+    <h2>Contratás un pintor de carteles carísimo y rapidísimo</h2>
+    <div class="painter">
+      <div class="p-box"><h3>🎨 Le decís poco</h3><p class="muted">"Pintame algo lindo."</p><p><em>→ pinta cualquier cosa linda. No necesariamente la tuya.</em></p></div>
+      <div class="p-arrow">→</div>
+      <div class="p-box"><h3>📋 Le decís preciso</h3><p class="muted">"Cartel con una cámara, estilo simple, en rojo y crema, ancho, para la entrada."</p><p><em>→ pinta exactamente eso.</em></p></div>
+    </div>
+    <div class="callout"><p>Y hay algo que este pintor todavía hace mal: <strong>escribir letras</strong>. Mejor pintar el texto vos, después.</p></div>
+  </section>
+
+  <section class="slide tight" data-title="De la analogía a la web">
+    <h2>¿Cómo se ve esto en una página web?</h2>
+    <div class="cols">
+      <div class="card"><h3>🖌️ El pintor rapidísimo</h3><p>Es la <strong>IA generativa de imágenes</strong> (Bing, ChatGPT, Gemini…).</p></div>
+      <div class="card teal"><h3>📋 Las instrucciones</h3><p>Es el <strong>prompt</strong> que le escribís.</p></div>
+      <div class="card gold"><h3>🪧 El cartel de la puerta</h3><p>Es tu <strong>banner o logo</strong>.</p></div>
+    </div>
+    <div class="callout teal"><p>Guardá esta imagen: <strong>pintor = IA</strong>, <strong>instrucciones = prompt</strong>, <strong>cartel = banner/logo</strong>.</p></div>
+  </section>
+
+  <section class="slide" data-title="¿Qué creés vos?">
+    <span class="eyebrow">Bloque 1 · Respondé con una letra en el chat (anónimo)</span>
+    <h2>Le pedís a una IA "hacéme una imagen linda para mi sitio". ¿Qué esperás que pase?</h2>
+    <ul class="opts big plain">
+      <li><strong>A)</strong> Sale perfecta para mi proyecto, tal cual la imaginé</li>
+      <li><strong>B)</strong> Sale algo genérico que después tengo que ajustar o volver a pedir</li>
+      <li><strong>C)</strong> No tengo idea</li>
+    </ul>
+    <p class="muted">No hay respuesta correcta todavía: queremos saber qué pensás hoy, antes de ver la teoría.</p>
+  </section>
+
+  <section class="slide tight" data-title="¿Qué creés vos?">
+    <span class="eyebrow">Bloque 1 · Respondé Sí o No en el chat</span>
+    <h2>¿Confiarías en que una IA escriba bien tu nombre <em>dentro</em> de una imagen?</h2>
+    <div class="cols two">
+      <div class="card"><h3>Sí</h3><p>Confío en que las letras salgan bien.</p></div>
+      <div class="card teal"><h3>No</h3><p>Prefiero escribirlo yo, después.</p></div>
+    </div>
+    <p><strong>¿Por qué creés eso?</strong> Escribilo en el chat.</p>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 2" data-minutes="25">
+    <span class="eyebrow"><span class="badge">25 min</span> Bloque 2</span>
+    <h1>Teoría + cuestionario</h1>
+    <p class="lead">Tramo A: prompts efectivos (≈12 min).<br>Tramo B: integrar la imagen al sitio (≈13 min).</p>
+  </section>
+
+  <section class="slide" data-title="Tramo A · qué es un prompt">
+    <span class="eyebrow">Tramo A · Prompts efectivos</span>
+    <h2>Un prompt es la instrucción que le das a la IA</h2>
+    <p>Un prompt <strong>vago</strong> da un resultado vago. Cuantos más detalles concretos incluyas, mejor sale.</p>
+    <div class="cols two">
+      <div class="promptbox bad">"Hacéme una imagen bonita."</div>
+      <div class="promptbox">"Banner minimalista, una cámara fotográfica, estilo flat design, colores crema y rojizo, formato horizontal ancho, sin texto."</div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · prompt" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué es un "prompt" en el contexto de IA generativa de imágenes?</p>
+      <ul class="opts"><li>A) El nombre del archivo generado</li><li class="right">B) La instrucción de texto que describe la imagen que querés</li><li>C) Un filtro que se aplica después</li><li>D) El tamaño de la imagen</li></ul>
+      <p class="answer">B) La instrucción de texto que describe la imagen que querés</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · fórmula">
+    <span class="eyebrow">Tramo A · Prompts efectivos</span>
+    <h2>La fórmula: 4 partes</h2>
+    <div class="formula">
+      <div class="part"><b>Sujeto</b>Qué se ve: una cámara, un ícono, tus iniciales.</div>
+      <div class="part"><b>Estilo</b>Cómo se ve: minimalista, flat design, línea simple.</div>
+      <div class="part"><b>Colores</b>Los de tu paleta de la Clase 3.</div>
+      <div class="part"><b>Formato</b>Para qué es: banner ancho, logo cuadrado.</div>
+    </div>
+    <div class="callout"><p><strong>Tip:</strong> pedí siempre <strong>sin texto</strong>. Si lo necesitás, lo agregás después con CSS.</p></div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · fórmula" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Cuáles son las 4 partes de la fórmula de prompt vista en la teoría?</p>
+      <ul class="opts"><li class="right">A) Sujeto, estilo, colores, contexto/formato</li><li>B) Título, fecha, autor, tamaño</li><li>C) Nombre, precio, categoría, stock</li><li>D) Fondo, texto, borde, sombra</li></ul>
+      <p class="answer">A) Sujeto, estilo, colores, contexto/formato</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · ejemplo">
+    <span class="eyebrow">Ejemplo práctico</span>
+    <h2>El prompt de Valeria, con su paleta de la Clase 3</h2>
+    <div class="promptbox">"Banner minimalista para sitio de fotografía, estilo flat design con líneas simples, una cámara fotográfica como elemento central, colores tierra: fondo crema <code class="inline">#faf7f2</code> y acento rojizo <code class="inline">#b23a48</code>, formato horizontal ancho, sin texto."</div>
+    <p class="muted">Sujeto (cámara) + estilo (flat design) + colores (su paleta) + formato (horizontal, sin texto). Cuatro partes, ninguna al azar.</p>
+  </section>
+
+  <section class="slide tight" data-title="Tramo A · texto en la imagen">
+    <span class="eyebrow">Tramo A · Prompts efectivos</span>
+    <h2>El texto dentro de la imagen sale mal</h2>
+    <div class="cols two">
+      <div class="bad"><b>✗ Pedirle a la IA que escriba</b>
+        <div class="badtext"><span class="fake"><span>V</span><span>a</span><span>l</span><span>e</span><span>r</span><span>i</span><span>a</span></span></div>
+        <p class="muted">Letras deformadas o mal escritas.</p></div>
+      <div class="good"><b>✓ Escribirlo después, con CSS</b>
+        <div class="site"><div class="banner"></div><div class="body"><b>Valeria Pérez</b><p>Texto real, nítido, con tu tipografía.</p></div></div></div>
+    </div>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · optimizar">
+    <span class="eyebrow">Tramo B · Integrar la imagen al sitio</span>
+    <h2>1. Optimizar: que pese poco</h2>
+    <div class="weigh">
+      <div class="row"><span>Original</span><div class="wbar" style="width:100%"></div><span>4.2 MB</span></div>
+      <div class="row"><span>Comprimida</span><div class="wbar small" style="width:19%"></div><span>800 KB</span></div>
+      <div class="row"><span>.webp</span><div class="wbar small" style="width:9%"></div><span>350 KB</span></div>
+    </div>
+    <p class="muted">Las imágenes de IA suelen pesar mucho. Comprimila y, si podés, exportala en <code class="inline">.webp</code>: pesa menos que <code class="inline">.png</code>/<code class="inline">.jpg</code> con calidad similar. Un sitio liviano carga más rápido.</p>
+  </section>
+
+  <section class="slide" data-title="Chequeo · .webp" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué formato de imagen suele pesar menos que <code class="inline">.png</code>/<code class="inline">.jpg</code> con calidad similar?</p>
+      <ul class="opts"><li>A) <code class="inline">.bmp</code></li><li class="right">B) <code class="inline">.webp</code></li><li>C) <code class="inline">.tiff</code></li><li>D) <code class="inline">.raw</code></li></ul>
+      <p class="answer">B) <code class="inline">.webp</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Tramo B · insertar">
+    <span class="eyebrow">Tramo B · Integrar la imagen al sitio</span>
+    <h2>2. Insertar con <code class="inline">&lt;img&gt;</code> y <code class="inline">alt</code></h2>
+<pre><span class="k">&lt;img</span> <span class="a">src</span>=<span class="s">"banner.webp"</span>
+     <span class="a">alt</span>=<span class="s">"Banner de Valeria Fotografía, cámara sobre fondo crema"</span>
+     <span class="a">class</span>=<span class="s">"banner"</span><span class="k">&gt;</span></pre>
+    <div class="callout"><p>El <code class="inline">alt</code> describe la imagen, igual que en la Clase 2. <strong>Nunca se deja vacío</strong>, ni siquiera en un banner decorativo.</p></div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · alt" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué atributo NUNCA debe faltar al insertar la imagen del banner con <code class="inline">&lt;img&gt;</code>?</p>
+      <ul class="opts"><li>A) <code class="inline">width</code></li><li class="right">B) <code class="inline">alt</code></li><li>C) <code class="inline">class</code></li><li>D) <code class="inline">style</code></li></ul>
+      <p class="answer">B) <code class="inline">alt</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · object-fit">
+    <span class="eyebrow">Tramo B · Integrar la imagen al sitio</span>
+    <h2>3. Ajustar tamaño y posición</h2>
+<pre><span class="sel">.banner</span> {
+  <span class="prop">width</span>: <span class="v">100%</span>;
+  <span class="prop">max-width</span>: <span class="v">1200px</span>;
+  <span class="prop">object-fit</span>: <span class="v">cover</span>;
+}</pre>
+    <div class="fitwrap">
+      <figure><div class="fitbox stretch"></div><figcaption class="muted">Sin <code class="inline">object-fit</code>: se deforma</figcaption></figure>
+      <figure><div class="fitbox crop"></div><figcaption class="muted"><code class="inline">object-fit: cover</code>: recorta, no deforma</figcaption></figure>
+      <figure><div class="fitbox"></div><figcaption class="muted">Proporción original</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Chequeo · object-fit" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">¿Qué propiedad CSS controla cómo una imagen llena su espacio sin deformarse?</p>
+      <ul class="opts"><li class="right">A) <code class="inline">object-fit</code></li><li>B) <code class="inline">text-align</code></li><li>C) <code class="inline">font-size</code></li><li>D) <code class="inline">border</code></li></ul>
+      <p class="answer">A) <code class="inline">object-fit</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · texto después">
+    <span class="eyebrow">Tramo B · Integrar la imagen al sitio</span>
+    <h2>¿Necesitás texto sobre el banner?</h2>
+    <div class="site"><div class="banner"></div><div class="body"><b>Valeria Pérez — Fotógrafa</b><p>Capturo momentos únicos en cumpleaños, quince años y eventos pequeños.</p></div></div>
+    <p class="muted">Se agrega <strong>después</strong>, con HTML y CSS — por ejemplo un <code class="inline">&lt;h1&gt;</code> junto a la imagen — nunca pidiéndole a la IA que lo dibuje.</p>
+  </section>
+
+  <section class="slide" data-title="Chequeo · texto sobre banner" data-quiz>
+    <span class="eyebrow">Chequeo rápido</span>
+    <div class="quiz">
+      <p class="q">Si necesitás texto sobre el banner, ¿cuál es la forma correcta según la teoría?</p>
+      <ul class="opts"><li>A) Pedirle a la IA que dibuje el texto</li><li class="right">B) Escribirlo después con CSS sobre la imagen</li><li>C) Recortarlo de otra imagen</li><li>D) No se puede agregar texto a un banner</li></ul>
+      <p class="answer">B) Escribirlo después con CSS sobre la imagen</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide tight" data-title="Tramo B · ejemplo">
+    <span class="eyebrow">Ejemplo práctico</span>
+    <h2>Todo junto, en la sección de inicio</h2>
+<pre><span class="k">&lt;section</span> <span class="a">id</span>=<span class="s">"inicio"</span><span class="k">&gt;</span>
+  <span class="k">&lt;img</span> <span class="a">src</span>=<span class="s">"banner.webp"</span> <span class="a">alt</span>=<span class="s">"Banner de Valeria Fotografía"</span> <span class="a">class</span>=<span class="s">"banner"</span><span class="k">&gt;</span>
+  <span class="k">&lt;h1&gt;</span>Valeria Pérez — Fotógrafa<span class="k">&lt;/h1&gt;</span>
+  <span class="k">&lt;p&gt;</span>Capturo momentos únicos…<span class="k">&lt;/p&gt;</span>
+<span class="k">&lt;/section&gt;</span></pre>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 3" data-minutes="45">
+    <span class="eyebrow"><span class="badge">45 min</span> Bloque 3</span>
+    <h1>Del ejemplo a tu sitio</h1>
+    <p class="lead">Ejemplo en vivo (≈10) · pareja por chat y tu prompt (≈20) · 💬 conversatorio de prompts (≈11).</p>
+  </section>
+
+  <section class="slide tight" data-title="Ejemplo guiado">
+    <span class="eyebrow">Bloque 3 · Ejemplo guiado ≈10 min · Sitio de Valeria</span>
+    <h2>Lo hacemos en vivo</h2>
+    <ol class="steps">
+      <li><div><strong>Armamos el prompt</strong>: sujeto (cámara), estilo, colores (su paleta), formato.</div></li>
+      <li><div><strong>Generamos la imagen</strong> en una herramienta de IA, en vivo.</div></li>
+      <li><div><strong>La optimizamos</strong> e insertamos con <code class="inline">&lt;img&gt;</code> + <code class="inline">alt</code>.</div></li>
+      <li><div><strong>Ajustamos</strong> con <code class="inline">width</code>, <code class="inline">max-width</code> y <code class="inline">object-fit: cover</code>, y verificamos en celular y computadora.</div></li>
+    </ol>
+  </section>
+
+  <section class="slide tight" data-title="Pareja por chat">
+    <span class="eyebrow">Bloque 3 · Pair-checking por chat ≈6 min · sin sala, pareja por chat</span>
+    <h2>En pareja, un prompt sobre un caso ficticio</h2>
+    <ol class="steps">
+      <li><div>Reciben un caso de ejemplo (no su proyecto todavía).</div></li>
+      <li><div>Escriben <strong>juntos, por chat</strong>, un prompt con las 4 partes: sujeto + estilo + colores + formato.</div></li>
+      <li><div>Comparten su prompt en el chat general.</div></li>
+    </ol>
+  </section>
+
+  <section class="slide tight" data-title="Práctica">
+    <span class="eyebrow">Bloque 3 · Práctica ≈14 min · Ahora tu propio proyecto</span>
+    <h2>Cuatro pasos, con tu paleta</h2>
+    <ol class="steps">
+      <li><div><strong>Escribí tu prompt</strong> para tu banner o logo, con los colores de <strong>tu</strong> paleta de la Clase 3.</div></li>
+      <li><div><strong>Generá la imagen</strong> con una herramienta de IA.</div></li>
+      <li><div><strong>Optimizala</strong> e insertala con <code class="inline">&lt;img&gt;</code> + <code class="inline">alt</code> descriptivo.</div></li>
+      <li><div><strong>Ajustá</strong> tamaño y posición con CSS para que se vea bien en celular y computadora.</div></li>
+    </ol>
+    <aside class="notes"><b>Acompañamiento:</b> responder dudas en el chat. Esto avanza los 3 entregables; quien no termine, lo completa como tarea.</aside>
+  </section>
+
+  <section class="slide tight" data-title="Conversatorio">
+    <span class="eyebrow"><span class="badge conv-b">💬 Conversatorio</span> ≈11 min · voz o chat, nadie obligado</span>
+    <h2>Prompts que funcionaron y prompts que no</h2>
+    <div class="cols">
+      <div class="card"><span class="big">1</span><h3>Compartís</h3><p>Tu <strong>prompt</strong> y el <strong>resultado</strong> que te dio la IA.</p></div>
+      <div class="card teal"><span class="big">2</span><h3>El grupo comenta</h3><p><strong>Me gusta…</strong> · <strong>Me confunde…</strong> · <strong>Yo probaría…</strong></p></div>
+      <div class="card gold"><span class="big">3</span><h3>Conectamos con la teoría</h3><p>¿Qué parte del prompt faltaba o sobraba? ¿combina con tu paleta?</p></div>
+    </div>
+    <div class="callout"><p><strong>Cierre:</strong> anotá qué te llevás para reescribir tu prompt y volver a generar si hace falta.</p></div>
+  </section>
+
+  <section class="slide divider" data-title="Bloque 4" data-minutes="10">
+    <span class="eyebrow"><span class="badge">10 min</span> Bloque 4</span>
+    <h1>Dudas y preguntas</h1>
+  </section>
+
+  <section class="slide" data-title="Dudas">
+    <span class="eyebrow">Bloque 4 · Si nadie pregunta, arrancamos con estas</span>
+    <h2>Preguntas para abrir la conversación</h2>
+    <ul>
+      <li>¿A alguien le salió texto raro o deformado en la imagen? ¿Qué le pediste a la IA?</li>
+      <li>¿El color de tu banner combina con el resto de tu sitio? Si no, ¿qué le cambiarías al prompt?</li>
+      <li>¿Se ve bien tu banner en modo celular <strong>y</strong> en modo computadora?</li>
+    </ul>
+  </section>
+
+  <section class="slide divider" data-title="Examen" data-minutes="15">
+    <span class="eyebrow"><span class="badge">15 min</span> Cierre de clase</span>
+    <h1>Examen relámpago</h1>
+    <p class="lead">Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos.</p>
+    <aside class="notes"><b>Dinámica:</b> una pregunta por diapositiva. Se responde en el chat, se comenta y recién ahí se muestra la respuesta con R. Banco: # 1, 2, 6, 8, 9, 11. Detalle y rúbrica completa en <b>examen.md</b>.</aside>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué es un "prompt" en el contexto de IA generativa de imágenes?</p>
+      <ul class="opts"><li>A) El nombre del archivo generado</li><li class="right">B) La instrucción de texto que describe la imagen que querés</li><li>C) Un filtro que se aplica después</li><li>D) El tamaño de la imagen</li></ul>
+      <p class="answer">B) La instrucción de texto que describe la imagen que querés</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Cuáles son las 4 partes de la fórmula de prompt vista en la teoría?</p>
+      <ul class="opts"><li class="right">A) Sujeto, estilo, colores, contexto/formato</li><li>B) Título, fecha, autor, tamaño</li><li>C) Nombre, precio, categoría, stock</li><li>D) Fondo, texto, borde, sombra</li></ul>
+      <p class="answer">A) Sujeto, estilo, colores, contexto/formato</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué atributo NUNCA debe faltar al insertar la imagen del banner con <code class="inline">&lt;img&gt;</code>?</p>
+      <ul class="opts"><li>A) <code class="inline">width</code></li><li class="right">B) <code class="inline">alt</code></li><li>C) <code class="inline">class</code></li><li>D) <code class="inline">style</code></li></ul>
+      <p class="answer">B) <code class="inline">alt</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué formato de imagen suele pesar menos que <code class="inline">.png</code>/<code class="inline">.jpg</code> con calidad similar?</p>
+      <ul class="opts"><li>A) <code class="inline">.bmp</code></li><li class="right">B) <code class="inline">.webp</code></li><li>C) <code class="inline">.tiff</code></li><li>D) <code class="inline">.raw</code></li></ul>
+      <p class="answer">B) <code class="inline">.webp</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">¿Qué propiedad CSS controla cómo una imagen llena su espacio sin deformarse?</p>
+      <ul class="opts"><li class="right">A) <code class="inline">object-fit</code></li><li>B) <code class="inline">text-align</code></li><li>C) <code class="inline">font-size</code></li><li>D) <code class="inline">border</code></li></ul>
+      <p class="answer">A) <code class="inline">object-fit</code></p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cierre de clase" data-quiz data-timer="keep">
+    <span class="eyebrow">Cierre de clase · Respondemos juntos</span>
+    <div class="quiz big">
+      <p class="q">Si necesitás texto sobre el banner, ¿cuál es la forma correcta según la teoría?</p>
+      <ul class="opts"><li>A) Pedirle a la IA que dibuje el texto</li><li class="right">B) Escribirlo después con CSS sobre la imagen</li><li>C) Recortarlo de otra imagen</li><li>D) No se puede agregar texto a un banner</li></ul>
+      <p class="answer">B) Escribirlo después con CSS sobre la imagen</p>
+    </div>
+    <button class="reveal" type="button">Mostrar respuesta (R)</button>
+  </section>
+
+  <section class="slide" data-title="Cómo se evalúa" data-timer="off">
+    <span class="eyebrow">Tarea en casa · Evaluación</span>
+    <h2>Así se evalúa tu tarea de hoy</h2>
+    <table>
+      <thead><tr><th>Ítem</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Las 6 preguntas de cierre, respondidas juntos en clase (10 c/u)</td><td>60</td></tr>
+        <tr><td>Imagen generada con IA presente en el sitio</td><td>15</td></tr>
+        <tr><td><code class="inline">&lt;img&gt;</code> con <code class="inline">alt</code> descriptivo</td><td>10</td></tr>
+        <tr><td>Tamaño/posición ajustados, sin desborde en celular ni computadora</td><td>15</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>100</strong></td></tr>
+      </tbody>
+    </table>
+    <p class="muted">Lo que entregás en casa es tu sitio con el banner: se revisa con estos criterios.</p>
+  </section>
+
+  <section class="slide" data-title="Tarea" data-timer="off">
+    <span class="eyebrow">Tarea en casa</span>
+    <h2>Terminá tu banner o logo</h2>
+    <ol class="steps">
+      <li><div>Escribí tu prompt (sujeto + estilo + colores + formato) con tu paleta de la Clase 3 y generá la imagen con una IA.</div></li>
+      <li><div>Optimizala e insertala con <code class="inline">&lt;img&gt;</code> + <code class="inline">alt</code> descriptivo.</div></li>
+      <li><div>Ajustá tamaño y posición con CSS para que no desborde en ninguna vista.</div></li>
+    </ol>
+    <div class="callout teal"><p><strong>Entregables de la Clase 5:</strong> “Banner o logo generado con IA”, “Imagen optimizada e insertada en el sitio”, “Ajuste de tamaño/posición del banner”. Es lo que se revisa al empezar la Clase 6.</p></div>
+  </section>
+
+  <section class="slide divider" data-title="Fin" data-timer="off">
+    <span class="eyebrow">Para llevarte</span>
+    <h1>Instrucciones claras,<br>mejor resultado.</h1>
+    <p class="lead">Sujeto + estilo + colores + formato. Sin texto en la imagen: eso lo escribís vos, después, con CSS. En la Clase 6: puertas hacia otros lugares (enlaces) y un timbre que funcione (contacto).</p>
+  </section>
+
+</main>
+
+<nav class="chrome" aria-label="Controles de la presentación">
+  <div class="keys">
+    <button type="button" id="prev" aria-label="Diapositiva anterior">←</button>
+    <button type="button" id="next" aria-label="Diapositiva siguiente">→</button>
+    <button type="button" id="btnFull">Pantalla completa (F)</button>
+    <button type="button" id="btnNotes">Notas (N)</button>
+    <button type="button" id="btnTimer" aria-pressed="true">Cronómetro (T)</button>
+    <span class="hint">Espacio: siguiente · R: mostrar respuestas</span>
+  </div>
+  <span class="counter" id="counter" aria-live="polite"></span>
+</nav>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var timerEl = document.getElementById('timer');
+  var idx = 0;
+  var timerId = null;
+  var remaining = 0;
+
+  function clamp(n) { return Math.max(0, Math.min(slides.length - 1, n)); }
+
+  function show(n, updateHash) {
+    idx = clamp(n);
+    slides.forEach(function (s, i) {
+      s.classList.toggle('active', i === idx);
+      s.classList.remove('show');
+      s.setAttribute('aria-hidden', i === idx ? 'false' : 'true');
+    });
+    slides[idx].scrollTop = 0;
+    syncTimer();
+    bar.style.width = ((idx + 1) / slides.length * 100) + '%';
+    counter.textContent = (idx + 1) + ' / ' + slides.length + ' · ' + (slides[idx].getAttribute('data-title') || '');
+    document.title = 'Clase 5 — ' + (idx + 1) + '/' + slides.length;
+    if (updateHash !== false) {
+      try { history.replaceState(null, '', '#' + (idx + 1)); } catch (e) { location.hash = '#' + (idx + 1); }
+    }
+  }
+
+  function skipped(i) { return slides[i].hasAttribute('data-skip'); }
+  function next() {
+    var n = idx + 1;
+    while (n < slides.length - 1 && skipped(n)) n += 1;
+    show(n);
+  }
+  function prev() {
+    var n = idx - 1;
+    while (n > 0 && skipped(n)) n -= 1;
+    show(n);
+  }
+
+  function toggleReveal() {
+    var s = slides[idx];
+    if (s.hasAttribute('data-quiz')) s.classList.toggle('show');
+  }
+
+  function toggleFull() {
+    try {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    } catch (e) { /* no soportado */ }
+  }
+
+  function toggleNotes() { document.body.classList.toggle('show-notes'); }
+
+  function fmt(sec) {
+    var m = Math.floor(sec / 60), r = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  var timerHidden = false;
+
+  function paintTimer() {
+    var over = remaining < 0;
+    timerEl.textContent = (over ? '+' : '') + fmt(Math.abs(remaining));
+    timerEl.classList.toggle('over', over);
+    timerEl.classList.toggle('low', !over && remaining <= 60);
+    timerEl.classList.toggle('on', timerId !== null && !timerHidden);
+  }
+
+  function stopTimer() {
+    clearInterval(timerId); timerId = null;
+    paintTimer();
+  }
+
+  function startTimer(mins) {
+    clearInterval(timerId);
+    remaining = mins * 60;
+    timerId = setInterval(function () { remaining -= 1; paintTimer(); }, 1000);
+    paintTimer();
+  }
+
+  // T o el botón: esconde / muestra el cronómetro (sigue corriendo por detrás)
+  function toggleTimer() {
+    timerHidden = !timerHidden;
+    document.getElementById('btnTimer').setAttribute('aria-pressed', String(!timerHidden));
+    paintTimer();
+  }
+
+  // el cronómetro arranca solo al llegar a la diapositiva de cada bloque
+  function syncTimer() {
+    var s = slides[idx];
+    var mins = parseInt(s.getAttribute('data-minutes') || '', 10);
+    if (mins) startTimer(mins);
+    else if (s.getAttribute('data-timer') === 'off') stopTimer();
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target && (e.target.isContentEditable || /^(INPUT|TEXTAREA)$/.test(e.target.tagName))) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'PageDown': case ' ': case 'Enter':
+        if (e.target.tagName === 'BUTTON' && (e.key === ' ' || e.key === 'Enter')) return;
+        e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'PageUp': e.preventDefault(); prev(); break;
+      case 'Home': show(0); break;
+      case 'End': show(slides.length - 1); break;
+      case 'f': case 'F': toggleFull(); break;
+      case 'n': case 'N': toggleNotes(); break;
+      case 't': case 'T': toggleTimer(); break;
+      case 'r': case 'R': toggleReveal(); break;
+    }
+  });
+
+  document.getElementById('prev').addEventListener('click', prev);
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('btnFull').addEventListener('click', toggleFull);
+  document.getElementById('btnNotes').addEventListener('click', toggleNotes);
+  document.getElementById('btnTimer').addEventListener('click', toggleTimer);
+  Array.prototype.forEach.call(document.querySelectorAll('button.reveal'), function (b) {
+    b.addEventListener('click', toggleReveal);
+  });
+
+  // imágenes de ejemplo: se buscan en img/<nombre>.(jpg|png|webp|...)
+  var EXTS = ['jpg', 'png', 'webp', 'jpeg', 'svg', 'gif'];
+  Array.prototype.forEach.call(document.querySelectorAll('.slot[data-img]'), function (fig) {
+    var name = fig.getAttribute('data-img'), n = 0, img = document.createElement('img');
+    img.alt = fig.getAttribute('data-alt') || '';
+    img.onerror = function () {
+      n += 1;
+      if (n < EXTS.length) img.src = 'img/' + name + '.' + EXTS[n];
+      else {
+        fig.classList.add('empty');
+        var sl = fig.closest('.slide');
+        if (sl && sl.hasAttribute('data-needs-img') && !sl.querySelector('.slot:not(.empty)')) sl.setAttribute('data-skip', '');
+      }
+    };
+    img.src = 'img/' + name + '.' + EXTS[0];
+    fig.insertBefore(img, fig.firstChild);
+  });
+
+  // swipe en pantallas táctiles
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.changedTouches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 60) { dx < 0 ? next() : prev(); }
+  }, { passive: true });
+
+  window.addEventListener('hashchange', function () {
+    var n = parseInt(location.hash.slice(1), 10);
+    if (n && n - 1 !== idx) show(n - 1, false);
+  });
+
+  var start = parseInt(location.hash.slice(1), 10);
+  show(start ? start - 1 : 0, false);
+})();
+</script>
+</body>
+</html>

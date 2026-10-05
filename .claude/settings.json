@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm test *)",
+      "Bash(curl -sL \"https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js\" -o docsify-search.min.js)"
+    ]
+  }
+}

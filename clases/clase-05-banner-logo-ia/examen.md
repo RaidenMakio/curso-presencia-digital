@@ -1,0 +1,30 @@
+# Examen — Clase 5: Banner/logo con IA generativa de imágenes
+
+## Preguntas (del banco de esta clase)
+
+1. Pregunta # 1 — 10 pts
+2. Pregunta # 2 — 10 pts
+3. Pregunta # 6 — 10 pts
+4. Pregunta # 8 — 10 pts
+5. Pregunta # 9 — 10 pts
+6. Pregunta # 11 — 10 pts
+
+## Ejercicio práctico
+
+Se revisa el mismo sitio de tu proyecto que ya entregaste en `tarea.md`. Debe cumplir:
+
+- Banner o logo generado con IA, presente en el sitio.
+- Insertado con `<img>` y `alt` descriptivo.
+- Tamaño ajustado (no desborda el ancho de pantalla en vista celular ni computadora).
+
+Puntos: 40
+
+## Rúbrica
+
+| Ítem | Puntos |
+|---|---|
+| Preguntas # 1, 2, 6, 8, 9, 11 (10 c/u) | 60 |
+| Ejercicio práctico — imagen generada con IA presente | 15 |
+| Ejercicio práctico — `<img>` con `alt` descriptivo | 10 |
+| Ejercicio práctico — tamaño/posición ajustados sin desborde | 15 |
+| **Total** | **100** |

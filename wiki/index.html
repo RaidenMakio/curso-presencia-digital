@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Wiki del Curso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="/wiki/assets/theme-vue.css">
+  <style>
+    .mermaid { text-align: center; }
+  </style>
+</head>
+<body>
+  <div id="app">Cargando...</div>
+  <script>
+    window.$docsify = {
+      name: 'Curso Presencia Digital',
+      basePath: '/wiki/',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      auto2top: true,
+      routerMode: 'hash',
+      search: { placeholder: 'Buscar...', noData: 'Sin resultados.', depth: 3 },
+      copyCode: { buttonText: 'Copiar', successText: 'Copiado OK' },
+      pagination: { previousText: 'Anterior', nextText: 'Siguiente', crossChapter: true, crossChapterText: true },
+    }
+  </script>
+  <script src="/wiki/assets/docsify.min.js"></script>
+  <script src="/wiki/assets/mermaid.min.js"></script>
+  <script src="/wiki/assets/docsify-mermaid.js"></script>
+  <script src="/wiki/assets/docsify-copy-code.min.js"></script>
+  <script src="/wiki/assets/docsify-pagination.min.js"></script>
+  <script src="/wiki/assets/docsify-search.min.js"></script>
+  <script src="/wiki/assets/prism-bash.min.js"></script>
+  <script src="/wiki/assets/prism-sql.min.js"></script>
+  <script src="/wiki/assets/prism-yaml.min.js"></script>
+  <script src="/wiki/assets/prism-docker.min.js"></script>
+  <script src="/wiki/assets/prism-json.min.js"></script>
+</body>
+</html>

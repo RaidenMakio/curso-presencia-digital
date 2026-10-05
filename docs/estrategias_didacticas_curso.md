@@ -65,3 +65,34 @@ Para la clase 5 el grupo ya tuvo 4 sesiones de exposición progresiva (anónima 
 5. **Registro de evolución de la pareja:** cada pareja anota brevemente qué mejoró desde la última revisión — refuerza la relación de trabajo y evidencia el progreso antes de la presentación final.
 
 **Función pedagógica:** practicar la retroalimentación directa uno a uno, fortalecer la responsabilidad compartida sobre un entregable, y servir como puente natural hacia la exposición individual/grupal de la presentación final en la clase 8.
+
+---
+
+## Charlas conversatorias (desde la Clase 4, todas las fases)
+
+**Por qué se suman:**
+Hasta la Clase 3 el curso es sobre todo "el profesor explica, el estudiante practica". Desde la Clase 4 se empiezan a **mirar sitios reales** (los propios y los de compañeros), a **entender por qué un sitio funciona o no** y a **trabajar con IA**. Eso no se aprende escuchando: se aprende **conversando**. Una charla conversatoria es un momento breve (5-15 min), dentro de un bloque de la clase, donde el grupo mira algo concreto en pantalla y opina con un formato guiado.
+
+**Reglas de la charla (se dicen en voz alta la primera vez y quedan en la diapositiva):**
+
+1. **Se habla del sitio, no de la persona.** "El botón se ve chico en el celular", no "hiciste mal el botón".
+2. **Formato fijo de comentario:** *Me gusta…* · *Me confunde…* · *Yo probaría…* (el mismo esquema de feedback estructurado de la Fase 3).
+3. **Nadie está obligado a hablar ni a mostrar su sitio.** Se pide voluntarios/as; quien no quiera hablar participa por el chat. Se respeta el anonimato relativo de la Fase 1 y 2.
+4. **El profesor modera:** abre con una pregunta, da la palabra a 2-3 personas, resume y conecta con la teoría. No corrige a nadie frente al grupo.
+5. **Siempre termina en una acción:** cada conversatorio cierra con "¿qué vas a cambiar en TU sitio a partir de lo que escuchamos?".
+
+**Cómo se integra a la clase (sin agregar minutos):** la clase sigue durando 1 h 50. El conversatorio ocupa parte de un bloque existente (normalmente el Bloque 3 o el Bloque 4), no un bloque nuevo.
+
+**Cómo se hace sin salas:** todo el grupo junto, en la sesión principal, con voz o chat según prefiera cada quien. La Fase 2 (grupos de 4) y la Fase 3 (parejas) se pueden usar **dentro** de la práctica, pero el conversatorio siempre es de grupo completo.
+
+**Plan de conversatorios por clase:**
+
+| Clase | Conversatorio | Qué miramos | Qué queda como acción |
+|---|---|---|---|
+| 4 — Responsive | **Mirando sitios en el celular** (Bloque 1 y Bloque 3) y **Qué nos dijo la IA** (Bloque 4) | 2 sitios de voluntarios/as abiertos en modo celular; las respuestas de un asistente de IA a una duda de CSS | Corregir 1 problema en el propio sitio; aprender a evaluar lo que responde la IA |
+| 5 — Imágenes con IA | **Prompts que funcionaron y prompts que no** | Los banners/logos generados, con el prompt al lado | Reescribir un prompt y regenerar |
+| 6 — Enlaces y contacto | **¿Cómo contactarías a esta persona?** | Sitios reales (locales e internacionales) y sus vías de contacto | Elegir la vía de contacto de su propio sitio |
+| 7 — Ajustes finales | **Pasada de revisión cruzada** | El sitio "casi final" de un compañero, con la lista de revisión | Aplicar 3 correcciones recibidas |
+| 8 — Publicación | **Presentación del sitio** | El sitio publicado, con el link real | Compartir el link |
+
+**Uso de IA en el curso (desde la Clase 4):** se usa la IA como **ayudante que explica y sugiere**, no como quien hace la tarea. Tres reglas fijas: (1) primero intentás y anotás qué falla, después le preguntás; (2) pedís explicación además del código, y **solo pegás lo que entendés**; (3) **verificás** el resultado en el navegador — la IA puede equivocarse con total seguridad. No se pegan datos personales (teléfono, dirección, correo) en la IA.

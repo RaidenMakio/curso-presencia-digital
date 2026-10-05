@@ -1,0 +1,15 @@
+{
+  "name": "curso-presencia-digital",
+  "private": true,
+  "description": "Sitio de clases del curso Crea tu Presencia Digital (se publica en Netlify)",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-netlify.mjs",
+    "preview": "npx --yes serve netlify-dist -l 4190",
+    "start": "npm run build && npm run preview",
+    "deploy": "npm run build && npx --yes netlify-cli deploy --dir netlify-dist --prod"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,1589 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Crea tu Presencia Digital — Libro del curso</title>
+<style>
+@page { size: A4; margin: 22mm 18mm; }
+* { box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; color: #1a1a1a; line-height: 1.5; font-size: 12.5pt; }
+h1, h2, h3, h4 { font-family: 'Segoe UI', Arial, sans-serif; color: #0f2a4a; break-after: avoid; }
+h1 { font-size: 22pt; margin-top: 0; }
+h2 { font-size: 16pt; margin-top: 1.6em; border-bottom: 2px solid #0f2a4a; padding-bottom: 4px; }
+h3 { font-size: 13pt; margin-top: 1.3em; }
+h4 { font-size: 11.5pt; }
+code { font-family: Consolas, monospace; background: #f1f3f5; padding: 1px 4px; border-radius: 3px; font-size: 0.92em; }
+pre.code { background: #0f1b2b; color: #e6edf3; padding: 10px 12px; border-radius: 6px; overflow-wrap: break-word; white-space: pre-wrap; font-size: 10pt; }
+pre.code code { background: none; color: inherit; padding: 0; }
+blockquote { border-left: 4px solid #0f2a4a; margin: 1em 0; padding: 0.3em 1em; background: #f6f8fa; color: #333; }
+table { width: 100%; border-collapse: collapse; margin: 0.8em 0; font-size: 10.5pt; }
+table, th, td { border: 1px solid #ccc; }
+th, td { padding: 5px 7px; text-align: left; vertical-align: top; }
+thead { background: #0f2a4a; color: #fff; }
+tr { break-inside: avoid; }
+table.banco td:nth-child(1), table.respuestas td:nth-child(1) { width: 2.5em; text-align: center; }
+ul, ol { padding-left: 1.4em; }
+li { margin: 0.2em 0; }
+li.task { list-style: none; margin-left: -1.4em; padding-left: 0; }
+.nota { font-style: italic; color: #555; }
+.cover { break-after: page; text-align: center; padding-top: 30%; }
+.cover h1 { font-size: 30pt; }
+.toc { break-after: page; }
+.toc ol { list-style: decimal; }
+.chapter { break-before: page; }
+.respuestas-chapter { break-before: page; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+<h1>Crea tu Presencia Digital</h1>
+<p>Libro del curso — Clases 1 a 8</p>
+<p class="nota">Teoría, ejemplos y banco de preguntas de repaso de cada clase.</p>
+</section>
+
+<section class="toc">
+<h2>Índice</h2>
+<ol>
+<li><a href="#clase-1">Clase 1 — Clase 1: Definición del proyecto + estructura básica (HTML)</a></li>
+<li><a href="#clase-2">Clase 2 — Clase 2: Secciones de contenido (inicio, sobre mí/proyecto, galería o servicios)</a></li>
+<li><a href="#clase-3">Clase 3 — Clase 3: Estilo visual (CSS): colores y tipografía</a></li>
+<li><a href="#clase-4">Clase 4 — Clase 4: Diseño responsive (celular y computadora)</a></li>
+<li><a href="#clase-5">Clase 5 — Clase 5: Banner/logo con IA generativa de imágenes</a></li>
+<li><a href="#clase-6">Clase 6 — Clase 6: Enlaces, redes sociales y contacto</a></li>
+<li><a href="#clase-7">Clase 7 — Clase 7: Ajustes finales y práctica guiada</a></li>
+<li><a href="#clase-8">Clase 8 — Clase 8: Publicación y presentación final</a></li>
+
+<li><a href="#respuestas">Respuestas del banco de preguntas</a></li>
+</ol>
+</section>
+
+<section class="chapter" id="clase-1">
+<h1>Clase Guiada — Clase 1: Definición del proyecto + estructura básica (HTML)</h1>
+<blockquote><p>Libreto de las 2 horas de clase en vivo. La guía de estudio va al inicio</p><p>de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo y profundiza la teoría. <code>tarea.md</code> queda al final.</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Definir la idea de proyecto (portafolio, emprendimiento o marca personal)</li>
+<li>Aprender la estructura básica de una página web con HTML</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Idea de proyecto definida por escrito</li>
+<li>Primer archivo HTML con estructura mínima</li>
+<li>Boceto/esquema de las secciones del sitio</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 1 — participación anónima e individual (chat, sin cámara ni nombre real; ver <code>docs/estrategias_didacticas_curso.md</code>).</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> Antes de programar, definís tu proyecto respondiendo qué querés mostrar, a quién y qué querés que haga quien lo visita. Después aprendés que HTML organiza el contenido con etiquetas de apertura y cierre, y que toda página tiene la misma estructura mínima: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> y <code>&lt;body&gt;</code>.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Idea de proyecto definida por escrito</li>
+<li class="task">☐ Primer archivo HTML con estructura mínima</li>
+<li class="task">☐ Boceto/esquema de las secciones del sitio</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td>HTML</td><td>Lenguaje que estructura el contenido de una página web usando etiquetas.</td></tr><tr><td>Etiqueta</td><td>Palabra entre <code>&lt;</code> y <code>&gt;</code> que marca el inicio o el fin de un elemento (ej. <code>&lt;p&gt;</code> y <code>&lt;/p&gt;</code>).</td></tr><tr><td>Elemento</td><td>El bloque completo formado por etiqueta de apertura + contenido + etiqueta de cierre.</td></tr><tr><td>Anidamiento</td><td>Poner una etiqueta dentro de otra; la que se abre última se cierra primera.</td></tr><tr><td><code>&lt;head&gt;</code></td><td>Sección de la página con información que el navegador usa pero no se ve directamente (ej. título de la pestaña).</td></tr><tr><td><code>&lt;body&gt;</code></td><td>Sección de la página donde va todo el contenido visible.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Tener a mano el ejemplo de Valeria (fotógrafa) para ilustrar en vivo.</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 3, 8, 4, 6.</li>
+<li class="task">☐ Minijuego "Constructor de páginas" (<code>minijuegos/constructor-de-paginas/</code>), <strong>Nivel 1 — "El titular de tu sitio"</strong>, modo "Uno por uno", listo para compartir pantalla.</li>
+<li class="task">☐ Sala de Teams con chat habilitado para respuestas anónimas.</li>
+</ul>
+<h2>Bloque 1 — Analogía: construir una casa para visitas (15 min)</h2>
+<p>Imaginá que te encargan construir una casa, pero antes de poner un solo ladrillo tenés que responder: <strong>¿para quién es esta casa y para qué la van a usar?</strong> No es lo mismo construir una casa para recibir clientes de un negocio, que una casa-estudio para mostrar tu arte, que tu propia casa donde simplemente vivís y recibís visitas ocasionales. La respuesta cambia cuántos ambientes necesitás, dónde va la entrada principal, qué es lo primero que ve alguien al abrir la puerta.</p>
+<p>Un sitio web es exactamente eso: una casa digital. Antes de "poner ladrillos" (código) necesitás saber <strong>para quién es</strong> y <strong>para qué la van a usar</strong>. Esa es la primera mitad de la clase de hoy: el plano de tu casa antes de construirla.</p>
+<p>La segunda mitad tiene que ver con <strong>cómo se arma físicamente cualquier casa</strong>, sin importar su propósito: toda casa tiene una estructura mínima que la sostiene — cimientos, paredes, techo — antes de pensar en el color de las paredes o los muebles (eso viene después, en la Clase 3, con CSS). En una página web, esa estructura mínima se escribe en <strong>HTML</strong>. Así como una casa sin cimientos no se sostiene, una página sin la estructura mínima de HTML no funciona, sin importar cuán lindo la quieras decorar más adelante.</p>
+<p>Guardá esta analogía — la vamos a usar todo el resto de la clase: <strong>plano de la casa = definir el proyecto</strong>, <strong>cimientos y paredes = estructura HTML</strong>.</p>
+<h2>Bloque 2 — ¿Qué creés vos? (5 min)</h2>
+<p>Antes de ver la teoría, respondé en el chat (nadie va a saber quién escribió qué — escribí lo que pienses, no hay respuesta incorrecta todavía):</p>
+<ol>
+<li>Si tuvieras que armar una página web de vos mismo hoy, sin saber nada de</li>
+</ol>
+<p>   código, <strong>¿qué es lo primero que pondrías?</strong></p>
+<ol>
+<li>Cuando abrís cualquier página web en tu celular, ¿creés que **todo el</li>
+</ol>
+<p>   contenido está "suelto" en un solo bloque<strong>, o creés que el navegador    </strong>sabe distinguir qué es un título, qué es un párrafo y qué es una    imagen**? ¿Por qué creés eso?</p>
+<p>El profesor lee 3-4 respuestas en voz alta (anónimas) sin corregir todavía — solo para generar expectativa antes de la teoría.</p>
+<h2>Bloque 3 — Teoría + cuestionario (30 min)</h2>
+<h3>Tramo A — Definir la idea de tu proyecto (≈12 min)</h3>
+<p>Un sitio web sin un propósito claro termina siendo una mezcla de cosas sin sentido para quien lo visita — es la casa sin plano del Bloque 1. En este curso vas a elegir uno de estos tres tipos de proyecto:</p>
+<ul>
+<li><strong>Portafolio</strong> — mostrás tu trabajo (fotos, diseños, escritos, música, lo</li>
+</ul>
+<p>  que hagas) para que otros lo vean y potencialmente te contraten o te   sigan. La casa es una "sala de exhibición": lo central es que se vea bien   tu trabajo.</p>
+<ul>
+<li><strong>Emprendimiento</strong> — presentás un producto o servicio propio que la gente</li>
+</ul>
+<p>  pueda conocer, pedir o comprar (una marca de ropa, servicio de clases   particulares, repostería, etc.). La casa es un "local": lo central es que   quede claro qué vendés y cómo te contactan para comprarlo.</p>
+<ul>
+<li><strong>Marca personal</strong> — un sitio centrado en vos: quién sos, qué hacés, tus</li>
+</ul>
+<p>  redes, tu historia. Útil si todavía no tenés "algo que vender" pero   querés tener presencia online. La casa es tu "carta de presentación":   lo central es que quien te visite entienda quién sos rápido.</p>
+<p>Ningún tipo es "mejor" que otro — depende de qué tenés hoy para mostrar. Si dudás entre dos, elegí el que tenga más contenido real disponible ahora mismo (fotos que ya sacaste, un producto que ya existe): vas a trabajar con ese contenido las próximas 7 clases, así que conviene que sea algo que ya tenés, no algo que "algún día vas a tener".</p>
+<p>Para elegir y afinar la idea, respondé por escrito estas tres preguntas guía — este es tu <strong>brief</strong>, el resumen que vas a usar en cada clase siguiente para decidir qué contenido, qué colores y qué estructura le da tu sitio:</p>
+<ol>
+<li><strong>¿Qué querés mostrar?</strong> (tus fotos, tu emprendimiento, tus habilidades,</li>
+</ol>
+<p>   tu historia...)</p>
+<ol>
+<li><strong>¿A quién?</strong> (compañeros de colegio, clientes potenciales, familia,</li>
+</ol>
+<p>   cualquiera que busque lo que hacés)</p>
+<ol>
+<li><strong>¿Qué querés que haga la persona que lo visita?</strong> (que te contacte, que</li>
+</ol>
+<p>   te siga en redes, que te contrate, que simplemente te conozca)</p>
+<h4>Ejemplo práctico</h4>
+<p>Valeria quiere mostrar sus fotografías para que la contraten en eventos.</p>
+<table><thead><tr><th>Pregunta guía</th><th>Respuesta de Valeria</th></tr></thead><tbody><tr><td>¿Qué querés mostrar?</td><td>Mis mejores fotos de retratos y eventos</td></tr><tr><td>¿A quién?</td><td>Personas que organizan cumpleaños, quince años o eventos pequeños en mi ciudad</td></tr><tr><td>¿Qué querés que hagan?</td><td>Que me escriban por WhatsApp para cotizar una sesión</td></tr></tbody></table>
+<p>Con esas tres respuestas, Valeria ya sabe que su proyecto es un <strong>portafolio</strong> (objetivo: que la vean y la contraten, no vender un producto fijo con precio cerrado).</p>
+<p>Fijate que las tres respuestas están <strong>conectadas</strong>: si Valeria hubiera dicho "a cualquiera, de cualquier parte del mundo", ya no tendría sentido que el objetivo sea "que me escriban por WhatsApp para una sesión en mi ciudad". Cuando armes tu brief, revisá que las tres respuestas cuenten la misma historia.</p>
+<h3>Chequeo rápido</h3>
+<p>Pregunta # 3 y # 8 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<h3>Tramo B — La estructura básica de una página web con HTML (≈18 min)</h3>
+<p>HTML (<strong>HyperText Markup Language</strong>) es el lenguaje que le dice al navegador <strong>qué es</strong> cada parte del contenido de una página: esto es un título, esto es un párrafo, esto es una imagen. HTML no dice de qué color es ni qué tan grande — eso es trabajo de CSS, que vas a ver en la Clase 3. Por ahora, no te preocupes por cómo se ve: preocupate por qué <strong>es</strong> cada cosa.</p>
+<p>HTML se escribe con <strong>etiquetas</strong>: palabras entre <code>&lt;</code> y <code>&gt;</code> que "envuelven" un contenido.</p>
+<pre class="code"><code>&lt;p&gt;Esto es un párrafo.&lt;/p&gt;</code></pre>
+<ul>
+<li><code>&lt;p&gt;</code> es la etiqueta de <strong>apertura</strong>.</li>
+<li><code>&lt;/p&gt;</code> (con la barra <code>/</code>) es la etiqueta de <strong>cierre</strong> — la barra es lo</li>
+</ul>
+<p>  único que las distingue.</p>
+<ul>
+<li>Lo que está en el medio es el <strong>contenido</strong>.</li>
+<li>Todo el bloque (<code>&lt;p&gt;...&lt;/p&gt;</code>) es un <strong>elemento</strong>.</li>
+</ul>
+<p>Las etiquetas se pueden anidar (poner unas dentro de otras). Pensá en cajas dentro de cajas: si metés una caja chica dentro de una grande, tenés que cerrar primero la chica antes de cerrar la grande — no podés cerrar la caja grande y dejar la chica "colgando" afuera. Con etiquetas es la misma regla: la que se abrió <strong>última</strong> se cierra <strong>primera</strong>.</p>
+<pre class="code"><code>&lt;p&gt;Hola, soy &lt;strong&gt;Valeria&lt;/strong&gt;, fotógrafa.&lt;/p&gt;</code></pre>
+<p>Acá <code>&lt;strong&gt;</code> (que resalta el texto en negrita) se abrió después de <code>&lt;p&gt;</code>, así que se cierra antes que <code>&lt;p&gt;</code>. Si lo escribieras al revés (<code>&lt;p&gt;Hola, soy &lt;strong&gt;Valeria&lt;/p&gt;, fotógrafa.&lt;/strong&gt;</code>) el navegador no sabe dónde termina cada cosa y el resultado se rompe.</p>
+<p>Toda página HTML tiene una <strong>estructura mínima obligatoria</strong>, siempre igual — son los "cimientos y paredes" de la analogía del Bloque 1:</p>
+<pre class="code"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Título que aparece en la pestaña del navegador&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Todo lo que se ve en la página va acá adentro --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ul>
+<li><code>&lt;!DOCTYPE html&gt;</code> le dice al navegador "esto es HTML5" — va siempre</li>
+</ul>
+<p>  primero, y es la única línea de todo el documento que <strong>no se cierra</strong>   (no existe <code>&lt;/!DOCTYPE&gt;</code>).</p>
+<ul>
+<li><code>&lt;html&gt;</code> envuelve <strong>toda</strong> la página — es la "caja más grande", todo lo</li>
+</ul>
+<p>  demás va anidado adentro.</p>
+<ul>
+<li><code>&lt;head&gt;</code> guarda información que el navegador necesita pero el usuario no</li>
+</ul>
+<p>  ve directamente en la página (el título de la pestaña, más adelante el   link al CSS). Pensalo como los planos y permisos de la casa: existen,   importan, pero nadie que entra a visitarte los ve colgados en la pared.</p>
+<ul>
+<li><code>&lt;body&gt;</code> es donde va <strong>todo el contenido visible</strong>: títulos, textos,</li>
+</ul>
+<p>  imágenes, botones. Es la casa por dentro, donde vive todo lo que sí se   ve.</p>
+<ul>
+<li><code>&lt;!-- así se escribe un comentario --&gt;</code>: el navegador lo ignora</li>
+</ul>
+<p>  completamente, sirve solo para dejarte notas a vos mismo en el código.</p>
+<p>Dos errores comunes de principiante para evitar desde ya:</p>
+<ol>
+<li><strong>Olvidar la etiqueta de cierre.</strong> Si abrís <code>&lt;p&gt;</code> y te olvidás el</li>
+</ol>
+<p>   <code>&lt;/p&gt;</code>, el navegador va a asumir que todo lo que sigue (títulos,    imágenes, lo que sea) sigue "adentro" de ese párrafo, y el resultado se    ve raro sin que sea obvio por qué.</p>
+<ol>
+<li><strong>Escribir contenido visible fuera de <code>&lt;body&gt;</code>.</strong> Si ponés un <code>&lt;h1&gt;</code></li>
+</ol>
+<p>   dentro de <code>&lt;head&gt;</code> por error, el navegador simplemente no lo va a    mostrar — y vas a pensar que "no funciona" cuando en realidad está en el    lugar equivocado de la casa.</p>
+<h4>Ejemplo práctico</h4>
+<p>Estructura mínima con contenido real de Valeria:</p>
+<pre class="code"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Valeria Fotografía&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Valeria Pérez — Fotógrafa&lt;/h1&gt;
+    &lt;p&gt;Capturo momentos únicos en cumpleaños, quince años y eventos pequeños.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><code>&lt;h1&gt;</code> es la etiqueta para el título/encabezado más importante de la página — vas a usarla una sola vez por página, para lo más relevante (el "cartel en la puerta de entrada" de tu casa digital).</p>
+<h3>Chequeo rápido</h3>
+<p>Pregunta # 4 y # 6 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<h2>Bloque 4 — Ejemplo guiado con un/a estudiante (20 min)</h2>
+<p>Se pide un/a voluntario/a (o dos, si el tiempo alcanza). En vivo, el profesor:</p>
+<ol>
+<li>Le hace las 3 preguntas guía del brief en voz alta y escribe las</li>
+</ol>
+<p>   respuestas en pantalla, tal como las va diciendo el/la estudiante — sin    apurar, dejando que piense.</p>
+<ol>
+<li>Con esas respuestas ya escritas, arma junto al/la estudiante el archivo</li>
+</ol>
+<p>   <code>.html</code> con la estructura mínima, narrando en voz alta qué hace cada    etiqueta a medida que la escribe (igual que en el ejemplo de Valeria,    pero ahora con el proyecto real del voluntario).</p>
+<ol>
+<li>El resto del grupo sigue el proceso por pantalla compartida y puede</li>
+</ol>
+<p>   sugerir en el chat (ej. "yo pondría eso en el <code>&lt;h1&gt;</code>").</p>
+<p>El objetivo de este bloque no es que el voluntario "lo haga perfecto", sino que todo el grupo vea el camino completo — de responder 3 preguntas a tener un archivo <code>.html</code> real — antes de hacerlo cada uno por su cuenta.</p>
+<h2>Bloque 5 — Práctica en clase: construyamos el sitio (35 min)</h2>
+<p>Ahora cada estudiante hace lo mismo con su propio proyecto:</p>
+<ol>
+<li>Responde por escrito (en un documento propio, no en el chat grupal) las</li>
+</ol>
+<p>   3 preguntas guía del brief.</p>
+<ol>
+<li>Crea su propio archivo <code>.html</code> con la estructura mínima y agrega un</li>
+</ol>
+<p>   <code>&lt;h1&gt;</code> con el nombre de su proyecto y un <code>&lt;p&gt;</code> que lo describa — contenido    propio, no el ejemplo de Valeria ni el del voluntario del Bloque 4.</p>
+<p>El profesor circula abriendo salas o mensajes privados en Teams para resolver dudas 1 a 1, sin exponer a nadie frente al grupo entero (seguimos en Fase 1). Quien termine antes puede repasar el minijuego "Constructor de páginas", Nivel 1, sobre el ejemplo del juego (no sobre su proyecto).</p>
+<p>Esto avanza directamente los entregables 1 y 2 de la clase. Quien no llegue a terminar, lo termina como tarea (ver el cierre de este documento).</p>
+<h2>Bloque 6 — Dudas y preguntas (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿A alguien le pasó que el navegador no mostraba algo que sí habían</li>
+</ul>
+<p>  escrito? ¿Dónde estaba el error?"</p>
+<ul>
+<li>"¿Alguien todavía no tiene claro si su proyecto es portafolio,</li>
+</ul>
+<p>  emprendimiento o marca personal? Repasemos ese caso en vivo."</p>
+<ul>
+<li>"¿Qué parte de la estructura mínima (<code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>,</li>
+</ul>
+<p>  <code>&lt;body&gt;</code>) les generó más dudas?"</p>
+<h2>Cierre de clase — Examen</h2>
+<p>Ver <code>examen.md</code> para el detalle completo (preguntas del banco, ejercicio práctico y rúbrica). Se aplica acá, al cierre de la clase, como cuestionario relámpago sobre lo recién practicado: 6 preguntas del banco (# 1, 2, 6, 7, 8, 10) más la revisión del mismo archivo <code>.html</code> que cada estudiante armó en el Bloque 5.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: quien no terminó el Bloque 5 en clase, termina en casa su brief escrito y su archivo <code>.html</code> con la estructura mínima, <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code> con contenido propio. Ese es el entregable oficial de la Clase 1 y lo que se revisa en el examen y al empezar la Clase 2.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Cuáles son los 3 tipos de proyecto que podés elegir para tu sitio en este curso?</td><td>opción múltiple</td><td>A) Portafolio, emprendimiento o marca personal B) Blog, tienda o juego C) Red social, foro o wiki D) Ninguna de las anteriores</td></tr><tr><td>2</td><td>¿Qué significa la sigla HTML?</td><td>opción múltiple</td><td>A) HyperText Markup Language B) High Tech Modern Language C) Home Tool Markup Language D) Hyperlink and Text Markup Language</td></tr><tr><td>3</td><td>Antes de escribir código, primero hay que definir la idea del proyecto.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>4</td><td>Toda página HTML debe empezar con <code>&lt;!DOCTYPE html&gt;</code>.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>5</td><td>Nombra las 3 preguntas guía que ayudan a definir la idea de un proyecto.</td><td>respuesta corta</td><td>—</td></tr><tr><td>6</td><td>¿Qué etiqueta se usa para el título/encabezado más importante de una página?</td><td>opción múltiple</td><td>A) <code>&lt;h1&gt;</code> B) <code>&lt;p&gt;</code> C) <code>&lt;title&gt;</code> D) <code>&lt;header1&gt;</code></td></tr><tr><td>7</td><td>¿Dentro de qué etiqueta va todo el contenido visible de la página?</td><td>opción múltiple</td><td>A) <code>&lt;head&gt;</code> B) <code>&lt;body&gt;</code> C) <code>&lt;html&gt;</code> D) <code>&lt;meta&gt;</code></td></tr><tr><td>8</td><td>Valeria quiere mostrar su trabajo de fotografía para que la contraten en eventos. ¿Qué tipo de proyecto es?</td><td>opción múltiple</td><td>A) Emprendimiento B) Portafolio C) Marca personal D) Ninguno</td></tr><tr><td>9</td><td>Las etiquetas HTML siempre deben escribirse en mayúsculas.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>10</td><td>¿Cuál de estas etiquetas NO existe en HTML?</td><td>opción múltiple</td><td>A) <code>&lt;section&gt;</code> B) <code>&lt;article&gt;</code> C) <code>&lt;text&gt;</code> D) <code>&lt;footer&gt;</code></td></tr><tr><td>11</td><td>¿Por qué es importante pensar "a quién" va dirigido tu sitio antes de diseñarlo?</td><td>respuesta corta</td><td>—</td></tr><tr><td>12</td><td>¿Qué es el "anidamiento" de etiquetas?</td><td>opción múltiple</td><td>A) Poner una etiqueta dentro de otra B) Repetir la misma etiqueta muchas veces C) Poner atributos en una etiqueta D) Cerrar una etiqueta dos veces</td></tr><tr><td>13</td><td>¿Cuál de estas NO es parte de definir la idea de tu proyecto?</td><td>opción múltiple</td><td>A) Elegir el tipo de proyecto B) Elegir la paleta de colores C) Pensar a quién va dirigido D) Pensar qué querés lograr</td></tr><tr><td>14</td><td>Escribe las 4 etiquetas principales de la estructura mínima de una página HTML.</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-2">
+<h1>Clase Guiada — Clase 2: Secciones de contenido (inicio, sobre mí/proyecto, galería o servicios)</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo y profundiza la teoría. <code>tarea.md</code> queda al final.</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Aplicar etiquetas HTML para organizar texto, imágenes y listas</li>
+<li>Redactar contenido propio para cada sección</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Sección "Inicio" con texto propio</li>
+<li>Sección "Sobre mí/proyecto" completa</li>
+<li>Sección de galería o servicios con al menos 2 elementos</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 1 — participación anónima e individual (chat, sin cámara ni nombre real; ver <code>docs/estrategias_didacticas_curso.md</code>).</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> El sitio se organiza en bloques (<code>&lt;section&gt;</code>) con su propio título (<code>&lt;h2&gt;</code>). Las imágenes van con <code>&lt;img src="..." alt="..."&gt;</code> y los listados de servicios o productos con <code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>. Cada sección lleva contenido propio y concreto, no relleno genérico.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Sección "Inicio" con texto propio</li>
+<li class="task">☐ Sección "Sobre mí/proyecto" completa</li>
+<li class="task">☐ Sección de galería o servicios con al menos 2 elementos</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td><code>&lt;section&gt;</code></td><td>Etiqueta que agrupa una parte temática de la página.</td></tr><tr><td>Atributo</td><td>Información extra dentro de una etiqueta de apertura (ej. <code>src</code>, <code>alt</code>).</td></tr><tr><td><code>alt</code></td><td>Texto alternativo de una imagen; se muestra si no carga o la lee un lector de pantalla.</td></tr><tr><td><code>&lt;ul&gt;</code> / <code>&lt;li&gt;</code></td><td>Lista sin orden y cada uno de sus elementos.</td></tr><tr><td>Contenido propio</td><td>Texto escrito por vos sobre tu proyecto real, no copiado ni genérico.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Tener a mano tu propio archivo <code>.html</code> de la Clase 1 (con <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code>) para usarlo como base del ejemplo guiado.</li>
+<li class="task">☐ Tener a mano el ejemplo de Valeria ampliado (más abajo, con las 3 secciones).</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 1, 2, 4, 13 (Tramo A) y # 6, 9 (Tramo B).</li>
+<li class="task">☐ Pedirle a alguien que traiga su archivo <code>.html</code> de la Clase 1 para el ejemplo guiado (Bloque 3).</li>
+<li class="task">☐ <strong>Sitios reales:</strong> en los primeros minutos (el margen de 5 min de espera), pedir en el chat que cada estudiante pegue hasta <strong>5 links</strong> de sitios web que le gusten, de su país y del mundo. Mientras corre el Bloque 1, elegir <strong>6</strong> para revisar en el Bloque 2: <strong>3 locales y 3 internacionales</strong>, variados (un portafolio, un negocio, una marca personal, etc.) y que carguen bien.</li>
+</ul>
+<h2>Bloque 1 — Analogía y diagnóstico: dividir la casa en habitaciones (15 min)</h2>
+<p>La clase pasada levantamos los <strong>cimientos y las paredes</strong> de la casa: la estructura mínima de HTML (<code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>). Pero una casa recién construida, sin paredes internas, es un solo ambiente gigante — un galpón. Nadie sabe dónde está la cocina, dónde el living, dónde tu cuarto. Es incómodo para vivir y más incómodo todavía para recibir visitas: la visita entra y no entiende hacia dónde mirar.</p>
+<p>Hoy dividimos esa casa en <strong>habitaciones</strong>, cada una con un propósito claro:</p>
+<ul>
+<li>El <strong>living</strong> — lo primero que ve cualquiera que entra. En tu sitio, es la</li>
+</ul>
+<p>  sección <strong>Inicio</strong>: quién sos y qué hacés, en una frase.</p>
+<ul>
+<li>Tu <strong>cuarto</strong>, con fotos y objetos personales — cuenta tu historia. En tu</li>
+</ul>
+<p>  sitio, es la sección <strong>Sobre mí/proyecto</strong>.</p>
+<ul>
+<li>Una <strong>vitrina o estantería</strong>, donde mostrás lo que hacés u ofrecés</li>
+</ul>
+<p>  ordenado, ítem por ítem. En tu sitio, es la sección de <strong>galería o   servicios</strong>.</p>
+<p>En HTML, cada habitación es una etiqueta <code>&lt;section&gt;</code>. Así como una casa sin paredes internas es un galpón incómodo, un sitio sin <code>&lt;section&gt;</code> es un único bloque de texto larguísimo donde nadie encuentra nada. Guardá esta imagen — la vamos a usar toda la clase: <strong>paredes internas = <code>&lt;section&gt;</code></strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre):</p>
+<ol>
+<li>Si tuvieras que <strong>dividir tu propia página en 2 o 3 partes</strong>, sin saber</li>
+</ol>
+<p>   todavía cómo se hace en código, <strong>¿cómo las llamarías?</strong> (pensá en    habitaciones: ¿qué va primero, qué va después?)</p>
+<ol>
+<li>Imaginate que una imagen de tu sitio <strong>no carga</strong> (mala conexión, archivo</li>
+</ol>
+<p>   roto). ¿Creés que el navegador <strong>muestra algo en su lugar</strong>, o que <strong>queda    un hueco vacío sin ninguna pista</strong> de qué imagen faltaba?</p>
+<p>El profesor lee algunas respuestas en voz alta (anónimas) sin corregir todavía — solo para generar expectativa antes de la teoría.</p>
+<p><strong>Sitios para más tarde.</strong> Si todavía no lo hiciste, pegá en el chat hasta 5 sitios web reales que te gusten (de tu país y del mundo). Hoy vamos a revisar 6 en vivo — 3 locales y 3 internacionales — para encontrar en ellos las "habitaciones" y las etiquetas que vamos a aprender.</p>
+<h2>Bloque 2 — Teoría + cuestionario + sitios reales (25 min)</h2>
+<p>Este bloque va con preguntas seguidas, casi todo el rato: cada concepto se cierra con un chequeo antes de pasar al siguiente, no se acumulan para el final. Reparto: teoría de etiquetas ≈10 min, contenido propio ≈5 min y revisión de sitios reales ≈10 min.</p>
+<h3>Tramo A — Etiquetas para organizar texto, imágenes y listas (≈10 min)</h3>
+<p>Un sitio de una sola sección larga es difícil de leer. Se organiza en <strong>bloques</strong>, cada uno con su propósito — las habitaciones del Bloque 1:</p>
+<ul>
+<li><code>&lt;section&gt;</code> agrupa una parte temática de la página (ej. "Inicio", "Sobre</li>
+</ul>
+<p>  mí", "Servicios"). Usualmente lleva un <code>id</code> para poder identificarla:   <code>&lt;section id="sobre-mi"&gt;</code>. El <code>id</code> es como el cartel en la puerta de la   habitación: le da un nombre único que después se puede usar para   encontrarla (por ejemplo, para enlazarla desde un menú, más adelante en   el curso).</p>
+<ul>
+<li><code>&lt;h2&gt;</code> es el título de cada sección — más chico que el <code>&lt;h1&gt;</code> de la Clase</li>
+</ul>
+<p>  1, que se usa <strong>una sola vez por página</strong> (es el cartel de la puerta de   entrada de toda la casa, no de cada habitación).</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<ul>
+<li><code>&lt;img&gt;</code> muestra una imagen. Es distinta a las etiquetas que ya conocés:</li>
+</ul>
+<p>  <strong>no tiene etiqueta de cierre</strong> (no existe <code>&lt;/img&gt;</code>) y necesita dos   <strong>atributos</strong> — información extra que va dentro de la misma etiqueta de   apertura:</p>
+<pre class="code"><code>  &lt;img src="foto-perfil.jpg" alt="Foto de perfil de Valeria"&gt;</code></pre>
+<ul>
+<li><code>src</code> (<em>source</em>, "fuente") — de dónde sale la imagen: el nombre del</li>
+</ul>
+<p>    archivo o un link.</p>
+<ul>
+<li><code>alt</code> (<em>alternative</em>, "alternativo") — texto alternativo. Se muestra si</li>
+</ul>
+<p>    la imagen no carga, y lo leen los lectores de pantalla que usan las     personas con discapacidad visual. <strong>Nunca se deja vacío</strong>: si tu <code>alt</code>     está vacío o dice "imagen", esa persona no se entera de qué hay ahí.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 2 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<ul>
+<li><code>&lt;ul&gt;</code> (<em>unordered list</em>, lista sin orden) y <code>&lt;li&gt;</code> (<em>list item</em>, cada</li>
+</ul>
+<p>  elemento de la lista) organizan varios ítems similares — perfecto para   servicios o productos, donde no importa el orden en que aparecen:</p>
+<pre class="code"><code>  &lt;ul&gt;
+    &lt;li&gt;Diseño de logotipos&lt;/li&gt;
+    &lt;li&gt;Ilustración digital&lt;/li&gt;
+  &lt;/ul&gt;</code></pre>
+<p>Un <strong>atributo</strong> siempre va en pares <code>nombre="valor"</code>, dentro de la etiqueta de apertura, y una etiqueta puede tener más de uno (como <code>&lt;img&gt;</code>, que siempre necesita <code>src</code> y <code>alt</code> juntos).</p>
+<h4>Ejemplo práctico</h4>
+<pre class="code"><code>&lt;section id="galeria"&gt;
+  &lt;h2&gt;Mis servicios&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Sesión de retrato — 45 min&lt;/li&gt;
+    &lt;li&gt;Cobertura de evento — medio día&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;img src="ejemplo-retrato.jpg" alt="Ejemplo de sesión de retrato"&gt;
+&lt;/section&gt;</code></pre>
+<p><strong>Chequeo rápido:</strong> preguntas # 4 y # 13 de <code>banco-preguntas.md</code>, una diapositiva por pregunta (votación en vivo en el chat).</p>
+<h3>Tramo B — Redactar contenido propio para cada sección (≈5 min)</h3>
+<p>Tener las etiquetas correctas no alcanza: cada sección necesita <strong>texto que hable de vos y tu proyecto real</strong>, no relleno genérico ("Lorem ipsum" o frases copiadas de internet). Una habitación vacía o llena de cajas sin etiquetar tampoco sirve de mucho. Guía rápida por sección:</p>
+<ul>
+<li><strong>Inicio:</strong> una frase corta que diga quién sos y qué hacés — es lo primero</li>
+</ul>
+<p>  que lee cualquiera, el "living" de tu casa.</p>
+<ul>
+<li><strong>Sobre mí/proyecto:</strong> 2 a 4 frases con tu historia o la del proyecto: qué</li>
+</ul>
+<p>  te motivó, qué ofrecés, por qué confiar en vos.</p>
+<ul>
+<li><strong>Galería/servicios:</strong> al menos 2 elementos <strong>concretos</strong>. "Hago cosas</li>
+</ul>
+<p>  variadas" no dice nada; "Diseño de logotipos" sí.</p>
+<p>Fijate que esto conecta directo con tu <strong>brief</strong> de la Clase 1 (¿qué querés mostrar? ¿a quién? ¿qué querés que hagan?): el contenido de cada sección tiene que responder a esas mismas tres preguntas, ahora repartido en habitaciones distintas.</p>
+<h4>Ejemplo práctico</h4>
+<p>Valeria (fotógrafa) ya tenía su Clase 1 lista. Así queda dividida en secciones:</p>
+<pre class="code"><code>&lt;section id="inicio"&gt;
+  &lt;h1&gt;Valeria Pérez — Fotógrafa&lt;/h1&gt;
+  &lt;p&gt;Capturo momentos únicos en cumpleaños, quince años y eventos pequeños.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id="sobre-mi"&gt;
+  &lt;h2&gt;Sobre mí&lt;/h2&gt;
+  &lt;p&gt;Empecé a fotografiar hace 3 años en cumpleaños de amigos. Hoy trabajo
+  con luz natural y edición simple para que las fotos se vean auténticas,
+  no sobreeditadas.&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;section id="galeria"&gt;
+  &lt;h2&gt;Mis servicios&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Sesión de retrato — 45 min&lt;/li&gt;
+    &lt;li&gt;Cobertura de evento — medio día&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+<p>Notá que el <code>&lt;h1&gt;</code> de la Clase 1 <strong>no desaparece</strong>: se queda adentro de la sección Inicio, porque sigue siendo el único título principal de toda la página.</p>
+<p><strong>Chequeo rápido:</strong> preguntas # 6 y # 9 de <code>banco-preguntas.md</code>, una diapositiva por pregunta (votación en vivo en el chat).</p>
+<h3>Tramo C — Revisión de sitios reales (≈10 min)</h3>
+<p>Ahora miramos la teoría <strong>en el mundo real</strong>. Con los links que pegaron al inicio, el profesor abre <strong>6 sitios — 3 locales y 3 internacionales — de a uno, ≈1,5 min por sitio</strong>, compartiendo pantalla. Para cada uno, entre todos identificamos:</p>
+<ol>
+<li><strong>Habitaciones:</strong> ¿qué secciones tiene y cómo se llaman? (inicio, sobre</li>
+</ol>
+<p>   nosotros, servicios/productos, contacto…)</p>
+<ol>
+<li><strong>Título principal:</strong> ¿cuál es el <code>&lt;h1&gt;</code>? ¿Es uno solo?</li>
+<li><strong>Listas:</strong> ¿dónde hay <code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code>? (el menú, los servicios, los</li>
+</ol>
+<p>   productos…)</p>
+<ol>
+<li><strong>Imágenes:</strong> ¿cuáles hay y qué tienen en el <code>alt</code>?</li>
+<li><strong>Contenido:</strong> ¿es concreto o genérico? ¿Se entiende quién es y qué</li>
+</ol>
+<p>   hace en 5 segundos?</p>
+<p><strong>Cómo mirar el código real.</strong> Clic derecho → <em>Inspeccionar</em> (o <code>F12</code>) para ver las etiquetas de un elemento; <code>Ctrl+U</code> abre el código fuente completo, y con <code>Ctrl+F</code> se busca <code>&lt;section</code>, <code>&lt;h1</code>, <code>&lt;img</code> o <code>&lt;li</code>.</p>
+<p><strong>Ojo, dato importante:</strong> muchos sitios reales <strong>no usan <code>&lt;section&gt;</code></strong>: usan otras etiquetas (<code>&lt;div&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;footer&gt;</code>…). No pasa nada. Identificamos la habitación <strong>por su función</strong>, no por el nombre de la etiqueta — y eso es justo lo que vamos a hacer nosotros con las nuestras.</p>
+<p>Los estudiantes participan por el chat ("yo veo 4 habitaciones") y el profesor confirma mirando el código. Con esto cerramos la teoría y pasamos a construir.</p>
+<h2>Bloque 3 — Del ejemplo a tu sitio (45 min)</h2>
+<p><strong>Ejemplo guiado con un/a estudiante (≈15 min).</strong> Se pide un/a voluntario/a que traiga su archivo <code>.html</code> de la Clase 1 (con su <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code> de la Clase 1). En vivo, el profesor:</p>
+<ol>
+<li>Junto al/la estudiante, envuelve su <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code> existentes dentro de</li>
+</ol>
+<p>   <code>&lt;section id="inicio"&gt;...&lt;/section&gt;</code> — mostrando que nada se pierde, solo    se ordena.</p>
+<ol>
+<li>Le pregunta en voz alta las 2-4 frases de su historia y arma junto a</li>
+</ol>
+<p>   el/la estudiante la sección <code>&lt;section id="sobre-mi"&gt;</code>, con su <code>&lt;h2&gt;</code> y el    texto real.</p>
+<ol>
+<li>Le pregunta qué 2 elementos concretos puede listar (servicios, productos,</li>
+</ol>
+<p>   piezas de portafolio) y arma la tercera sección con <code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code> o    <code>&lt;img&gt;</code> según corresponda a su proyecto.</p>
+<ol>
+<li>El resto del grupo sigue el proceso por pantalla compartida y puede</li>
+</ol>
+<p>   sugerir en el chat.</p>
+<p>El objetivo es que todos vean el archivo de la Clase 1 <strong>crecer</strong> en vivo, sección por sección, antes de hacerlo cada uno con el suyo.</p>
+<p><strong>Práctica: construyamos el sitio (≈30 min).</strong> Ahora cada estudiante hace lo mismo con su propio archivo <code>.html</code>:</p>
+<ol>
+<li>Envuelve su <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code> existentes en <code>&lt;section id="inicio"&gt;</code>.</li>
+<li>Agrega <code>&lt;section id="sobre-mi"&gt;</code> con <code>&lt;h2&gt;Sobre mí&lt;/h2&gt;</code> y 2-4 frases</li>
+</ol>
+<p>   propias.</p>
+<ol>
+<li>Agrega una tercera sección de galería o servicios con <code>&lt;h2&gt;</code> y al menos 2</li>
+</ol>
+<p>   elementos (<code>&lt;ul&gt;</code>/<code>&lt;li&gt;</code> o <code>&lt;img&gt;</code> con <code>alt</code>, según su proyecto).</p>
+<p>El profesor va respondiendo dudas por el chat a medida que aparecen, sin exponer a nadie frente al grupo entero (seguimos en Fase 1).</p>
+<p>Esto avanza directamente los 3 entregables de la clase. Quien no llegue a terminar, lo termina como tarea (ver el cierre de este documento).</p>
+<h2>Bloque 4 — Dudas y preguntas (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿A alguien el <code>&lt;img&gt;</code> no le mostró la imagen? ¿Revisaron que <code>src</code> tenga</li>
+</ul>
+<p>  el nombre exacto del archivo?"</p>
+<ul>
+<li>"¿Qué le pusieron en el <code>alt</code> de su imagen? Compartan un ejemplo en el</li>
+</ul>
+<p>  chat."</p>
+<ul>
+<li>"¿A alguien le costó pensar los 2 elementos concretos de su galería o</li>
+</ul>
+<p>  servicios? Pensemos uno juntos en vivo."</p>
+<h2>Cierre de clase — Examen</h2>
+<p>Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos: # 1, 2, 4, 6, 9 y 13 de <code>banco-preguntas.md</code>. Ver <code>examen.md</code> para el detalle completo (rúbrica y ejercicio práctico).</p>
+<p><strong>Así se evalúa la tarea de hoy:</strong> las 6 preguntas respondidas juntos en clase valen 60 puntos; tu archivo <code>.html</code> con las 3 secciones (Inicio, Sobre mí/proyecto, galería o servicios) vale 40 puntos — ver el detalle en <code>examen.md</code>.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: quien no terminó el Bloque 3 en clase, termina en casa sus 3 secciones — Inicio, Sobre mí/proyecto y galería o servicios, cada una con contenido propio y no genérico. Ese es el entregable oficial de la Clase 2 y lo que se revisa al empezar la Clase 3.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Qué etiqueta se usa para agrupar una parte temática de la página, como "Sobre mí"?</td><td>opción múltiple</td><td>A) <code>&lt;section&gt;</code> B) <code>&lt;img&gt;</code> C) <code>&lt;li&gt;</code> D) <code>&lt;title&gt;</code></td></tr><tr><td>2</td><td>¿Qué atributo de <code>&lt;img&gt;</code> indica de dónde sale la imagen?</td><td>opción múltiple</td><td>A) <code>alt</code> B) <code>src</code> C) <code>href</code> D) <code>id</code></td></tr><tr><td>3</td><td>El atributo <code>alt</code> de una imagen se puede dejar vacío sin problema.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>4</td><td>¿Qué etiquetas se usan juntas para armar una lista de servicios?</td><td>opción múltiple</td><td>A) <code>&lt;ul&gt;</code> y <code>&lt;li&gt;</code> B) <code>&lt;section&gt;</code> y <code>&lt;h2&gt;</code> C) <code>&lt;img&gt;</code> y <code>&lt;alt&gt;</code> D) <code>&lt;p&gt;</code> y <code>&lt;span&gt;</code></td></tr><tr><td>5</td><td>La sección "Inicio" debe tener una frase corta que diga quién sos y qué hacés.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>6</td><td>¿Cuál de estas frases es contenido propio y concreto, no genérico?</td><td>opción múltiple</td><td>A) "Hago cosas variadas" B) "Diseño de logotipos para emprendimientos" C) "Servicios de diseño" D) "Trabajo con clientes"</td></tr><tr><td>7</td><td>¿Qué etiqueta se usa para el título de cada sección (distinta del título principal <code>&lt;h1&gt;</code>)?</td><td>opción múltiple</td><td>A) <code>&lt;h2&gt;</code> B) <code>&lt;title&gt;</code> C) <code>&lt;head&gt;</code> D) <code>&lt;section-title&gt;</code></td></tr><tr><td>8</td><td>¿Para qué sirve el atributo <code>alt</code> además de mostrarse si la imagen no carga?</td><td>respuesta corta</td><td>—</td></tr><tr><td>9</td><td>La sección "Galería/servicios" debe tener como mínimo cuántos elementos según el temario.</td><td>opción múltiple</td><td>A) 1 B) 2 C) 5 D) 10</td></tr><tr><td>10</td><td>¿Qué debería incluir la sección "Sobre mí/proyecto" según la teoría de esta clase?</td><td>respuesta corta</td><td>—</td></tr><tr><td>11</td><td>¿Cuál es la diferencia entre <code>&lt;h1&gt;</code> y <code>&lt;h2&gt;</code> en una página bien organizada?</td><td>respuesta corta</td><td>—</td></tr><tr><td>12</td><td>¿Por qué es un problema usar "Lorem ipsum" o relleno genérico en las secciones del sitio?</td><td>respuesta corta</td><td>—</td></tr><tr><td>13</td><td>¿Qué etiqueta NO tiene etiqueta de cierre?</td><td>opción múltiple</td><td>A) <code>&lt;section&gt;</code> B) <code>&lt;li&gt;</code> C) <code>&lt;img&gt;</code> D) <code>&lt;p&gt;</code></td></tr><tr><td>14</td><td>El <code>id</code> de un <code>&lt;section&gt;</code> sirve para identificarla, por ejemplo para enlazarla después.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-3">
+<h1>Clase Guiada — Clase 3: Estilo visual (CSS): colores y tipografía</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo y profundiza la teoría. <code>tarea.md</code> queda al final.</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Vincular CSS al HTML</li>
+<li>Definir y aplicar una identidad visual coherente (colores y tipografía)</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Paleta de colores definida y aplicada</li>
+<li>Tipografía elegida y aplicada</li>
+<li>Archivo CSS vinculado correctamente</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 2 (ver <code>docs/estrategias_didacticas_curso.md</code>). En esta versión de la clase la práctica sigue siendo individual, con las dudas por el chat y sin salas.</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> CSS se vincula al HTML con <code>&lt;link rel="stylesheet" href="..."&gt;</code> dentro del <code>&lt;head&gt;</code>. Cada regla CSS tiene selector, propiedad y valor. La identidad visual coherente usa pocos elementos repetidos siempre igual: 2-3 colores máximo (principal, texto, fondo) y máximo 2 tipografías.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Paleta de colores definida y aplicada</li>
+<li class="task">☐ Tipografía elegida y aplicada</li>
+<li class="task">☐ Archivo CSS vinculado correctamente</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td>CSS</td><td>Lenguaje que define la apariencia visual del HTML (colores, tipografía, espaciados).</td></tr><tr><td>Selector</td><td>Parte de una regla CSS que indica a qué etiqueta(s) o clase aplica.</td></tr><tr><td>Propiedad / valor</td><td>Qué característica visual se cambia y a qué se cambia (ej. <code>color: #2b2b2b</code>).</td></tr><tr><td><code>class</code></td><td>Atributo HTML que marca una etiqueta específica para poder aplicarle estilos aparte.</td></tr><tr><td>Contraste</td><td>Diferencia entre el color de texto y el de fondo, necesaria para que se lea bien.</td></tr><tr><td>Fuente web-safe</td><td>Tipografía ya instalada en casi todos los dispositivos (ej. Arial, Georgia).</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Tener a mano el archivo <code>.html</code> de la Clase 2 de un voluntario/a (con sus 3 secciones) para el ejemplo guiado del Bloque 3.</li>
+<li class="task">☐ Tener a mano el ejemplo de Valeria con sus 3 secciones, sin estilos, para mostrar el "antes y después".</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 1, 9, 2, 6 (Tramo A) y # 5, 13 (Tramo B).</li>
+<li class="task">☐ Recordarle al grupo que tenga el <code>.html</code> y una carpeta donde guardar también el <code>style.css</code>: los dos archivos tienen que quedar <strong>en la misma carpeta</strong>.</li>
+</ul>
+<h2>Bloque 1 — Analogía y diagnóstico: decorar la casa (15 min)</h2>
+<p>En la Clase 1 levantamos los <strong>cimientos y las paredes</strong>. En la Clase 2 dividimos la casa en <strong>habitaciones</strong> (<code>&lt;section&gt;</code>). Hoy le toca a lo que más se nota cuando alguien entra: la <strong>decoración</strong> — la pintura, los muebles, el estilo.</p>
+<p>Pensá en dos casas con las mismas habitaciones. En la primera, cada habitación se pintó de un color distinto porque "ese color me gustaba", hay cuatro estilos de sillas mezclados y el cartel de la puerta cambia de letra en cada cuarto. Es una casa cansadora: la visita no sabe si está en un solo lugar o en cinco. En la segunda, se eligieron <strong>tres colores</strong> y <strong>un solo estilo de mueble</strong> y se repitieron en todas partes. Tiene personalidad, se recuerda, se siente "de alguien". Eso es una <strong>identidad visual coherente</strong>: <strong>pocos elementos, repetidos siempre igual</strong>.</p>
+<p>Ahora, ¿cómo se decora una casa de manera ordenada? Con un <strong>manual de decoración</strong>: una hoja que dice "todas las paredes van de este color", "todos los carteles usan esta letra". Quien decora no anda cambiando habitación por habitación: lee el manual y aplica cada regla donde corresponde. En una página web:</p>
+<ul>
+<li>El <strong>manual de decoración</strong> es el archivo <strong>CSS</strong> (<code>style.css</code>).</li>
+<li><strong>Avisarle al decorador que el manual existe</strong> es la etiqueta <code>&lt;link&gt;</code></li>
+</ul>
+<p>  del <code>&lt;head&gt;</code>.</p>
+<ul>
+<li><strong>Cada regla del manual</strong> ("los títulos van en este color y esta letra")</li>
+</ul>
+<p>  se aplica a toda la página de una sola vez.</p>
+<p>Guardá esta imagen — la usamos toda la clase: <strong>decoración = CSS</strong>, <strong>manual = <code>style.css</code></strong>, <strong>avisar que existe = <code>&lt;link&gt;</code></strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre):</p>
+<ol>
+<li>Si tuvieras que elegir los colores de tu sitio, <strong>¿cuántos usarías?</strong></li>
+</ol>
+<p>   A) 1 · B) 2 o 3 · C) 5 o más · D) Los que me gusten, sin límite.</p>
+<ol>
+<li>HTML ya dice <strong>qué es</strong> cada parte de la página. ¿Dónde creés que se</li>
+</ol>
+<p>   guarda <strong>cómo se ve</strong>? A) En el mismo archivo, mezclado con el texto ·    B) En un archivo aparte que se conecta al HTML.</p>
+<p>No hay respuesta correcta todavía: el profesor lee algunas respuestas en voz alta (anónimas) sin corregir, solo para generar expectativa antes de la teoría.</p>
+<h2>Bloque 2 — Teoría + cuestionario (25 min)</h2>
+<p>Este bloque va con preguntas seguidas, casi todo el rato: cada concepto se cierra con un chequeo antes de pasar al siguiente, no se acumulan para el final. Reparto: vincular CSS ≈12 min e identidad visual ≈13 min.</p>
+<h3>Tramo A — Vincular CSS al HTML (≈12 min)</h3>
+<p>CSS (<em>Cascading Style Sheets</em>, "hojas de estilo en cascada") define cómo se <strong>ve</strong> lo que HTML ya organizó: colores, tipografía, espaciados. HTML dice <em>qué es</em> cada cosa; CSS dice <em>cómo se ve</em>. Sin CSS, la página se muestra en su versión "pura": letra con serifa, texto negro sobre blanco, todo pegado a la izquierda. Con CSS, la misma página tiene personalidad.</p>
+<p><strong>Se escribe en un archivo aparte</strong> (por ejemplo <code>style.css</code>) y se conecta con una etiqueta en el <code>&lt;head&gt;</code> del HTML:</p>
+<pre class="code"><code>&lt;head&gt;
+  &lt;title&gt;Valeria Fotografía&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+<ul>
+<li><code>rel="stylesheet"</code> le dice al navegador "esto es una hoja de estilos".</li>
+<li><code>href="style.css"</code> indica <strong>dónde está</strong> el archivo — igual que el <code>src</code></li>
+</ul>
+<p>  de una imagen. Si el nombre no coincide exactamente, o el archivo está en   otra carpeta, la página se ve sin estilos.</p>
+<ul>
+<li>Va <strong>dentro del <code>&lt;head&gt;</code></strong>, nunca en el <code>&lt;body&gt;</code>. <code>&lt;link&gt;</code> no tiene</li>
+</ul>
+<p>  etiqueta de cierre, como <code>&lt;img&gt;</code>.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<p>Dentro del archivo CSS, todo se escribe en <strong>reglas</strong>, y cada regla tiene tres partes:</p>
+<pre class="code"><code>h1 {
+  color: #2b2b2b;
+  font-family: Georgia, serif;
+}</code></pre>
+<ul>
+<li><strong>Selector</strong> (<code>h1</code>) — a qué etiqueta(s) le aplica la regla.</li>
+<li><strong>Propiedad</strong> (<code>color</code>, <code>font-family</code>) — qué característica visual se</li>
+</ul>
+<p>  cambia.</p>
+<ul>
+<li><strong>Valor</strong> (<code>#2b2b2b</code>, <code>Georgia, serif</code>) — a qué se cambia.</li>
+</ul>
+<p>Las propiedades y valores van entre llaves <code>{ }</code>, con <code>:</code> entre propiedad y valor y <code>;</code> al final de cada línea. Un solo <code>;</code> olvidado puede hacer que la regla siguiente no se aplique.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 9 de <code>banco-preguntas.md</code> (¿cuál es el selector en <code>h1 { color: #b23a48; }</code>?) y después la # 2 (las 3 partes de una regla), una diapositiva por pregunta.</p>
+<p>A veces querés estilar <strong>solo una</strong> etiqueta y no todas las de su tipo. Para eso se la marca con el atributo <code>class</code> (el mismo tipo de atributo que <code>src</code> o <code>alt</code> de la Clase 2) y en CSS se apunta con un punto:</p>
+<pre class="code"><code>&lt;p class="destacado"&gt;¡Escribime hoy mismo!&lt;/p&gt;</code></pre>
+<pre class="code"><code>.destacado {
+  color: #b23a48;
+}</code></pre>
+<p><strong>Chequeo rápido:</strong> pregunta # 6 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<p><strong>Tres errores frecuentes</strong> al vincular (los vamos a ver seguido en la práctica):</p>
+<ol>
+<li>El <code>.html</code> y el <code>.css</code> <strong>no están en la misma carpeta</strong>.</li>
+<li>El nombre no coincide (<code>style.css</code> vs <code>Style.css</code> vs <code>estilos.css</code>).</li>
+<li>Falta <code>rel="stylesheet"</code> o el <code>&lt;link&gt;</code> quedó en el <code>&lt;body&gt;</code>.</li>
+</ol>
+<h3>Tramo B — Identidad visual coherente (≈13 min)</h3>
+<p>Volvemos a las dos casas: una identidad coherente usa <strong>pocos elementos, repetidos siempre igual</strong>. No es agregar todos los colores que gustan.</p>
+<p><strong>Paleta de colores — 2 o 3 colores como máximo</strong>, cada uno con un rol:</p>
+<ul>
+<li>Un <strong>color principal</strong>, para títulos o acentos: lo que da personalidad.</li>
+<li>Un <strong>color de texto</strong>, generalmente oscuro, para que se lea bien.</li>
+<li>Un <strong>color de fondo</strong>, generalmente claro o neutro.</li>
+</ul>
+<p><strong>Chequeo rápido:</strong> pregunta # 5 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<p><strong>Contraste.</strong> El texto tiene que <strong>leerse</strong>. Por eso importa la diferencia entre el color del texto y el del fondo: texto oscuro sobre fondo claro (o al revés) se lee bien; gris clarito sobre blanco, o blanco sobre amarillo claro, cansa la vista o directamente no se lee — y peor todavía si el texto y el fondo son casi el mismo color.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 13 de <code>banco-preguntas.md</code> (¿qué combinación tiene mejor contraste?).</p>
+<p><strong>Tipografía — máximo 2 fuentes</strong>: una para títulos y otra para el texto (o la misma para ambos). Podés usar una fuente <strong>web-safe</strong> (ya instalada en casi todos los dispositivos, como <code>Arial</code>, <code>Georgia</code> o <code>Verdana</code>) o importar una de Google Fonts. Para empezar, una web-safe es lo más simple y no depende de internet.</p>
+<p><strong>Dónde aplicarlo.</strong> Lo más cómodo es definir el color de fondo, el color de texto y la fuente principal <strong>una sola vez en <code>body</code></strong>: todo lo que está adentro lo hereda. Después, solo los títulos y los elementos destacados llevan su regla propia. Así se aplica a toda la página de una vez y es mucho más fácil mantenerla coherente.</p>
+<h4>Ejemplo práctico</h4>
+<pre class="code"><code>body {
+  background-color: #faf7f2;
+  color: #2b2b2b;
+  font-family: Verdana, sans-serif;
+}
+
+h1, h2 {
+  color: #b23a48;
+  font-family: Georgia, serif;
+}</code></pre>
+<p>Con esto, toda la página comparte el mismo fondo, el mismo color de texto, y los títulos siempre resaltan con el mismo color y la misma tipografía — eso es identidad visual coherente. Fijate también que <code>h1, h2</code> con una coma aplica la misma regla a las dos etiquetas.</p>
+<h2>Bloque 3 — Del ejemplo a tu sitio (45 min)</h2>
+<p><strong>Ejemplo guiado con un/a estudiante (≈15 min).</strong> Se pide un/a voluntario/a que traiga su archivo <code>.html</code> de la Clase 2 (con sus 3 secciones). En vivo, el profesor:</p>
+<ol>
+<li>Repasa con el/la estudiante su <strong>brief</strong>: ¿qué transmite su proyecto?</li>
+</ol>
+<p>   ¿alegre, serio, elegante, cercano? Con eso elige juntos <strong>3 colores</strong>    (principal, texto y fondo), los anotan y <strong>verifican el contraste</strong> entre    texto y fondo.</p>
+<ol>
+<li>Crea <code>style.css</code> <strong>en la misma carpeta</strong> que el <code>.html</code> y agrega el</li>
+</ol>
+<p>   <code>&lt;link&gt;</code> en el <code>&lt;head&gt;</code>. Prueba con una sola regla (por ejemplo,    <code>body { background-color: ... }</code>) para confirmar que está vinculado    antes de seguir.</p>
+<ol>
+<li>Aplica la paleta y la tipografía al <code>body</code>, a <code>h1, h2</code> y a un elemento</li>
+</ol>
+<p>   destacado con <code>class</code>.</p>
+<ol>
+<li>El resto del grupo sigue por pantalla compartida y puede sugerir en el</li>
+</ol>
+<p>   chat.</p>
+<p>El objetivo es que todos vean el archivo de la Clase 2 <strong>cambiar de cara</strong> con pocas líneas, y que el truco de "probar con una regla antes de seguir" quede claro antes de hacerlo cada uno.</p>
+<p><strong>Práctica: construyamos el sitio (≈30 min).</strong> Ahora cada estudiante hace lo mismo con su propio proyecto:</p>
+<ol>
+<li>Define su propia paleta de 2-3 colores y su tipografía, acordes a su</li>
+</ol>
+<p>   proyecto (no copiar la de Valeria ni la del voluntario).</p>
+<ol>
+<li>Crea su archivo <code>style.css</code> y lo vincula en el <code>&lt;head&gt;</code> de su <code>.html</code></li>
+</ol>
+<p>   con <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>.</p>
+<ol>
+<li>Aplica paleta y tipografía al menos al <code>body</code>, a los títulos (<code>h1</code>/<code>h2</code>)</li>
+</ol>
+<p>   y a algún elemento destacado.</p>
+<p>El profesor va respondiendo dudas por el chat a medida que aparecen, sin exponer a nadie frente al grupo entero. Esto avanza directamente los 3 entregables de la clase. Quien no llegue a terminar, lo termina como tarea (ver el cierre de este documento).</p>
+<h2>Bloque 4 — Dudas y preguntas (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿A alguien no se le aplicaron los estilos? ¿Revisaron que el <code>href</code></li>
+</ul>
+<p>  coincida con el nombre del archivo y que estén en la misma carpeta?"</p>
+<ul>
+<li>"¿Qué 3 colores eligieron y por qué? ¿Se lee bien el texto sobre el</li>
+</ul>
+<p>  fondo?"</p>
+<ul>
+<li>"¿Cuál fue la parte más difícil: elegir colores, elegir la tipografía o</li>
+</ul>
+<p>  escribir las reglas? Resolvámosla juntos en vivo."</p>
+<h2>Cierre de clase — Examen (15 min)</h2>
+<p>Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos: # 1, 2, 5, 6, 9 y 13 de <code>banco-preguntas.md</code>. Ver <code>examen.md</code> para el detalle completo (rúbrica y ejercicio práctico).</p>
+<p><strong>Así se evalúa la tarea de hoy:</strong> las 6 preguntas respondidas juntos en clase valen 60 puntos; tu <code>.html</code> + <code>.css</code> vale 40 puntos (CSS vinculado correctamente 15, paleta aplicada 15, tipografía aplicada 10) — ver el detalle en <code>examen.md</code>.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: quien no terminó el Bloque 3 en clase, termina en casa su <code>style.css</code> — vinculado en el <code>&lt;head&gt;</code>, con su paleta de 2-3 colores y su tipografía aplicadas de forma consistente en todo el sitio (fondo, texto y títulos). Ese es el entregable oficial de la Clase 3 y lo que se revisa al empezar la Clase 4.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Qué etiqueta se usa en el <code>&lt;head&gt;</code> para vincular un archivo CSS al HTML?</td><td>opción múltiple</td><td>A) <code>&lt;style&gt;</code> B) <code>&lt;link&gt;</code> C) <code>&lt;css&gt;</code> D) <code>&lt;script&gt;</code></td></tr><tr><td>2</td><td>¿Cuáles son las 3 partes de una regla CSS?</td><td>opción múltiple</td><td>A) Selector, propiedad, valor B) Etiqueta, atributo, contenido C) Header, body, footer D) Clase, id, nombre</td></tr><tr><td>3</td><td>Una identidad visual coherente usa muchos colores distintos para verse más vistosa.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>4</td><td>El archivo CSS se vincula dentro de la etiqueta <code>&lt;body&gt;</code>.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>5</td><td>Como máximo, ¿cuántos colores recomienda la teoría para una paleta coherente?</td><td>opción múltiple</td><td>A) 1 B) 2-3 C) 6-8 D) 10</td></tr><tr><td>6</td><td>¿Qué atributo HTML se usa para marcar una etiqueta y poder aplicarle un estilo específico en CSS?</td><td>opción múltiple</td><td>A) <code>id</code> únicamente B) <code>class</code> C) <code>style</code> D) <code>link</code></td></tr><tr><td>7</td><td>¿Por qué es importante el contraste entre el color de texto y el de fondo?</td><td>respuesta corta</td><td>—</td></tr><tr><td>8</td><td>¿Qué es una fuente "web-safe"?</td><td>opción múltiple</td><td>A) Una fuente que hay que pagar B) Una fuente ya instalada en casi todos los dispositivos C) Una fuente exclusiva de Google Fonts D) Una fuente que solo funciona en celulares</td></tr><tr><td>9</td><td>En la regla <code>h1 { color: #b23a48; }</code>, ¿cuál es el selector?</td><td>opción múltiple</td><td>A) <code>color</code> B) <code>#b23a48</code> C) <code>h1</code> D) <code>{}</code></td></tr><tr><td>10</td><td>¿Cuántas tipografías distintas recomienda como máximo la teoría para un sitio coherente?</td><td>opción múltiple</td><td>A) 1 B) 2 C) 5 D) Sin límite</td></tr><tr><td>11</td><td>Explica con tus palabras qué significa que una identidad visual sea "coherente".</td><td>respuesta corta</td><td>—</td></tr><tr><td>12</td><td>¿Qué pasa si el archivo CSS no está bien vinculado en el <code>&lt;head&gt;</code>?</td><td>respuesta corta</td><td>—</td></tr><tr><td>13</td><td>¿Cuál de estas combinaciones tiene mejor contraste para leer?</td><td>opción múltiple</td><td>A) Texto blanco sobre fondo amarillo claro B) Texto gris claro sobre fondo blanco C) Texto oscuro sobre fondo claro D) Texto del mismo color que el fondo</td></tr><tr><td>14</td><td>¿Qué ventaja tiene definir el color y la tipografía del <code>&lt;body&gt;</code> en vez de repetirlo en cada etiqueta?</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-4">
+<h1>Clase Guiada — Clase 4: Diseño responsive (celular y computadora)</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo y profundiza la teoría. <code>tarea.md</code> queda al final.</p><p></p><p><strong>Novedad desde esta clase: charlas conversatorias.</strong> Momentos breves donde</p><p>el grupo mira sitios concretos y conversa con un formato guiado, y uso de</p><p>IA como ayudante. Las reglas y el plan de las clases 4-8 están en</p><p><code>docs/estrategias_didacticas_curso.md</code>.</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Aprender el uso básico de media queries y unidades flexibles</li>
+<li>Verificar la visualización del sitio en distintos dispositivos</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Sitio ajustado en vista celular</li>
+<li>Sitio ajustado en vista computadora</li>
+<li>Corrección de espaciados/tamaños</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 2 (ver <code>docs/estrategias_didacticas_curso.md</code>), sin salas: los grupos de 4 se reemplazan por <strong>conversatorios de grupo completo</strong> (voz o chat, sin obligar a nadie) y la práctica es individual.</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> un sitio responsive necesita la etiqueta <code>&lt;meta name="viewport"&gt;</code> en el <code>&lt;head&gt;</code>, media queries en CSS (<code>@media (max-width: ...)</code>) para aplicar estilos distintos según el ancho de pantalla, y unidades flexibles (<code>%</code>, <code>rem</code>, <code>vw</code>/<code>vh</code>) en vez de tamaños fijos en <code>px</code>. Se verifica con las DevTools del navegador y, siempre que se pueda, en un celular real.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Sitio ajustado en vista celular</li>
+<li class="task">☐ Sitio ajustado en vista computadora</li>
+<li class="task">☐ Corrección de espaciados/tamaños</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td>Responsive</td><td>Diseño que se adapta bien tanto a pantallas chicas (celular) como grandes (computadora).</td></tr><tr><td>Viewport</td><td>Meta etiqueta que le dice al navegador de celular que use el ancho real de la pantalla.</td></tr><tr><td>Media query</td><td>Regla CSS que aplica estilos distintos según el ancho de la pantalla (<code>@media</code>).</td></tr><tr><td>Unidad relativa</td><td>Medida que se adapta al contexto (<code>%</code>, <code>rem</code>, <code>vw</code>, <code>vh</code>), en vez de fija como <code>px</code>.</td></tr><tr><td>Breakpoint</td><td>El ancho de pantalla donde una media query cambia el diseño (ej. <code>600px</code>).</td></tr><tr><td>DevTools</td><td>Herramientas del navegador (<code>F12</code>) que permiten simular pantallas de distintos tamaños.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Tener a mano el sitio de Valeria (HTML + CSS de la Clase 3) <strong>sin</strong> viewport, con una imagen de ancho fijo <code>600px</code> y un botón chico, para el ejemplo del Bloque 3.</li>
+<li class="task">☐ Pedir con anticipación (en el chat o al empezar) <strong>2 voluntarios/as</strong> que compartan su sitio de la Clase 3 en el Bloque 3. Nadie está obligado: si nadie se ofrece, usar el sitio de Valeria y el del voluntario del ejemplo guiado.</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 1, 2, 6 (Tramo A) y # 7, 12, 9 (Tramo B). Son las mismas 6 del examen de cierre.</li>
+<li class="task">☐ Tener abierta la ventana de un asistente de IA (Gemini, Copilot, ChatGPT, Claude…) para mostrar el paso a paso en el Bloque 3, y conocer sus límites gratuitos.</li>
+<li class="task">☐ Recordar a todo el grupo que tenga a mano <strong>su sitio de la Clase 3</strong> (<code>.html</code> + <code>style.css</code> en la misma carpeta) y un navegador con DevTools (<code>F12</code>).</li>
+<li class="task">☐ Tener a mano las reglas de la charla conversatoria (están en la diapositiva y abajo) para decirlas en voz alta la primera vez.</li>
+</ul>
+<h2>Bloque 1 — Analogía, diagnóstico y primer conversatorio (15 min)</h2>
+<p>Ya tenemos la casa: <strong>cimientos</strong> (Clase 1), <strong>habitaciones</strong> (Clase 2) y <strong>decoración</strong> (Clase 3). Hoy nos preguntamos algo que hasta ahora no miramos: <strong>¿para qué tamaño de cuarto se armó esa decoración?</strong> (≈5 min)</p>
+<p>Pensá en una <strong>mudanza</strong>. Tenés los mismos muebles: sillón, mesa, cama. En una casa grande los ponés uno al lado del otro y sobra lugar. En un departamento chico, la misma mesa contra la pared, el sillón pegado a la cama y todo <strong>en fila</strong>. Los muebles no cambian; cambia <strong>cómo los acomodás según el tamaño del cuarto</strong>. Si en el departamento chico dejaras todo como en la casa grande, no podrías ni pasar.</p>
+<p>Una página web es lo mismo. El contenido (texto, imágenes, botones) son los muebles; la pantalla —celular, tablet o computadora— es el cuarto. En web:</p>
+<ul>
+<li><strong>El cuarto</strong> es la pantalla del dispositivo.</li>
+<li><strong>Decirle al arquitecto el tamaño real del cuarto</strong> es la etiqueta</li>
+</ul>
+<p>  <code>&lt;meta name="viewport"&gt;</code> (sin ella, el celular "se hace el grande").</p>
+<ul>
+<li><strong>"Si el cuarto es chico, acomodalo así"</strong> es una <strong>media query</strong> (<code>@media</code>).</li>
+<li><strong>Muebles que se estiran o achican para entrar</strong> son las **unidades</li>
+</ul>
+<p>  flexibles** (<code>%</code>, <code>rem</code>, <code>vw</code>), en vez de muebles de tamaño fijo (<code>px</code>).</p>
+<p>Guardá esta imagen — la usamos toda la clase: <strong>pantalla = cuarto</strong>, <strong>viewport = decirle el tamaño real</strong>, <strong>media query = "si es chico, acomodalo así"</strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre) (≈4 min):</p>
+<ol>
+<li>Abrís tu sitio en el <strong>celular</strong>. ¿Qué creés que pasa?</li>
+</ol>
+<p>   A) Se ve igual que en la compu, pero chiquito · B) Se adapta solo, sin que    yo haga nada · C) Depende de lo que yo haya escrito.</p>
+<ol>
+<li>¿De qué dispositivo creés que viene la mayoría de las visitas a un sitio</li>
+</ol>
+<p>   como el tuyo? A) Computadora · B) Celular · C) Mitad y mitad.</p>
+<p>No hay respuesta correcta todavía: el profesor lee algunas en voz alta (anónimas) sin corregir.</p>
+<h3>Conversatorio 1 — "Mi peor momento con una página en el celular" (≈6 min)</h3>
+<p>Primera charla conversatoria del curso. Decir las <strong>reglas</strong> en voz alta:</p>
+<ol>
+<li>Hablamos del <strong>sitio</strong>, no de la persona.</li>
+<li>Comentamos con el formato <em>Me gusta… / Me confunde… / Yo probaría…</em></li>
+</ol>
+<p>   (hoy lo usamos poco, en la Clase 7 lo usamos completo).</p>
+<ol>
+<li><strong>Nadie está obligado a hablar</strong>: quien prefiera, escribe en el chat.</li>
+</ol>
+<p>Pregunta de apertura: <strong>"Acordate de una página que te costó usar en el celular: ¿qué pasaba exactamente?"</strong> (texto diminuto, botones difíciles de tocar, imagen que se sale, había que hacer zoom y arrastrar…). Se da la palabra a 2-3 personas o se leen respuestas del chat. El profesor <strong>anota en una lista visible</strong> los problemas que van saliendo — esa lista es la <strong>checklist de revisión</strong> que se usa en el Bloque 3.</p>
+<p>Cierre (30 seg): "Cada uno de esos problemas tiene arreglo, y hoy los vamos a ver."</p>
+<h2>Bloque 2 — Teoría + cuestionario (25 min)</h2>
+<p>Este bloque va con preguntas seguidas, casi todo el rato: cada concepto se cierra con un chequeo antes de pasar al siguiente. Reparto: viewport y media queries ≈12 min, unidades flexibles y verificación ≈13 min.</p>
+<h3>Tramo A — Viewport y media queries (≈12 min)</h3>
+<p>Un sitio <strong>responsive</strong> se ve bien tanto en celular como en computadora, sin que el texto quede gigante o las imágenes se corten. Dos piezas lo hacen posible.</p>
+<p><strong>1. La etiqueta viewport</strong>, en el <code>&lt;head&gt;</code>, le dice al navegador del celular que use el <strong>ancho real</strong> de la pantalla en vez de simular una de escritorio:</p>
+<pre class="code"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+<p>Sin esta línea, ningún ajuste responsive funciona bien en celular: el navegador muestra la página como si fuera de escritorio y la <strong>achica</strong> para que entre. Va siempre, en toda página, junto a <code>charset</code> y <code>title</code>.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 de <code>banco-preguntas.md</code> (votación en vivo en el chat).</p>
+<p><strong>2. Media queries</strong>, en el CSS, aplican reglas distintas según el ancho de la pantalla:</p>
+<pre class="code"><code>/* Estilos por defecto (para pantallas grandes) */
+h1 {
+  font-size: 40px;
+}
+
+/* Solo se aplica si la pantalla mide 600px de ancho o menos */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 28px;
+  }
+}</code></pre>
+<ul>
+<li><code>@media</code> = "acomodá los muebles según el cuarto".</li>
+<li><code>(max-width: 600px)</code> = la <strong>condición</strong>: "600px de ancho <strong>o menos</strong>".</li>
+<li>Adentro van reglas normales, que <strong>pisan</strong> a las de afuera solo cuando la</li>
+</ul>
+<p>  condición se cumple.</p>
+<ul>
+<li>Ese ancho donde cambia el diseño se llama <strong>breakpoint</strong>.</li>
+</ul>
+<p><strong>Chequeo rápido:</strong> pregunta # 2 (¿qué palabra clave aplica estilos según el ancho?) y después la # 6 (¿cuándo se aplican los estilos de <code>@media (max-width: 600px)</code>?), una diapositiva por pregunta.</p>
+<p><strong>Errores frecuentes</strong> al escribir media queries:</p>
+<ol>
+<li>Poner la media query <strong>arriba</strong> de la regla que quiere pisar: como el CSS</li>
+</ol>
+<p>   se lee de arriba abajo, la que va <strong>después</strong> gana. Las media queries van    al final del archivo.</p>
+<ol>
+<li>Olvidar las llaves de cierre: <code>@media</code> tiene <strong>dos pares</strong> de llaves (una</li>
+</ol>
+<p>   para la media query, otra para cada regla adentro).</p>
+<ol>
+<li>Olvidar el viewport y pensar que "la media query no funciona".</li>
+</ol>
+<h3>Tramo B — Unidades flexibles y cómo verificar (≈13 min)</h3>
+<p>Las medidas fijas (<code>px</code>) no se adaptan: un ancho de <code>500px</code> en un celular de 360px se sale de la pantalla. Las <strong>unidades flexibles</strong> sí:</p>
+<ul>
+<li><code>%</code> — relativo al <strong>elemento contenedor</strong> (<code>width: 90%</code> = el 90 % de su</li>
+</ul>
+<p>  caja madre).</p>
+<ul>
+<li><code>rem</code> — relativo al tamaño de fuente <strong>base</strong> de la página; sirve para</li>
+</ul>
+<p>  textos y espaciados que escalan juntos.</p>
+<ul>
+<li><code>vw</code> / <code>vh</code> — relativo al ancho / alto de la <strong>ventana</strong> del navegador</li>
+</ul>
+<p>  (<code>50vw</code> = la mitad del ancho de la ventana).</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 7 (¿cuál es una unidad relativa?) y después la</p>
+<h1>12 (diferencia entre <code>vw</code> y <code>%</code>).</h1>
+<p>Una combinación muy útil, para las imágenes de una galería:</p>
+<pre class="code"><code>.galeria img {
+  width: 100%;
+  max-width: 400px;
+}</code></pre>
+<p><code>width: 100%</code> la adapta al ancho disponible; <code>max-width: 400px</code> evita que en pantallas grandes crezca demasiado.</p>
+<p><strong>Verificar en distintos dispositivos.</strong> No alcanza con "se ve bien en mi compu": hay que revisarlo como lo va a ver quien lo abra desde el celular.</p>
+<ol>
+<li><strong>DevTools</strong> (<code>F12</code>, o clic derecho → <em>Inspeccionar</em>; ícono de celular /</li>
+</ol>
+<p>   tablet): simulan pantallas de distintos tamaños sin necesitar otro    dispositivo.</p>
+<ol>
+<li><strong>Celular real</strong>, siempre que se pueda: el simulador ayuda pero no</li>
+</ol>
+<p>   reemplaza al dispositivo verdadero.</p>
+<ol>
+<li>Revisar en ambos: que el texto se lea <strong>sin hacer zoom</strong>, que las</li>
+</ol>
+<p>   imágenes <strong>no se corten ni desborden</strong>, y que botones y enlaces sean    <strong>fáciles de tocar con el dedo</strong>.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 9 (¿las DevTools reemplazan por completo probar en un celular real?).</p>
+<h4>Ejemplo práctico</h4>
+<pre class="code"><code>&lt;head&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+<pre class="code"><code>.galeria img {
+  width: 100%;
+  max-width: 400px;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 16px;
+  }
+  .galeria img {
+    max-width: 100%;
+  }
+}</code></pre>
+<p>Con esto las imágenes nunca pasan de 400px en pantallas grandes, pero ocupan todo el ancho disponible en celular, y el texto queda cómodo de leer en pantallas chicas.</p>
+<h2>Bloque 3 — Del ejemplo a tu sitio (45 min)</h2>
+<h3>Ejemplo guiado (≈10 min)</h3>
+<p>Con el sitio de Valeria (o el de un/a voluntario/a), el profesor hace en vivo:</p>
+<ol>
+<li>Abre el sitio con <code>F12</code> → <strong>modo celular</strong> (ancho ≈ 375px). Junto con el</li>
+</ol>
+<p>   grupo lista <strong>qué se ve mal</strong>: (a) todo se ve diminuto (falta viewport),    (b) una imagen se sale de la pantalla (ancho fijo), (c) el botón es muy    chico para tocarlo.</p>
+<ol>
+<li>Agrega el <strong>viewport</strong> en el <code>&lt;head&gt;</code> y recarga. Cambia el tamaño del</li>
+</ol>
+<p>   texto.</p>
+<ol>
+<li>Cambia el ancho fijo de la imagen por <code>width: 100%; max-width: 600px;</code>.</li>
+<li>Agrega <strong>una media query</strong> al final de <code>style.css</code> que agrande el botón</li>
+</ol>
+<p>   y ajuste el título en pantallas de 600px o menos.</p>
+<ol>
+<li>Vuelve a mirar en <strong>modo celular y modo computadora</strong>: ¿se arregló y no</li>
+</ol>
+<p>   se rompió nada?</p>
+<h3>Conversatorio 2 — "Mirando sitios en el celular" (≈10 min)</h3>
+<p>Dos voluntarios/as <strong>comparten su sitio de la Clase 3</strong> en el celular simulado (DevTools, modo celular), <strong>antes de arreglarlo</strong>. Es mejor así: vemos problemas reales, sin ensayar.</p>
+<p>Para cada sitio (≈4-5 min):</p>
+<ol>
+<li>La persona dice en una frase <strong>qué transmite su proyecto</strong>.</li>
+<li>El grupo mira el sitio y comenta con el formato *Me gusta… / Me</li>
+</ol>
+<p>   confunde… / Yo probaría…* (voz o chat).</p>
+<ol>
+<li>El profesor conecta cada comentario con la teoría: "esto se arregla con</li>
+</ol>
+<p>   el viewport / con <code>%</code> / con una media query".</p>
+<p>Regla de oro: <strong>comentarios sobre el sitio, no sobre la persona.</strong> Si nadie se anima, se usa el sitio de Valeria o se leen comentarios anónimos del chat.</p>
+<p>Cierre (30 seg): cada uno anota en su cuaderno <strong>qué le llevó de esta conversación para su propio sitio</strong>.</p>
+<h3>Práctica: ahora tu sitio, con una IA de ayudante (≈25 min)</h3>
+<p>Cada estudiante hace lo mismo con su propio proyecto:</p>
+<ol>
+<li><strong>Diagnóstico propio (≈5 min).</strong> Abrí tu sitio en <code>F12</code> → modo celular.</li>
+</ol>
+<p>   Anotá <strong>3 cosas que se ven mal</strong> (texto, imágenes, botones, espaciados).    Después probalo también en modo computadora.</p>
+<ol>
+<li><strong>Arreglo base (≈5 min).</strong> Poné el <code>&lt;meta name="viewport"&gt;</code> en el</li>
+</ol>
+<p>   <code>&lt;head&gt;</code> si todavía no lo tenés y cambiá los anchos fijos que desbordan    por <code>%</code> o <code>max-width</code>.</p>
+<ol>
+<li><strong>Ayudante de IA (≈10 min).</strong> Para el problema que no supiste resolver,</li>
+</ol>
+<p>   pedile ayuda a un asistente de IA con esta plantilla:</p>
+<p>   &gt; Soy estudiante de un curso de HTML y CSS. Mi sitio se ve mal en celular:</p>
+<p>   &gt; *[describí el problema con tus palabras: "la imagen se sale de la</p>
+<p>   &gt; pantalla", "el texto es muy chico"…]<em>. Este es mi CSS: </em>[pegá solo el CSS</p>
+<p>   &gt; relevante]*. Explicame en pocas palabras qué causa el problema y dame</p>
+<p>   &gt; <strong>una</strong> media query para pantallas de hasta 600px, con comentarios que</p>
+<p>   &gt; expliquen cada línea. No cambies nada más.</p>
+<p>   <strong>Reglas de uso de la IA</strong> (van en la diapositiva):</p>
+<ul>
+<li><strong>Primero intentá vos</strong> y anotá qué falla; después preguntá.</li>
+<li><strong>Pedí explicación</strong>, no solo el código. <strong>Pegá solo lo que entendés.</strong></li>
+<li><strong>Probalo</strong> en DevTools: la IA puede equivocarse con total seguridad.</li>
+<li><strong>No pegues datos personales</strong> (teléfono, dirección, correo).</li>
+</ul>
+<ol>
+<li><strong>Verificación (≈5 min).</strong> Volvé a mirar en modo celular y modo</li>
+</ol>
+<p>   computadora: ¿se arregló? ¿se rompió algo? Anotá <strong>qué te respondió la    IA y si te sirvió</strong> — lo conversamos en el Bloque 4.</p>
+<p>El profesor va respondiendo dudas por el chat y circulando por la pantalla compartida de quien quiera mostrar. Esto avanza los 3 entregables de la clase. Quien no llegue a terminar, lo termina como tarea.</p>
+<h2>Bloque 4 — Dudas y conversatorio final (10 min)</h2>
+<h3>Conversatorio 3 — "Qué nos dijo la IA" (≈7 min)</h3>
+<p>Preguntas para abrir la charla (voz o chat):</p>
+<ul>
+<li>"¿Alguien le pidió ayuda a la IA? **¿Qué le pidieron y qué les</li>
+</ul>
+<p>  respondió?**"</p>
+<ul>
+<li>"¿Le hicieron caso tal cual? ¿Había algo que <strong>no entendieron</strong> o que</li>
+</ul>
+<p>  <strong>no funcionó</strong>?"</p>
+<ul>
+<li>"¿La IA usó <code>px</code> o <code>%</code>? ¿Puso el breakpoint en <code>600px</code> como vimos hoy?</li>
+</ul>
+<p>  Comparen con lo que aprendimos."</p>
+<ul>
+<li>"¿En qué situación <strong>no</strong> confiarían en lo que responde la IA?"</li>
+</ul>
+<p>El profesor cierra con la idea central: <strong>la IA es un ayudante, no quien decide.</strong> Sirve para explicar y sugerir; quien verifica y se hace cargo del sitio sos vos. En la Clase 5 volvemos a usar IA, esta vez para crear imágenes.</p>
+<h3>Dudas (≈3 min)</h3>
+<p>Si el grupo queda callado:</p>
+<ul>
+<li>"¿A alguien le sigue desbordando una imagen? ¿Revisaron el <code>max-width</code> y</li>
+</ul>
+<p>  que la media query esté al final del archivo?"</p>
+<ul>
+<li>"¿Se ve bien en modo celular <strong>y</strong> en modo computadora, o arreglaron uno y</li>
+</ul>
+<p>  se rompió el otro?"</p>
+<h2>Cierre de clase — Examen (15 min)</h2>
+<p>Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos: # 1, 2, 6, 7, 9 y 12 de <code>banco-preguntas.md</code>. Ver <code>examen.md</code> para el detalle completo (rúbrica y ejercicio práctico).</p>
+<p><strong>Así se evalúa la tarea de hoy:</strong> las 6 preguntas respondidas juntos en clase valen 60 puntos; tu sitio vale 40 puntos (viewport presente 10, media query funcional 15, sin errores visuales en celular ni computadora 15) — ver el detalle en <code>examen.md</code>.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: quien no terminó el Bloque 3 en clase, termina en casa su sitio ajustado — con el viewport en el <code>&lt;head&gt;</code>, al menos una media query funcional y sin texto cortado ni imágenes desbordadas, revisado en modo celular y en modo computadora. Ese es el entregable oficial de la Clase 4 y lo que se revisa al empezar la Clase 5.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Qué meta etiqueta es necesaria en el <code>&lt;head&gt;</code> para que el diseño responsive funcione en celular?</td><td>opción múltiple</td><td>A) <code>&lt;meta name="viewport"&gt;</code> B) <code>&lt;meta name="responsive"&gt;</code> C) <code>&lt;meta charset="utf-8"&gt;</code> D) <code>&lt;meta name="mobile"&gt;</code></td></tr><tr><td>2</td><td>¿Qué palabra clave de CSS se usa para aplicar estilos según el ancho de pantalla?</td><td>opción múltiple</td><td>A) <code>@responsive</code> B) <code>@media</code> C) <code>@screen</code> D) <code>@width</code></td></tr><tr><td>3</td><td><code>px</code> es una unidad flexible que se adapta al tamaño de pantalla.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>4</td><td>Con el sitio viéndose bien en la computadora del profesor alcanza para dar por terminado el diseño responsive.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>5</td><td>¿Qué tecla o combinación abre las DevTools del navegador?</td><td>opción múltiple</td><td>A) F5 B) F12 C) Ctrl+P D) Ctrl+S</td></tr><tr><td>6</td><td>En <code>@media (max-width: 600px) { ... }</code>, ¿cuándo se aplican esos estilos?</td><td>opción múltiple</td><td>A) Cuando la pantalla mide 600px o menos B) Cuando la pantalla mide 600px o más C) Siempre D) Nunca, es solo un comentario</td></tr><tr><td>7</td><td>¿Cuál de estas es una unidad relativa (flexible)?</td><td>opción múltiple</td><td>A) <code>px</code> B) <code>rem</code> C) <code>pt</code> D) <code>cm</code></td></tr><tr><td>8</td><td>¿Qué se debe revisar al probar el sitio en celular, además de que el texto se lea sin zoom?</td><td>respuesta corta</td><td>—</td></tr><tr><td>9</td><td>Las DevTools reemplazan por completo la necesidad de probar en un celular real.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>10</td><td>¿A qué se llama "breakpoint" en diseño responsive?</td><td>respuesta corta</td><td>—</td></tr><tr><td>11</td><td>¿Por qué usar <code>width: 100%</code> en vez de un ancho fijo en <code>px</code> para una imagen dentro de una galería?</td><td>respuesta corta</td><td>—</td></tr><tr><td>12</td><td>¿Qué diferencia hay entre <code>vw</code> y <code>%</code> como unidades?</td><td>opción múltiple</td><td>A) <code>vw</code> es relativo al ancho de la ventana del navegador; <code>%</code> es relativo al elemento contenedor B) Son exactamente lo mismo C) <code>vw</code> solo funciona en celulares D) <code>%</code> no es una unidad válida en CSS</td></tr><tr><td>13</td><td>¿Qué pasa si falta la meta etiqueta viewport en un sitio con media queries bien escritas?</td><td>respuesta corta</td><td>—</td></tr><tr><td>14</td><td>Al revisar el sitio en modo responsive de las DevTools, ¿qué tamaños de pantalla conviene probar como mínimo?</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-5">
+<h1>Clase Guiada — Clase 5: Banner/logo con IA generativa de imágenes</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo y profundiza la teoría. <code>tarea.md</code> queda al final.</p><p></p><p><strong>Arranca la Fase 3</strong> (parejas, ver <code>docs/estrategias_didacticas_curso.md</code>)</p><p>y la primera <strong>charla conversatoria</strong> con imágenes propias: "Prompts que</p><p>funcionaron y prompts que no" (Bloque 3). Sin salas: las parejas trabajan</p><p><strong>por chat</strong> (mensajes directos o un hilo), no en una sala de video aparte.</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Escribir prompts efectivos para generación de imágenes con IA</li>
+<li>Integrar la imagen generada al diseño del sitio</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Banner o logo generado con IA</li>
+<li>Imagen optimizada e insertada en el sitio</li>
+<li>Ajuste de tamaño/posición del banner</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 3 (ver <code>docs/estrategias_didacticas_curso.md</code>). Trabajo en parejas por chat, sin sala de video separada. La conversatoria siempre es de grupo completo.</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> un buen prompt combina <strong>sujeto + estilo + colores + formato</strong>, usando los colores de tu paleta de la Clase 3, y evita pedir texto dentro de la imagen (las IA todavía lo dibujan mal). Una vez generada, se <strong>optimiza</strong> (comprimir, idealmente <code>.webp</code>) y se <strong>inserta</strong> con <code>&lt;img&gt;</code> + <code>alt</code> descriptivo, ajustando tamaño con <code>width</code>/<code>max-width</code> y <code>object-fit</code>.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Banner o logo generado con IA</li>
+<li class="task">☐ Imagen optimizada e insertada en el sitio</li>
+<li class="task">☐ Ajuste de tamaño/posición del banner</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td>Prompt</td><td>Instrucción de texto que se le da a una IA generativa para crear una imagen.</td></tr><tr><td>IA generativa de imágenes</td><td>Herramienta que crea imágenes nuevas a partir de un prompt (ej. Bing Image Creator, ChatGPT, Gemini).</td></tr><tr><td>Optimizar una imagen</td><td>Reducir su peso (KB/MB) sin perder calidad visible, para que el sitio cargue rápido.</td></tr><tr><td><code>.webp</code></td><td>Formato de imagen que suele pesar menos que <code>.png</code>/<code>.jpg</code> con calidad similar.</td></tr><tr><td><code>object-fit</code></td><td>Propiedad CSS que controla cómo una imagen llena su espacio sin deformarse.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Tener a mano el sitio de Valeria (con su paleta <code>#faf7f2</code> / <code>#b23a48</code> de la Clase 3) para el ejemplo guiado.</li>
+<li class="task">☐ Tener abierta una herramienta de generación de imágenes (ej. Bing Image Creator, ChatGPT o Gemini) para generar en vivo durante el ejemplo guiado.</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 1, 2 (Tramo A) y # 6, 8, 9, 11 (Tramo B). Son las mismas seis del examen de cierre.</li>
+<li class="task">☐ Avisar que hoy las parejas se arman <strong>por chat</strong> (no hay sala de video aparte): cada quien escribe su prompt y su compañero/a responde en el mismo hilo.</li>
+<li class="task">☐ Recordar que cada estudiante necesita <strong>su paleta de colores de la Clase 3</strong> a mano.</li>
+</ul>
+<h2>Bloque 1 — Analogía y diagnóstico (15 min)</h2>
+<p>Repasemos la casa: <strong>cimientos</strong> (Clase 1), <strong>habitaciones</strong> (Clase 2), <strong>decoración</strong> (Clase 3) y ya sabemos <strong>acomodarla según el tamaño del cuarto</strong> (Clase 4). Hoy le toca a algo que se ve <strong>antes de entrar</strong>: el <strong>cartel de la puerta</strong>, la vidriera.</p>
+<p>Imaginá que contratás a un <strong>pintor de carteles carísimo y rapidísimo</strong>: en segundos te pinta cualquier cartel que le pidas. El problema es que <strong>no lee la mente</strong>. Si le decís "pintame algo lindo", te pinta <em>cualquier cosa</em> linda — no necesariamente la tuya. Si le decís "un cartel con una cámara de fotos, estilo simple, en rojo y crema, bien ancho para la entrada", te pinta exactamente eso. Y hay algo que este pintor hace mal todavía: <strong>escribir letras</strong>. Si le pedís que escriba tu nombre en el cartel, es probable que salgan letras raras o mal formadas. Para el texto, mejor pintarlo vos después, con tus propias herramientas.</p>
+<p>En una página web:</p>
+<ul>
+<li><strong>El pintor rapidísimo</strong> es la <strong>IA generativa de imágenes</strong>.</li>
+<li><strong>Las instrucciones que le das</strong> son el <strong>prompt</strong>.</li>
+<li><strong>El cartel/vidriera de la casa</strong> es tu <strong>banner o logo</strong>.</li>
+<li><strong>"Que escriba mejor mi nombre yo"</strong> es: el texto se agrega **después, con</li>
+</ul>
+<p>  CSS**, no se le pide a la IA que lo dibuje.</p>
+<p>Guardá esta imagen — la usamos toda la clase: <strong>pintor = IA</strong>, <strong>instrucciones = prompt</strong>, <strong>cartel = banner/logo</strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre):</p>
+<ol>
+<li>Si le pedís a una IA "hacéme una imagen linda para mi sitio", ¿qué</li>
+</ol>
+<p>   esperás que pase? A) Sale perfecta para mi proyecto, tal cual la imaginé    · B) Sale algo genérico que después tengo que ajustar o volver a pedir ·    C) No tengo idea.</p>
+<ol>
+<li>¿Confiarías en que una IA escriba bien un texto (como tu nombre) <em>dentro</em></li>
+</ol>
+<p>   de una imagen? Sí / No.</p>
+<p>No hay respuesta correcta todavía: el profesor lee algunas respuestas en voz alta (anónimas) sin corregir, solo para generar expectativa antes de la teoría.</p>
+<h2>Bloque 2 — Teoría + cuestionario (25 min)</h2>
+<p>Este bloque va con preguntas seguidas, casi todo el rato: cada concepto se cierra con un chequeo antes de pasar al siguiente. Reparto: prompts efectivos ≈12 min, integrar la imagen al sitio ≈13 min.</p>
+<h3>Tramo A — Prompts efectivos (≈12 min)</h3>
+<p>Un <strong>prompt</strong> es la instrucción de texto que le das a una IA generativa de imágenes (Bing Image Creator, ChatGPT, Gemini…) para que cree una imagen. Un prompt vago da un resultado vago: cuantos más detalles concretos incluyas, mejor sale.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 de <code>banco-preguntas.md</code> (¿qué es un prompt?), votación en vivo en el chat.</p>
+<p>La fórmula que usamos en el curso tiene <strong>4 partes</strong>:</p>
+<pre class="code"><code>SUJETO + ESTILO + COLORES + CONTEXTO/FORMATO</code></pre>
+<ul>
+<li><strong>Sujeto:</strong> qué se ve en la imagen (una cámara de fotos, un ícono de</li>
+</ul>
+<p>  repostería, tus iniciales).</p>
+<ul>
+<li><strong>Estilo:</strong> cómo se ve (minimalista, flat design, acuarela, línea simple,</li>
+</ul>
+<p>  moderno).</p>
+<ul>
+<li><strong>Colores:</strong> los mismos de tu paleta de la Clase 3, así el banner combina</li>
+</ul>
+<p>  con el resto del sitio.</p>
+<ul>
+<li><strong>Contexto/formato:</strong> para qué es (banner horizontal ancho, logo</li>
+</ul>
+<p>  cuadrado) y qué evitar.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 2 de <code>banco-preguntas.md</code> (¿cuáles son las 4 partes de la fórmula?).</p>
+<h4>Ejemplo práctico</h4>
+<p>Prompt de Valeria, usando su paleta de la Clase 3 (<code>#faf7f2</code> fondo, <code>#b23a48</code> acento):</p>
+<blockquote><p>"Banner minimalista para sitio de fotografía, estilo flat design con</p><p>líneas simples, una cámara fotográfica como elemento central, colores</p><p>tierra: fondo crema <code>#faf7f2</code> y acento rojizo <code>#b23a48</code>, formato</p><p>horizontal ancho, sin texto."</p></blockquote>
+<p><strong>Un prompt vago</strong> ("hacéme una imagen bonita para mi sitio") no incluye sujeto, ni estilo, ni colores, ni formato: el resultado depende de la suerte. Comparado con el de Valeria, ¿cuál te da más control sobre el resultado?</p>
+<p><strong>Tip importante:</strong> pedí siempre <strong>sin texto</strong>. Las IA de imágenes todavía generan mal el texto dentro de la imagen (letras deformadas o mal escritas). Si necesitás texto, escribilo después con CSS sobre la imagen.</p>
+<h3>Tramo B — Integrar la imagen al sitio (≈13 min)</h3>
+<p>Generada la imagen, faltan dos pasos: <strong>optimizarla</strong> e <strong>insertarla bien</strong>.</p>
+<p><strong>1. Optimizar.</strong> Las imágenes de IA suelen pesar mucho. Antes de subirla: comprimila (herramientas online gratuitas) y, si podés, exportala en <code>.webp</code> — pesa menos que <code>.png</code>/<code>.jpg</code> con calidad similar. Un sitio con imágenes livianas carga más rápido.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 8 de <code>banco-preguntas.md</code> (¿qué formato pesa menos?).</p>
+<p><strong>2. Insertar con <code>&lt;img&gt;</code> y <code>alt</code>.</strong></p>
+<pre class="code"><code>&lt;img src="banner.webp" alt="Banner de Valeria Fotografía, cámara sobre fondo crema" class="banner"&gt;</code></pre>
+<p>El <code>alt</code> describe la imagen igual que en la Clase 2 — <strong>nunca se deja vacío</strong>, ni siquiera en un banner decorativo.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 6 de <code>banco-preguntas.md</code> (¿qué atributo nunca debe faltar?).</p>
+<p><strong>3. Ajustar tamaño y posición con CSS.</strong></p>
+<pre class="code"><code>.banner {
+  width: 100%;
+  max-width: 1200px;
+  object-fit: cover;
+}</code></pre>
+<ul>
+<li><code>width: 100%</code> la adapta al ancho disponible (como en la Clase 4).</li>
+<li><code>max-width</code> evita que crezca de más en pantallas grandes.</li>
+<li><code>object-fit: cover</code> recorta la imagen para que llene el espacio **sin</li>
+</ul>
+<p>  deformarse**.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 9 de <code>banco-preguntas.md</code> (¿qué propiedad controla cómo una imagen llena su espacio?).</p>
+<p><strong>¿Y si necesito texto sobre el banner?</strong> Se agrega <strong>después</strong>, con HTML y CSS — por ejemplo un <code>&lt;h1&gt;</code> posicionado sobre la imagen — nunca pidiéndole a la IA que lo dibuje.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 11 de <code>banco-preguntas.md</code> (¿cuál es la forma correcta de agregar texto?).</p>
+<h4>Ejemplo práctico</h4>
+<pre class="code"><code>&lt;section id="inicio"&gt;
+  &lt;img src="banner.webp" alt="Banner de Valeria Fotografía" class="banner"&gt;
+  &lt;h1&gt;Valeria Pérez — Fotógrafa&lt;/h1&gt;
+  &lt;p&gt;Capturo momentos únicos en cumpleaños, quince años y eventos pequeños.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+<h2>Bloque 3 — Del ejemplo a tu sitio (45 min)</h2>
+<h3>Ejemplo guiado (≈10 min)</h3>
+<p>Con el sitio de Valeria, el profesor hace en vivo:</p>
+<ol>
+<li><strong>Arma el prompt</strong> junto con el grupo, siguiendo la fórmula: sujeto</li>
+</ol>
+<p>   (cámara), estilo (flat design, líneas simples), colores (<code>#faf7f2</code> /    <code>#b23a48</code>, los de su paleta), formato (banner horizontal, sin texto).</p>
+<ol>
+<li><strong>Genera la imagen</strong> en una herramienta de IA, en vivo.</li>
+<li><strong>La optimiza</strong> (comprime, si se puede exporta <code>.webp</code>).</li>
+<li><strong>La inserta</strong> con <code>&lt;img&gt;</code> + <code>alt</code> descriptivo, dentro de la sección</li>
+</ol>
+<p>   <code>inicio</code>, y ajusta con <code>width</code>, <code>max-width</code> y <code>object-fit: cover</code>.</p>
+<ol>
+<li>Verifica que el banner se vea bien y no desborde en modo celular y</li>
+</ol>
+<p>   computadora (como en la Clase 4).</p>
+<h3>Práctica en parejas y con tu propio prompt (≈20 min)</h3>
+<p><strong>Pair-checking cronometrado por chat (≈6 min).</strong> En pareja (por chat, sin sala aparte), sobre un caso ficticio de ejemplo (no el proyecto propio todavía), escriben juntos un prompt siguiendo la fórmula sujeto + estilo + colores + formato. Cada pareja comparte su prompt en el chat general.</p>
+<p><strong>Ahora tu propio proyecto (≈14 min):</strong></p>
+<ol>
+<li>Escribí tu propio prompt para el banner o logo de tu proyecto, usando los</li>
+</ol>
+<p>   colores de <strong>tu</strong> paleta de la Clase 3.</p>
+<ol>
+<li>Generá la imagen con una herramienta de IA.</li>
+<li>Optimizala e insertala en tu sitio con <code>&lt;img&gt;</code> + <code>alt</code> descriptivo.</li>
+<li>Ajustá el tamaño y la posición con CSS (<code>width</code>/<code>max-width</code>,</li>
+</ol>
+<p>   <code>object-fit</code>) para que se vea bien en celular y computadora.</p>
+<p>El profesor va respondiendo dudas por el chat a medida que aparecen. Esto avanza directamente los 3 entregables de la clase.</p>
+<h3>Conversatorio — "Prompts que funcionaron y prompts que no" (≈11 min)</h3>
+<p>Charla conversatoria de grupo completo (voz o chat, nadie obligado):</p>
+<ol>
+<li>La persona comparte su <strong>prompt</strong> y el <strong>resultado</strong> que le dio la IA.</li>
+<li>El grupo comenta con el formato *Me gusta… / Me confunde… / Yo</li>
+</ol>
+<p>   probaría…*.</p>
+<ol>
+<li>El profesor conecta con la fórmula: ¿qué parte del prompt faltaba o</li>
+</ol>
+<p>   sobraba? ¿el resultado combina con la paleta del sitio?</p>
+<p>Cierre (30 seg): cada uno anota <strong>qué le llevó</strong> para reescribir su propio prompt y volver a generar si hace falta.</p>
+<h2>Bloque 4 — Dudas y preguntas (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿A alguien le salió texto raro o deformado en la imagen? ¿Qué le pediste</li>
+</ul>
+<p>  a la IA?"</p>
+<ul>
+<li>"¿El color de tu banner combina con el resto de tu sitio? Si no, ¿qué le</li>
+</ul>
+<p>  cambiarías al prompt?"</p>
+<ul>
+<li>"¿Se ve bien tu banner en modo celular <strong>y</strong> en modo computadora?"</li>
+</ul>
+<h2>Cierre de clase — Examen (15 min)</h2>
+<p>Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos: # 1, 2, 6, 8, 9 y 11 de <code>banco-preguntas.md</code>. Ver <code>examen.md</code> para el detalle completo (rúbrica y ejercicio práctico).</p>
+<p><strong>Así se evalúa la tarea de hoy:</strong> las 6 preguntas respondidas juntos en clase valen 60 puntos; tu sitio vale 40 puntos (imagen generada con IA presente 15, <code>&lt;img&gt;</code> con <code>alt</code> descriptivo 10, tamaño/posición ajustados sin desborde 15) — ver el detalle en <code>examen.md</code>.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: quien no terminó el Bloque 3 en clase, termina en casa su banner o logo — generado con IA, optimizado, insertado con <code>&lt;img&gt;</code> + <code>alt</code> descriptivo y ajustado con CSS para que no desborde en ninguna vista. Ese es el entregable oficial de la Clase 5 y lo que se revisa al empezar la Clase 6.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Qué es un "prompt" en el contexto de IA generativa de imágenes?</td><td>opción múltiple</td><td>A) El nombre del archivo generado B) La instrucción de texto que describe la imagen que querés C) Un filtro que se aplica después D) El tamaño de la imagen</td></tr><tr><td>2</td><td>¿Cuáles son las 4 partes de la fórmula de prompt vista en la teoría?</td><td>opción múltiple</td><td>A) Sujeto, estilo, colores, contexto/formato B) Título, fecha, autor, tamaño C) Nombre, precio, categoría, stock D) Fondo, texto, borde, sombra</td></tr><tr><td>3</td><td>Las IA de imágenes generan texto dentro de la imagen de forma clara y confiable.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>4</td><td>¿Por qué conviene usar los colores de tu paleta (Clase 3) en el prompt del banner?</td><td>respuesta corta</td><td>—</td></tr><tr><td>5</td><td>Un prompt vago ("hazme una imagen bonita") da mejores resultados que uno detallado.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>6</td><td>¿Qué atributo NUNCA debe faltar al insertar la imagen del banner con <code>&lt;img&gt;</code>?</td><td>opción múltiple</td><td>A) <code>width</code> B) <code>alt</code> C) <code>class</code> D) <code>style</code></td></tr><tr><td>7</td><td>¿Para qué sirve optimizar/comprimir una imagen antes de subirla al sitio?</td><td>respuesta corta</td><td>—</td></tr><tr><td>8</td><td>¿Qué formato de imagen suele pesar menos que <code>.png</code>/<code>.jpg</code> con calidad similar?</td><td>opción múltiple</td><td>A) <code>.bmp</code> B) <code>.webp</code> C) <code>.tiff</code> D) <code>.raw</code></td></tr><tr><td>9</td><td>¿Qué propiedad CSS controla cómo una imagen llena su espacio sin deformarse?</td><td>opción múltiple</td><td>A) <code>object-fit</code> B) <code>text-align</code> C) <code>font-size</code> D) <code>border</code></td></tr><tr><td>10</td><td>¿Por qué se usa <code>max-width</code> en vez de un <code>width</code> fijo muy grande para el banner?</td><td>respuesta corta</td><td>—</td></tr><tr><td>11</td><td>Si necesitás texto sobre el banner, ¿cuál es la forma correcta según la teoría?</td><td>opción múltiple</td><td>A) Pedirle a la IA que dibuje el texto B) Escribirlo después con CSS sobre la imagen C) Recortarlo de otra imagen D) No se puede agregar texto a un banner</td></tr><tr><td>12</td><td>Da un ejemplo de prompt bien armado siguiendo la fórmula de la teoría (para cualquier proyecto).</td><td>respuesta corta</td><td>—</td></tr><tr><td>13</td><td>El <code>alt</code> de una imagen decorativa como un banner se puede omitir porque "no es una foto importante".</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>14</td><td>¿Qué pasa si el banner no tiene <code>max-width</code> definido y la imagen original es muy grande?</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-6">
+<h1>Clase Guiada — Clase 6: Enlaces, redes sociales y contacto</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo. <code>tarea.md</code> queda al final.</p><p></p><p><strong>Desde la Clase 6, menos teoría y más práctica:</strong> el Bloque 2 baja a 15</p><p>min (lo esencial + los mismos chequeos de siempre) y el Bloque 3 sube a</p><p>55 min, con más tiempo real para armar tu sitio. Sigue la <strong>Fase 3</strong></p><p>(parejas, ver <code>docs/estrategias_didacticas_curso.md</code>), con pareja</p><p><strong>distinta a la de la Clase 5</strong> y por chat, sin sala aparte. Charla</p><p>conversatoria: "¿Cómo contactarías a esta persona?" (Bloque 3).</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Crear enlaces funcionales e íconos de redes sociales</li>
+<li>Incorporar una vía de contacto clara</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Enlaces a redes sociales funcionando</li>
+<li>Sección o botón de contacto</li>
+<li>Verificación del funcionamiento de todos los enlaces</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 3 (ver <code>docs/estrategias_didacticas_curso.md</code>). Trabajo en parejas por chat (pareja rotada, distinta a la de la Clase 5), sin sala de video separada. La conversatoria siempre es de grupo completo.</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> un enlace se crea con <code>&lt;a href="..."&gt;</code>, y para enlaces externos conviene sumar <code>target="_blank" rel="noopener noreferrer"</code>. Los errores más comunes son olvidar el <code>https://</code> o dejar <code>href="#"</code> sin completar. El contacto se resuelve <strong>sin backend</strong> con <code>mailto:</code> (correo), <code>wa.me/</code> (WhatsApp, con código de país y sin espacios) o <code>tel:</code> (llamada), siempre en un lugar <strong>visible y fácil de encontrar</strong>.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Enlaces a redes sociales funcionando</li>
+<li class="task">☐ Sección o botón de contacto</li>
+<li class="task">☐ Verificación del funcionamiento de todos los enlaces</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td><code>href</code></td><td>Atributo de <code>&lt;a&gt;</code> que indica a dónde lleva el enlace.</td></tr><tr><td><code>target="_blank"</code></td><td>Hace que el enlace abra en una pestaña nueva.</td></tr><tr><td><code>rel="noopener noreferrer"</code></td><td>Atributo de seguridad recomendado junto a <code>target="_blank"</code>.</td></tr><tr><td><code>mailto:</code></td><td>Prefijo de <code>href</code> que abre el cliente de correo del visitante.</td></tr><tr><td><code>wa.me/</code></td><td>Servicio de enlaces directos a un chat de WhatsApp.</td></tr><tr><td><code>tel:</code></td><td>Prefijo de <code>href</code> que abre la app de llamadas con el número precargado.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Tener a mano el sitio de Valeria (con su banner de la Clase 5) para el ejemplo guiado.</li>
+<li class="task">☐ Preparar una lista de 4-5 enlaces de ejemplo <strong>con errores a propósito</strong> (URL sin <code>https://</code>, <code>href="#"</code> sin completar, número de WhatsApp mal formateado) para el pair-checking.</li>
+<li class="task">☐ Tener 2-3 links reales (locales e internacionales) con distinta forma de mostrar el contacto, para el conversatorio.</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 1, 2, 7 (Tramo A) y # 6, 8, 13 (Tramo B). Son las mismas seis del examen de cierre.</li>
+<li class="task">☐ Avisar que las parejas de hoy son <strong>distintas</strong> a las de la Clase 5, y siguen siendo por chat, sin sala aparte.</li>
+</ul>
+<h2>Bloque 1 — Analogía y diagnóstico (15 min)</h2>
+<p>La casa ya tiene <strong>cimientos</strong> (Clase 1), <strong>habitaciones</strong> (Clase 2), <strong>decoración</strong> (Clase 3), se <strong>acomoda según el cuarto</strong> (Clase 4) y tiene su <strong>cartel en la puerta</strong> (Clase 5). Hoy le toca a dos cosas que toda casa necesita: <strong>puertas hacia otros lugares</strong> y un <strong>timbre que funcione</strong>.</p>
+<p>Pensá en tu casa con carteles que apuntan a otros lugares: "A 2 cuadras, la plaza", "A la vuelta, el club". Si el cartel dice "plaza" pero el camino te lleva a un terreno baldío, es un cartel <strong>roto</strong> — peor que no tener cartel, porque genera desconfianza. Y toda casa necesita un <strong>timbre o buzón</strong> visible desde la calle: si está escondido en el patio trasero, nadie te encuentra para avisarte que llegó.</p>
+<p>En una página web:</p>
+<ul>
+<li><strong>Los carteles que llevan a otro lugar</strong> son los <strong>enlaces</strong> (`&lt;a</li>
+</ul>
+<p>  href="..."&gt;`), por ejemplo a tus redes sociales.</p>
+<ul>
+<li><strong>Un cartel roto</strong> es un enlace mal armado: sin <code>https://</code>, con la URL</li>
+</ul>
+<p>  mal copiada, o un <code>href="#"</code> sin completar.</p>
+<ul>
+<li><strong>El timbre o buzón, visible desde la calle</strong> es tu **sección de</li>
+</ul>
+<p>  contacto**: tiene que estar a la vista, no escondida al final.</p>
+<p>Guardá esta imagen — la usamos toda la clase: <strong>carteles que llevan a otro lugar = enlaces</strong>, <strong>cartel roto = enlace mal armado</strong>, <strong>timbre visible = contacto claro</strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre):</p>
+<ol>
+<li>¿Alguna vez hiciste clic en un botón o enlace de una página y **no pasó</li>
+</ol>
+<p>   nada**? ¿Qué creés que falló?</p>
+<ol>
+<li>¿Dónde esperás encontrar la forma de contactar a alguien en su sitio</li>
+</ol>
+<p>   web? A) Al final de todo, bien escondida · B) En un lugar visible, fácil    de encontrar · C) No me fijo.</p>
+<p>No hay respuesta correcta todavía: el profesor lee algunas respuestas en voz alta (anónimas) sin corregir, solo para generar expectativa antes de la teoría.</p>
+<h2>Bloque 2 — Lo esencial + cuestionario (15 min)</h2>
+<p>Bloque corto: solo lo que necesitás para armar tus enlaces y tu contacto <strong>ya mismo</strong> en el Bloque 3. Cada concepto se cierra con un chequeo de una pregunta. Reparto: enlaces y redes ≈7 min, contacto ≈8 min.</p>
+<h3>Tramo A — Enlaces y redes sociales (≈7 min)</h3>
+<p>Un enlace se crea con <code>&lt;a href="..."&gt;texto o ícono&lt;/a&gt;</code>. Para enlaces a <strong>otro sitio</strong> (como Instagram), sumá <code>target="_blank" rel="noopener noreferrer"</code> — abre en pestaña nueva y evita que esa pestaña manipule tu página:</p>
+<pre class="code"><code>&lt;a href="https://instagram.com/valeria.foto" target="_blank" rel="noopener noreferrer"&gt;
+  📷 Instagram
+&lt;/a&gt;</code></pre>
+<p>Un emoji simple alcanza como ícono, sin dependencias extra. <strong>Tres errores frecuentes</strong> ("cartel roto"): olvidar el <code>https://</code>, copiar mal la URL, o dejar <code>href="#"</code> sin completar.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 (¿qué atributo indica a dónde lleva?), después # 2 (¿qué hace <code>target="_blank"</code>?) y # 7 (¿por qué sumar <code>rel="noopener noreferrer"</code>?) — una diapositiva por pregunta.</p>
+<h3>Tramo B — Una vía de contacto clara (≈8 min)</h3>
+<p>Sin backend, con <strong>enlaces directos</strong>:</p>
+<ul>
+<li><strong>Correo:</strong> <code>&lt;a href="mailto:valeria@correo.com"&gt;Escribime&lt;/a&gt;</code>.</li>
+<li><strong>WhatsApp:</strong> <code>&lt;a href="https://wa.me/59171234567"&gt;Escribime&lt;/a&gt;</code> — con</li>
+</ul>
+<p>  código de país, <strong>sin espacios ni símbolos</strong>.</p>
+<ul>
+<li><strong>Teléfono:</strong> <code>&lt;a href="tel:+59171234567"&gt;Llamame&lt;/a&gt;</code>.</li>
+</ul>
+<p>Tiene que estar <strong>visible y fácil de encontrar</strong> — su propia sección o un botón destacado, no escondido al final de un párrafo.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 6 (¿qué servicio para WhatsApp?), # 8 (¿cómo va el número?) y # 13 (¿para qué sirve <code>tel:</code>?).</p>
+<h4>Ejemplo práctico</h4>
+<pre class="code"><code>&lt;section id="contacto"&gt;
+  &lt;h2&gt;Contacto&lt;/h2&gt;
+  &lt;a href="https://wa.me/59171234567" class="boton-contacto"&gt;💬 Escribime por WhatsApp&lt;/a&gt;
+  &lt;a href="mailto:valeria@correo.com"&gt;✉️ valeria@correo.com&lt;/a&gt;
+  &lt;div class="redes"&gt;
+    &lt;a href="https://instagram.com/valeria.foto" target="_blank" rel="noopener noreferrer"&gt;📷 Instagram&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+<h2>Bloque 3 — Armá tu sitio (55 min)</h2>
+<h3>Ejemplo guiado (≈10 min)</h3>
+<p>Con el sitio de Valeria, el profesor hace en vivo:</p>
+<ol>
+<li>Agrega el enlace real a su Instagram, con `target="_blank" rel="noopener</li>
+</ol>
+<p>   noreferrer"`.</p>
+<ol>
+<li>Crea la sección <code>contacto</code> con un botón de WhatsApp (<code>wa.me/</code>), su</li>
+</ol>
+<p>   correo (<code>mailto:</code>) y el ícono de su red social.</p>
+<ol>
+<li><strong>Prueba cada enlace</strong> haciendo clic: ¿abre el destino correcto? ¿en</li>
+</ol>
+<p>   pestaña nueva los externos?</p>
+<h3>Conversatorio — "¿Cómo contactarías a esta persona?" (≈10 min)</h3>
+<p>Charla conversatoria de grupo completo (voz o chat, nadie obligado). El profesor comparte en pantalla 2-3 sitios reales (locales e internacionales) con distinta forma de mostrar el contacto:</p>
+<ol>
+<li>Para cada sitio: "¿Cómo contactarías a esta persona? ¿Lo encontraste</li>
+</ol>
+<p>   fácil o tuviste que buscar?"</p>
+<ol>
+<li>El grupo comenta con el formato *Me gusta… / Me confunde… / Yo</li>
+</ol>
+<p>   probaría…*.</p>
+<ol>
+<li>El profesor conecta con la teoría: ¿el contacto estaba visible? ¿usaba</li>
+</ol>
+<p>   <code>wa.me/</code>, <code>mailto:</code>, un formulario?</p>
+<p>Cierre (30 seg): cada uno elige <strong>qué vía de contacto</strong> va a usar en su propio sitio, a partir de lo conversado.</p>
+<h3>Pair-checking cronometrado por chat (≈7 min)</h3>
+<p>En pareja (por chat, sin sala aparte, distinta pareja que en la Clase 5), reciben una lista de enlaces de ejemplo con <strong>errores a propósito</strong> (URL sin <code>https://</code>, <code>href="#"</code> sin completar, número de WhatsApp mal formateado) y deben encontrar y corregir cada error juntos.</p>
+<h3>Ahora tu propio sitio (≈28 min)</h3>
+<p>Con más tiempo que en clases anteriores para armar todo con calma:</p>
+<ol>
+<li>Agregá los enlaces reales a tus redes sociales (o las del proyecto), con</li>
+</ol>
+<p>   <code>target="_blank" rel="noopener noreferrer"</code>.</p>
+<ol>
+<li>Agregá una sección o botón de contacto con al menos una vía directa</li>
+</ol>
+<p>   (<code>mailto:</code>, <code>wa.me/</code> o <code>tel:</code>), en un lugar visible.</p>
+<ol>
+<li><strong>Verificá</strong> haciendo clic en cada enlace que efectivamente lleva a</li>
+</ol>
+<p>   donde corresponde, en celular y en computadora.</p>
+<ol>
+<li>Si te sobra tiempo, repasá también el resto de tu sitio (paleta,</li>
+</ol>
+<p>   textos, imágenes) — hoy tenés más minutos para construir.</p>
+<p>El profesor va respondiendo dudas por el chat a medida que aparecen. Esto avanza directamente los 3 entregables de la clase.</p>
+<h2>Bloque 4 — Dudas y preguntas (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿A alguien le quedó un enlace roto? ¿Le faltaba el <code>https://</code>, o era un</li>
+</ul>
+<p>  <code>href="#"</code> sin completar?"</p>
+<ul>
+<li>"¿Tu contacto queda visible apenas alguien entra, o hay que buscarlo?"</li>
+<li>"¿Probaste cada enlace haciendo clic, uno por uno?"</li>
+</ul>
+<h2>Cierre de clase — Examen (15 min)</h2>
+<p>Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos: # 1, 2, 6, 7, 8 y 13 de <code>banco-preguntas.md</code>. Ver <code>examen.md</code> para el detalle completo (rúbrica y ejercicio práctico).</p>
+<p><strong>Así se evalúa la tarea de hoy:</strong> las 6 preguntas respondidas juntos en clase valen 60 puntos; tu sitio vale 40 puntos (enlaces a redes funcionando 15, sección/botón de contacto visible 15, sin enlaces rotos 10) — ver el detalle en <code>examen.md</code>.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: quien no terminó el Bloque 3 en clase, termina en casa sus enlaces a redes sociales (con <code>target="_blank" rel="noopener noreferrer"</code>) y su sección o botón de contacto (<code>mailto:</code>, <code>wa.me/</code> o <code>tel:</code>), y verifica haciendo clic que cada uno abre el destino correcto. Ese es el entregable oficial de la Clase 6 y lo que se revisa al empezar la Clase 7.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Qué atributo de <code>&lt;a&gt;</code> indica a dónde lleva el enlace?</td><td>opción múltiple</td><td>A) <code>src</code> B) <code>href</code> C) <code>link</code> D) <code>to</code></td></tr><tr><td>2</td><td>¿Qué hace <code>target="_blank"</code> en un enlace?</td><td>opción múltiple</td><td>A) Lo abre en una pestaña nueva B) Lo desactiva C) Lo hace invisible D) Lo convierte en botón</td></tr><tr><td>3</td><td>Olvidar el <code>https://</code> al inicio de una URL no afecta si el enlace funciona.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>4</td><td>¿Qué prefijo de <code>href</code> abre el cliente de correo del visitante?</td><td>opción múltiple</td><td>A) <code>mail:</code> B) <code>mailto:</code> C) <code>email:</code> D) <code>send:</code></td></tr><tr><td>5</td><td>Un <code>href="#"</code> sin completar es un enlace funcional que lleva a algún lado.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>6</td><td>¿Qué servicio se usa para armar un enlace directo a un chat de WhatsApp?</td><td>opción múltiple</td><td>A) <code>wa.me/</code> B) <code>whats.link/</code> C) <code>chat.com/</code> D) <code>msg.app/</code></td></tr><tr><td>7</td><td>¿Por qué conviene agregar <code>rel="noopener noreferrer"</code> junto a <code>target="_blank"</code>?</td><td>respuesta corta</td><td>—</td></tr><tr><td>8</td><td>¿Cómo debe escribirse el número en un enlace de WhatsApp (<code>wa.me/...</code>)?</td><td>opción múltiple</td><td>A) Con código de país, sin espacios ni símbolos B) Con espacios entre grupos de números C) Con paréntesis alrededor del código de área D) No importa el formato</td></tr><tr><td>9</td><td>¿Dónde debería ubicarse la vía de contacto de un sitio, según la teoría?</td><td>respuesta corta</td><td>—</td></tr><tr><td>10</td><td>Para un curso de 2 semanas, ¿qué recomienda la teoría para resolver el contacto sin necesitar backend?</td><td>opción múltiple</td><td>A) Un formulario con base de datos propia B) Enlaces directos (<code>mailto:</code>, <code>wa.me/</code>, <code>tel:</code>) C) Un chat en vivo con servidor propio D) No es posible sin backend</td></tr><tr><td>11</td><td>¿Cuál de estos es un error común que rompe un enlace?</td><td>opción múltiple</td><td>A) Usar <code>target="_blank"</code> B) Copiar mal la URL con espacios o mayúsculas de más C) Agregar un ícono junto al texto D) Usar <code>mailto:</code></td></tr><tr><td>12</td><td>Explica cómo verificarías que todos los enlaces de tu sitio funcionan antes de entregarlo.</td><td>respuesta corta</td><td>—</td></tr><tr><td>13</td><td>El prefijo <code>tel:</code> en un <code>href</code> sirve para:</td><td>opción múltiple</td><td>A) Abrir la app de llamadas con el número precargado B) Enviar un correo C) Abrir WhatsApp D) No tiene ningún efecto</td></tr><tr><td>14</td><td>¿Es obligatorio usar un ícono de imagen para representar una red social, o alcanza con emoji/texto?</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-7">
+<h1>Clase Guiada — Clase 7: Ajustes finales y práctica guiada</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code>,</p><p><code>banco-preguntas.md</code> y <code>examen.md</code> siguen siendo la fuente canónica de</p><p>cada pieza (numeración de preguntas, rúbrica); este archivo las organiza</p><p>en el tiempo. <code>tarea.md</code> queda al final.</p><p></p><p><strong>Menos teoría, más práctica:</strong> el Bloque 2 baja a 15 min y el Bloque 3</p><p>sube a 55 min. Hoy, además de recibir feedback, **empezás a aplicar tus</p><p>correcciones ya en clase<strong> (no solo como tarea). Sigue la </strong>Fase 3**</p><p>(parejas, ver <code>docs/estrategias_didacticas_curso.md</code>), por chat, sin sala</p><p>aparte. A diferencia de las clases anteriores, **se trabaja directo sobre</p><p>el sitio real de cada uno**, no sobre un ejemplo. Charla conversatoria:</p><p>"Pasada de revisión cruzada" (Bloque 3).</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Aplicar retroalimentación para corregir errores visuales y de contenido</li>
+<li>Revisar la coherencia general del sitio</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Lista de correcciones aplicadas</li>
+<li>Sitio revisado sección por sección</li>
+<li>Versión "casi final" lista para publicar</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 3 (ver <code>docs/estrategias_didacticas_curso.md</code>). Trabajo en parejas por chat (pareja rotada), sin sala de video separada. La conversatoria siempre es de grupo completo.</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> el feedback entre pares usa la plantilla <strong>"1 cosa que me gustó" + "1 sugerencia"</strong>, concreta y no vaga. Se corrige primero el <strong>contenido</strong> (ortografía, texto sin reemplazar), después lo <strong>visual</strong>. La revisión de coherencia repasa <strong>paleta, tipografía, contenido, enlaces y responsive</strong>, sección por sección.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Lista de correcciones aplicadas</li>
+<li class="task">☐ Sitio revisado sección por sección</li>
+<li class="task">☐ Versión "casi final" lista para publicar</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td>Retroalimentación / feedback</td><td>Comentario de otra persona sobre tu trabajo, con el fin de mejorarlo.</td></tr><tr><td>Feedback estructurado</td><td>Plantilla fija ("1 me gustó" + "1 sugerencia") que evita comentarios vagos.</td></tr><tr><td>Coherencia visual</td><td>Que colores, tipografía y estilo se repitan igual en todo el sitio.</td></tr><tr><td>Checklist de revisión</td><td>Lista de puntos concretos a repasar antes de dar algo por terminado.</td></tr><tr><td>Versión casi final</td><td>El sitio ya corregido, listo para publicar en la Clase 8.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Recordar con anticipación (clase anterior o por chat) que <strong>todos traigan su sitio real</strong> — no hay ejemplo de Valeria hoy, se trabaja sobre el proyecto de cada uno.</li>
+<li class="task">☐ Preparar el ejemplo de feedback de Martín a Valeria (de <code>teoria.md</code>) para mostrarlo como modelo antes de que las parejas empiecen.</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> elegidas para los chequeos en vivo: # 1, 3 (Tramo A) y # 5, 6, 8, 13 (Tramo B). Son las mismas seis del examen de cierre.</li>
+<li class="task">☐ Avisar que las parejas de hoy trabajan <strong>por chat</strong>: cada quien comparte 1-2 capturas de pantalla de su sitio (no hace falta tenerlo publicado todavía), no hay sala de video aparte.</li>
+<li class="task">☐ Tener a mano la checklist de coherencia (paleta, tipografía, contenido, enlaces, responsive) para proyectarla durante la práctica.</li>
+</ul>
+<h2>Bloque 1 — Analogía y diagnóstico (15 min)</h2>
+<p>Repasemos la casa: <strong>cimientos</strong> (Clase 1), <strong>habitaciones</strong> (Clase 2), <strong>decoración</strong> (Clase 3), se <strong>acomoda según el cuarto</strong> (Clase 4), tiene su <strong>cartel</strong> (Clase 5) y sus <strong>puertas y timbre</strong> (Clase 6). Antes de abrirle la puerta a las visitas, falta un último paso: el <strong>recorrido de inspección</strong>.</p>
+<p>Pensá en el día antes de una mudanza. Ya pintaste, ya acomodaste los muebles, ya colgaste el cartel. Pero de tanto vivir ahí mientras la armabas, <strong>dejaste de notar</strong> cosas: un enchufe sin tapa, una puerta que roza el piso, una mancha en la pared. Por eso invitás a alguien de confianza a recorrer la casa <strong>antes</strong> de que lleguen las visitas de verdad. Esa persona, que la ve por primera vez, nota en segundos lo que a vos se te volvió invisible.</p>
+<p>En una página web:</p>
+<ul>
+<li><strong>El recorrido de inspección</strong> es la <strong>revisión de coherencia</strong>: repasar</li>
+</ul>
+<p>  el sitio sección por sección.</p>
+<ul>
+<li><strong>La persona de confianza que ve lo que vos ya no ves</strong> es tu <strong>pareja</strong>,</li>
+</ul>
+<p>  dándote <strong>feedback estructurado</strong>.</p>
+<ul>
+<li><strong>Anotar qué arreglar antes de que lleguen las visitas</strong> es tu **lista de</li>
+</ul>
+<p>  correcciones**, que aplicás antes de publicar (Clase 8) — y hoy, buena   parte, ya en clase.</p>
+<p>Guardá esta imagen — la usamos toda la clase: <strong>recorrido de inspección = revisión de coherencia</strong>, <strong>persona de confianza = tu pareja</strong>, <strong>lista de arreglos = lista de correcciones</strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre):</p>
+<ol>
+<li>Cuando alguien te da una sugerencia sobre algo que hiciste, ¿cómo</li>
+</ol>
+<p>   reaccionás primero? A) A la defensiva · B) Con curiosidad, quiero saber    qué vio · C) Depende de quién me lo diga.</p>
+<ol>
+<li>¿Creés que podés ver los errores de tu propio sitio tan fácil como los</li>
+</ol>
+<p>   vería otra persona? Sí / No.</p>
+<p>No hay respuesta correcta todavía: el profesor lee algunas respuestas en voz alta (anónimas) sin corregir, solo para generar expectativa antes de la teoría.</p>
+<h2>Bloque 2 — Lo esencial + cuestionario (15 min)</h2>
+<p>Bloque corto: solo lo que necesitás para dar y recibir feedback y revisar tu sitio <strong>ya mismo</strong> en el Bloque 3. Reparto: retroalimentación ≈7 min, coherencia del sitio ≈8 min.</p>
+<h3>Tramo A — Retroalimentación (≈7 min)</h3>
+<p>Nadie ve los propios errores tan fácil como los ve otra persona. Por eso esta clase se trabaja <strong>en pareja</strong>, sobre el <strong>sitio real</strong> de cada uno, con una plantilla simple:</p>
+<pre class="code"><code>1 cosa que me gustó: …
+1 sugerencia: …</code></pre>
+<p>La sugerencia tiene que ser <strong>concreta</strong> ("el texto de contacto es difícil de leer sobre el fondo oscuro"), no vaga ("no me gustó mucho"). Se corrige primero el <strong>contenido</strong> (ortografía, texto sin reemplazar), <strong>después</strong> lo <strong>visual</strong>. Recibir una sugerencia <strong>no es una crítica personal</strong>.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 (¿las 2 partes de la plantilla?) y # 3 (¿qué se corrige primero?).</p>
+<h3>Tramo B — Revisar la coherencia del sitio (≈8 min)</h3>
+<p>Se repasa <strong>completo</strong>, sección por sección: <strong>paleta</strong> (2-3 colores repetidos), <strong>tipografía</strong> (misma fuente en todas las secciones), <strong>contenido</strong> (sin texto de ejemplo sin reemplazar), <strong>enlaces</strong> (los de la Clase 6, siguen funcionando) y <strong>responsive</strong> (celular y computadora).</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 5 (¿qué se revisa en "paleta"?), # 6 (¿qué puntos forman la checklist?) y # 8 (al revisar enlaces, ¿qué se verifica?).</p>
+<p>Con la checklist sin pendientes, el sitio queda en su <strong>versión casi final</strong>: corregida, lista para publicar — todavía sin link público, eso es la Clase 8.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 13 (¿qué significa "versión casi final"?).</p>
+<h4>Ejemplo práctico</h4>
+<p>Feedback de Martín a la pareja de Valeria:</p>
+<blockquote><p><strong>1 cosa que me gustó:</strong> el banner combina perfecto con los colores del</p><p>resto del sitio.</p><p><strong>1 sugerencia:</strong> el texto de "Sobre mí" tiene poco contraste con el</p><p>fondo — probá con un color de texto más oscuro.</p></blockquote>
+<h2>Bloque 3 — Armá tu sitio (55 min)</h2>
+<h3>Ejemplo guiado (≈8 min)</h3>
+<p>El profesor muestra en vivo el feedback de Martín a Valeria y modela cómo se aplicaría: primero corregir el contraste del texto (contenido/visual), después repasar la checklist completa sobre el sitio de Valeria, marcando cada punto.</p>
+<h3>Revisión cruzada en pareja, por chat (≈17 min)</h3>
+<p>Fase 3, sin sala aparte. Cada estudiante:</p>
+<ol>
+<li>Comparte con su pareja <strong>1-2 capturas de pantalla</strong> de su sitio real, en</li>
+</ol>
+<p>   el chat.</p>
+<ol>
+<li>Recibe de su pareja la plantilla completa: **1 cosa que me gustó + 1</li>
+</ol>
+<p>   sugerencia**, concreta.</p>
+<ol>
+<li>Repite al revés: le da el mismo feedback a su pareja.</li>
+<li>Cada uno pasa la <strong>checklist de coherencia</strong> sobre su propio sitio y</li>
+</ol>
+<p>   anota qué falta.</p>
+<p>El profesor va circulando por el chat, ayudando a que las sugerencias sean concretas y no vagas.</p>
+<h3>Aplicá tus primeras correcciones, ahora (≈20 min)</h3>
+<p>Con el feedback recién recibido, cada estudiante corrige <strong>en vivo</strong>, en su propio sitio (no espera a la tarea):</p>
+<ol>
+<li>Ordená tus correcciones: <strong>contenido primero</strong> (ortografía, texto sin</li>
+</ol>
+<p>   reemplazar), <strong>después lo visual</strong> (colores, espaciados, tamaños).</p>
+<ol>
+<li>Aplicá las que puedas resolver ahora mismo.</li>
+<li>Marcá en tu lista las que queden pendientes para terminar en casa.</li>
+</ol>
+<p>El profesor circula por el chat resolviendo dudas puntuales — esto avanza directamente el entregable "lista de correcciones aplicadas", no solo identificadas.</p>
+<h3>Conversatorio — "Pasada de revisión cruzada" (≈10 min)</h3>
+<p>Charla conversatoria de grupo completo (voz o chat, nadie obligado):</p>
+<ol>
+<li>2-3 voluntarios/as comparten <strong>la mejor sugerencia</strong> que recibieron de</li>
+</ol>
+<p>   su pareja, y si ya la aplicaron.</p>
+<ol>
+<li>El grupo comenta con el formato *Me gusta… / Me confunde… / Yo</li>
+</ol>
+<p>   probaría…*.</p>
+<ol>
+<li>El profesor conecta con la checklist: ¿a qué punto corresponde esa</li>
+</ol>
+<p>   sugerencia (paleta, contenido, enlaces...)?</p>
+<p>Cierre (30 seg): cada uno revisa que su lista de correcciones tenga al menos <strong>3 ítems aplicados</strong> hoy.</p>
+<h2>Bloque 4 — Dudas y preguntas (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿Qué sugerencia te costó más escuchar? ¿Por qué creés que fue así?"</li>
+<li>"¿Encontraste algo en tu propio sitio antes de que tu pareja te lo</li>
+</ul>
+<p>  dijera?"</p>
+<ul>
+<li>"¿Qué punto de la checklist te quedó pendiente para terminar en casa?"</li>
+</ul>
+<h2>Cierre de clase — Examen (15 min)</h2>
+<p>Vamos a responder juntos 6 preguntas para cerrar lo que vimos hoy. Respondé en el chat y después vemos la respuesta entre todos: # 1, 3, 5, 6, 8 y 13 de <code>banco-preguntas.md</code>. Ver <code>examen.md</code> para el detalle completo (rúbrica y ejercicio práctico).</p>
+<p><strong>Así se evalúa la tarea de hoy:</strong> las 6 preguntas respondidas juntos en clase valen 60 puntos; tu sitio y tu lista de correcciones valen 40 puntos (lista documentada 10, correcciones aplicadas 15, checklist de coherencia sin pendientes 15) — ver el detalle en <code>examen.md</code>.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: terminá de aplicar las correcciones que quedaron pendientes de la clase (contenido primero, después lo visual) y volvé a pasar la checklist de coherencia completa vos mismo/a. Ese es el entregable oficial de la Clase 7 y lo que se revisa al empezar la Clase 8.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Cuáles son las 2 partes de la plantilla de feedback estructurado vista en esta clase?</td><td>opción múltiple</td><td>A) "1 cosa que me gustó" + "1 sugerencia" B) "Bien" + "Mal" C) Nota del 1 al 10 + comentario D) Solo errores encontrados</td></tr><tr><td>2</td><td>"No me gustó mucho" es un ejemplo de sugerencia concreta y útil.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>3</td><td>Según la teoría, ¿qué se corrige primero: errores de contenido o errores visuales?</td><td>opción múltiple</td><td>A) Errores de contenido primero B) Errores visuales primero C) Da igual el orden D) Ninguno se corrige en esta clase</td></tr><tr><td>4</td><td>Recibir una sugerencia sobre tu sitio es una crítica personal.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>5</td><td>¿Qué se revisa al chequear la "paleta de colores" en la checklist de coherencia?</td><td>respuesta corta</td><td>—</td></tr><tr><td>6</td><td>¿Cuáles de estos puntos forman parte de la checklist de coherencia de esta clase?</td><td>opción múltiple</td><td>A) Paleta, tipografía, contenido, enlaces, responsive B) Solo el precio del hosting C) Solo la ortografía D) Solo los colores</td></tr><tr><td>7</td><td>¿Por qué es un problema dejar texto "Lorem ipsum" o de ejemplo sin reemplazar?</td><td>respuesta corta</td><td>—</td></tr><tr><td>8</td><td>Al revisar enlaces en esta clase, ¿qué se está verificando en realidad?</td><td>opción múltiple</td><td>A) Que sigan funcionando como en la Clase 6 B) Que tengan colores llamativos C) Que estén en mayúsculas D) Que sean muy largos</td></tr><tr><td>9</td><td>¿Qué formato de agrupamiento se usa en esta clase, según <code>estrategias_didacticas_curso.md</code>?</td><td>opción múltiple</td><td>A) Parejas B) Grupos de 4 C) Individual D) Todo el curso junto</td></tr><tr><td>10</td><td>Da un ejemplo de sugerencia concreta (no vaga) sobre un sitio web.</td><td>respuesta corta</td><td>—</td></tr><tr><td>11</td><td>¿Para qué sirve revisar el sitio "sección por sección" en vez de solo mirarlo de corrido?</td><td>respuesta corta</td><td>—</td></tr><tr><td>12</td><td>¿Qué diferencia hay entre esta clase y las anteriores respecto a sobre qué material se trabaja en el ejercicio en clase?</td><td>respuesta corta</td><td>—</td></tr><tr><td>13</td><td>Una "versión casi final" del sitio significa que:</td><td>opción múltiple</td><td>A) Ya está publicada B) Ya está corregida y lista para publicar, pero todavía no tiene link público C) Es la primera versión sin revisar D) No existe ese concepto en el curso</td></tr><tr><td>14</td><td>¿Qué se debe hacer con las sugerencias recibidas de la pareja?</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+<section class="chapter" id="clase-8">
+<h1>Clase Guiada — Clase 8: Publicación y presentación final</h1>
+<blockquote><p>Libreto de la clase en vivo — <strong>1 h 50</strong> de contenido dentro de un espacio</p><p>de 2 horas, dejando 5 min de margen al inicio y 5 min al final por</p><p>imprevistos (conexión, arranque tarde, etc.). La guía de estudio va al</p><p>inicio de este mismo documento (ya no es una página aparte). <code>teoria.md</code></p><p>y <code>banco-preguntas.md</code> siguen siendo la fuente canónica de cada pieza;</p><p>este archivo las organiza en el tiempo. <code>tarea.md</code> queda al final.</p><p></p><p><strong>Última clase del curso — menos teoría, más práctica.</strong> El Bloque 2 baja</p><p>a 15 min y el Bloque 3 sube a 55 min, con más tiempo real para publicar</p><p>sin apuro. <strong>El cierre de hoy es el <code>examenes/final.md</code></strong>, el examen</p><p>integrador de las 8 clases — 16 preguntas, 2 por clase (3.75 pts c/u =</p><p>60) + el ejercicio práctico integrador sobre tu sitio publicado (40 pts,</p><p>8 ítems de 5 pts, uno por clase) = <strong>100 puntos</strong>. <code>examen.md</code> (Clase 8</p><p>sola, 6 preguntas) es un <strong>extra opcional</strong>: no se usa en el cierre en</p><p>vivo ni suma a esta nota, solo sirve como repaso extra si alguien quiere</p><p>practicar más.</p><p></p><p>Cierra la Fase 3 (parejas por chat, sin sala, ver</p><p><code>docs/estrategias_didacticas_curso.md</code>). Charla conversatoria de cierre:</p><p>"Presentación del sitio", con el link real. Si el tiempo no alcanza para</p><p>que todos presenten en vivo, quienes no llegaron comparten su link y su</p><p>guion en el chat general apenas termina la clase.</p></blockquote>
+<p><strong>Objetivos de la clase:</strong></p>
+<ul>
+<li>Aprender el proceso de publicación gratuita del sitio</li>
+<li>Presentar y compartir el resultado final</li>
+</ul>
+<p><strong>Entregables oficiales:</strong></p>
+<ol>
+<li>Sitio publicado con link funcional</li>
+<li>Presentación del sitio ante el grupo</li>
+<li>Link compartido en redes sociales propias</li>
+</ol>
+<p><strong>Fase pedagógica:</strong> Fase 3 (ver <code>docs/estrategias_didacticas_curso.md</code>), última clase. Presentación en cadena en parejas por chat, y conversatorio final de grupo completo.</p>
+<h2>Guía de estudio rápida</h2>
+<p>Antes de arrancar, así se resume la clase de hoy — volvé a esta sección cuando quieras repasar.</p>
+<p><strong>Resumen:</strong> publicar gratis con <strong>Netlify Drop</strong> es arrastrar la carpeta del proyecto y obtener un <strong>link público</strong>. Antes de publicar hay que revisar que el archivo principal se llame <strong><code>index.html</code></strong> y que las imágenes estén bien referenciadas. La presentación final sigue una estructura corta de <strong>4 partes</strong>: quién sos, recorrido del sitio, qué aprendiste, y el link para visitarlo.</p>
+<p><strong>Checklist de autoevaluación</strong> (para el final de la clase):</p>
+<ul>
+<li class="task">☐ Sitio publicado con link funcional</li>
+<li class="task">☐ Presentación del sitio ante el grupo</li>
+<li class="task">☐ Link compartido en redes sociales propias</li>
+</ul>
+<p><strong>Glosario:</strong></p>
+<table><thead><tr><th>Término</th><th>Definición</th></tr></thead><tbody><tr><td>Publicar / deploy</td><td>Subir el sitio a un servicio que le da un link público accesible desde cualquier navegador.</td></tr><tr><td>Hosting</td><td>Servicio que aloja los archivos del sitio y los sirve por internet (ej. Netlify).</td></tr><tr><td><code>index.html</code></td><td>Nombre estándar del archivo principal que el navegador abre automáticamente.</td></tr><tr><td>Link público</td><td>La URL con la que cualquiera puede abrir tu sitio publicado.</td></tr><tr><td>Presentación</td><td>Recorrido corto y estructurado del sitio, mostrado al grupo.</td></tr></tbody></table>
+<h2>Antes de empezar (checklist del profesor)</h2>
+<ul>
+<li class="task">☐ Preparar un <strong>sitio de prueba</strong> descartable (no el proyecto de nadie) para la demo en vivo de Netlify Drop.</li>
+<li class="task">☐ Recordar con anticipación que cada estudiante traiga su <strong>versión casi final de la Clase 7</strong> (<code>index.html</code> + <code>style.css</code> + imágenes, todo en la misma carpeta).</li>
+<li class="task">☐ Preguntas de <code>banco-preguntas.md</code> de Clase 8 elegidas para los chequeos en vivo del Bloque 2: # 1, 2, 3, 9 (Tramo A) y # 5, 10 (Tramo B).</li>
+<li class="task">☐ <strong>Tener a mano <code>../../examenes/final.md</code></strong> para el cierre: 16 preguntas (2 por clase) citadas por banco y clase — la lista completa, con el texto de cada una, está más abajo en "Cierre de clase".</li>
+<li class="task">☐ Definir de antemano las parejas para la "presentación en cadena" (distintas a las anteriores) y avisar que es por chat, sin sala.</li>
+<li class="task">☐ Pedir 3-4 voluntarios/as para presentar en vivo en el conversatorio de cierre — se puede pedir desde antes de la clase.</li>
+</ul>
+<h2>Bloque 1 — Analogía y diagnóstico (15 min)</h2>
+<p>La casa está lista: <strong>cimientos</strong> (Clase 1), <strong>habitaciones</strong> (Clase 2), <strong>decoración</strong> (Clase 3), se <strong>acomoda según el cuarto</strong> (Clase 4), tiene <strong>cartel</strong> (Clase 5), <strong>puertas y timbre</strong> (Clase 6) y ya pasó el <strong>recorrido de inspección</strong> (Clase 7). Hoy es el <strong>día de la inauguración</strong>.</p>
+<p>Una casa terminada, pero sin dirección, no la puede visitar nadie: está "lista" solo en teoría. Hoy hacemos tres cosas: le damos a la casa una <strong>dirección real en el mapa</strong> para que cualquiera pueda llegar, <strong>recibimos visitas</strong> y les mostramos un recorrido breve, y les damos la dirección para que la compartan con más gente.</p>
+<p>En una página web:</p>
+<ul>
+<li><strong>Darle una dirección real en el mapa</strong> es <strong>publicar</strong> tu sitio: subirlo</li>
+</ul>
+<p>  a un servicio (Netlify Drop) que le da un <strong>link público</strong>.</p>
+<ul>
+<li><strong>La puerta principal, donde toca primero quien llega</strong> es tu archivo</li>
+</ul>
+<p>  <strong><code>index.html</code></strong> — por eso se llama siempre igual.</p>
+<ul>
+<li><strong>Mostrar el recorrido a las visitas</strong> es tu <strong>presentación</strong> de 1</li>
+</ul>
+<p>  minuto.</p>
+<ul>
+<li><strong>Dar la dirección para que la compartan</strong> es <strong>compartir el link</strong> en</li>
+</ul>
+<p>  tus redes.</p>
+<p>Guardá esta imagen — la usamos toda la clase: <strong>dirección real = link público</strong>, <strong>puerta principal = <code>index.html</code></strong>, <strong>recorrido a las visitas = presentación</strong>.</p>
+<p><strong>Antes de ver la teoría</strong>, respondé en el chat (anónimo, como siempre):</p>
+<ol>
+<li>¿Alguna vez armaste algo (un dibujo, un video, un proyecto) y no se lo</li>
+</ol>
+<p>   mostraste a nadie? ¿Por qué?</p>
+<ol>
+<li>¿Qué esperás sentir cuando alguien de afuera abra <strong>tu</strong> sitio por</li>
+</ol>
+<p>   primera vez? A) Nervios · B) Orgullo · C) Las dos cosas.</p>
+<p>No hay respuesta correcta todavía: el profesor lee algunas respuestas en voz alta (anónimas) sin corregir, solo para generar expectativa antes de la teoría.</p>
+<h2>Bloque 2 — Lo esencial + cuestionario (15 min)</h2>
+<p>Bloque corto: solo lo que necesitás para publicar y presentar <strong>ya mismo</strong> en el Bloque 3. Reparto: publicación ≈9 min, presentación ≈6 min.</p>
+<h3>Tramo A — Publicación gratuita (≈9 min)</h3>
+<p>Publicar = subir tu sitio a un servicio que da un <strong>link público</strong>. <strong>Netlify Drop</strong>, en 3 pasos: entrás a la página, <strong>arrastrás la carpeta</strong> de tu proyecto al área indicada, y en segundos tenés tu link.</p>
+<p><strong>Antes de publicar, revisar:</strong> el archivo principal se llame <strong><code>index.html</code></strong>, las imágenes estén bien referenciadas, y sea la <strong>versión casi final</strong> de la Clase 7. Otras opciones (más avanzadas, para cuando se sepa Git): GitHub Pages, Vercel.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 1 (¿qué te da publicar?), # 2 (¿cómo se sube a Netlify Drop?), # 3 (¿cómo debe llamarse el archivo principal?) y</p>
+<h1>9 (nombrá otra opción gratuita).</h1>
+<h3>Tramo B — Presentar y compartir (≈6 min)</h3>
+<p>Presentación de <strong>1 minuto</strong>, 4 partes: <strong>quién sos</strong> (≈10 seg), <strong>recorrido del sitio</strong> (≈30 seg), <strong>qué aprendiste</strong> (≈10 seg) y <strong>el link</strong> (≈10 seg). Después, se comparte el link en las redes propias — el cierre real del curso.</p>
+<p><strong>Chequeo rápido:</strong> pregunta # 5 (¿las 4 partes?) y # 10 (¿cuál dura más?).</p>
+<h2>Bloque 3 — Publicás y presentás (55 min)</h2>
+<h3>Demo guiada del profesor (≈10 min)</h3>
+<p>El profesor publica en vivo un <strong>sitio de prueba</strong> (no el proyecto de nadie) con Netlify Drop: arrastra la carpeta, muestra el link generado, lo abre en otra pestaña para confirmar que funciona. Todos siguen el proceso en su propia pantalla, con un archivo de prueba, antes de hacerlo con su sitio real.</p>
+<h3>Publicá tu sitio real, con calma (≈25 min)</h3>
+<p>Más tiempo que de costumbre, porque es el paso más importante de la clase:</p>
+<ol>
+<li>Revisá que tu archivo principal se llame <code>index.html</code> y que las</li>
+</ol>
+<p>   imágenes estén bien referenciadas.</p>
+<ol>
+<li>Publicá tu <strong>versión casi final</strong> de la Clase 7 con Netlify Drop.</li>
+<li>Conseguí tu link público y <strong>abrilo en otra pestaña</strong> (o desde tu</li>
+</ol>
+<p>   celular) para confirmar que funciona.</p>
+<ol>
+<li>Si algo no carga bien, revisalo con calma: es el momento de resolverlo,</li>
+</ol>
+<p>   con el profesor circulando por el chat.</p>
+<ol>
+<li>Armá tu <strong>guion de presentación</strong> de 1 minuto con las 4 partes.</li>
+</ol>
+<h3>Presentación en cadena, por chat (≈10 min)</h3>
+<p>Sin sala aparte. Cada pareja (distinta a las anteriores) comparte su link real con la otra en el chat, junto con una frase de su guion. Reciben un comentario corto de vuelta — practican mostrar el sitio <strong>antes</strong> de la presentación al grupo completo.</p>
+<h3>Conversatorio — "Presentación del sitio" (≈10 min)</h3>
+<p>Charla conversatoria de grupo completo, cierre del curso. 3-4 voluntarios/as presentan en vivo, con las 4 partes de la estructura (≈1 min cada uno). El grupo reacciona con el formato <em>Me gusta… / Me confunde… / Yo probaría…</em> después de cada presentación.</p>
+<p>Cierre: <strong>quienes no llegaron a presentar en vivo comparten su link y su guion en el chat general apenas termina la clase</strong> — así todo el grupo puede visitar todos los sitios, aunque no todos hayan presentado de viva voz.</p>
+<h2>Bloque 4 — Dudas y cierre del curso (10 min)</h2>
+<p>Preguntas disparadoras si el grupo queda callado:</p>
+<ul>
+<li>"¿Tu link abre bien desde <strong>otro dispositivo o navegador</strong>, no solo el</li>
+</ul>
+<p>  tuyo?"</p>
+<ul>
+<li>"¿Ya compartiste tu link en alguna red social? Si no, ¿en cuál lo vas a</li>
+</ul>
+<p>  compartir hoy?"</p>
+<ul>
+<li>"De todo el curso, ¿qué fue lo que más te costó? ¿Y lo que más</li>
+</ul>
+<p>  disfrutaste?"</p>
+<p>El profesor cierra agradeciendo el curso y recordando que <strong>cada sitio publicado hoy sigue siendo de cada estudiante</strong> — pueden seguir editándolo después.</p>
+<h2>Cierre de clase — Examen final integrador (15 min)</h2>
+<p>Hoy no repasamos solo la Clase 8: repasamos <strong>las 8 clases juntas</strong>. Son <strong>16 preguntas</strong> (2 por clase, tomadas de cada <code>banco-preguntas.md</code>), una por diapositiva, en ronda rápida — respondé en el chat con una letra (o tu respuesta corta) y enseguida vemos la respuesta entre todos. El detalle completo (rúbrica y ejercicio práctico integrador) está en <code>../../examenes/final.md</code>.</p>
+<table><thead><tr><th>Clase</th><th>Preguntas (del banco de esa clase)</th></tr></thead><tbody><tr><td>1 — Definición del proyecto + HTML</td><td># 2, 5</td></tr><tr><td>2 — Secciones de contenido</td><td># 1, 6</td></tr><tr><td>3 — Estilo visual (CSS)</td><td># 2, 7</td></tr><tr><td>4 — Diseño responsive</td><td># 1, 7</td></tr><tr><td>5 — Banner/logo con IA</td><td># 2, 7</td></tr><tr><td>6 — Enlaces, redes y contacto</td><td># 1, 7</td></tr><tr><td>7 — Ajustes finales</td><td># 1, 6</td></tr><tr><td>8 — Publicación y presentación</td><td># 1, 5</td></tr></tbody></table>
+<p><strong>Así se evalúa, sobre 100:</strong> las 16 preguntas valen 60 puntos (3.75 c/u). El ejercicio práctico integrador vale 40 puntos, sobre tu sitio real publicado, un ítem de 5 pts por cada clase: estructura HTML + secciones (Clases 1-2), CSS con paleta y tipografía (Clase 3), responsive (Clase 4), banner/logo con IA (Clase 5), enlaces y contacto (Clase 6), correcciones aplicadas (Clase 7), y link público funcional (Clase 8) — el detalle exacto de los 8 ítems está en <code>../../examenes/final.md</code>.</p>
+<p><strong>Extra opcional:</strong> si a alguien le queda tiempo o quiere repasar más, el <code>examen.md</code> de cada clase (6 preguntas de esa clase sola) sigue disponible como práctica libre — no es obligatorio y no suma a esta nota.</p>
+<h2>Tarea en casa</h2>
+<p>Ver <code>tarea.md</code> para el detalle completo. En resumen: si todavía no lo hiciste, compartí tu link en al menos una red social propia y guardá una captura de pantalla como evidencia. Si no llegaste a presentar en vivo, compartí tu link y tu guion en el chat general del curso. Ese es el entregable oficial de la Clase 8, y el cierre del curso.</p>
+<h2>Para profundizar (opcional)</h2>
+<p>Lecturas, cheatsheets y herramientas para repasar con calma en Recursos de la clase. No hacen falta para la tarea.</p>
+<h2>Banco de preguntas para repasar</h2>
+<p class="nota">Respondé por escrito o mentalmente. Las respuestas están en el apéndice final del libro.</p>
+<table class="banco"><thead><tr><th>#</th><th>Pregunta</th><th>Tipo</th><th>Opciones</th></tr></thead><tbody><tr><td>1</td><td>¿Qué le da a tu sitio el proceso de "publicar"?</td><td>opción múltiple</td><td>A) Un link público accesible desde cualquier navegador B) Más colores C) Mejor tipografía D) Nada, es un paso opcional</td></tr><tr><td>2</td><td>¿Cómo se sube un sitio a Netlify Drop, según la teoría?</td><td>opción múltiple</td><td>A) Arrastrando la carpeta del proyecto al área indicada B) Escribiendo comandos de terminal C) Enviando un correo con el código D) No es posible sin cuenta de GitHub</td></tr><tr><td>3</td><td>¿Cómo se debe llamar el archivo principal para que el navegador lo abra automáticamente?</td><td>opción múltiple</td><td>A) <code>main.html</code> B) <code>index.html</code> C) <code>home.html</code> D) <code>sitio.html</code></td></tr><tr><td>4</td><td>Netlify Drop requiere saber usar Git y la terminal.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>5</td><td>¿Cuáles son las 4 partes de la estructura de presentación de 1 minuto vista en la teoría?</td><td>opción múltiple</td><td>A) Quién sos, recorrido del sitio, qué aprendiste, link B) Precio, fecha, ubicación, contacto C) Introducción, desarrollo, nudo, desenlace D) Saludo, chiste, despedida, aplausos</td></tr><tr><td>6</td><td>¿Qué se revisa antes de publicar, según la teoría?</td><td>respuesta corta</td><td>—</td></tr><tr><td>7</td><td>¿Qué se hace con el link del sitio después de presentarlo, según el cierre del curso?</td><td>opción múltiple</td><td>A) Se comparte en las redes sociales propias B) Se borra C) Se guarda en secreto D) Solo lo ve el profesor</td></tr><tr><td>8</td><td>¿Por qué se recomienda Netlify Drop para este curso en particular?</td><td>respuesta corta</td><td>—</td></tr><tr><td>9</td><td>Nombra otra opción gratuita de publicación mencionada en la teoría (además de Netlify Drop).</td><td>respuesta corta</td><td>—</td></tr><tr><td>10</td><td>¿Qué parte de la presentación dura más tiempo, según el guion de la teoría?</td><td>opción múltiple</td><td>A) El recorrido rápido del sitio B) Decir el link C) Decir quién sos D) Todas duran lo mismo</td></tr><tr><td>11</td><td>¿Qué pasa si las imágenes del sitio no están bien referenciadas antes de publicar?</td><td>respuesta corta</td><td>—</td></tr><tr><td>12</td><td>Explica con tus palabras por qué la Clase 8 es el "cierre real" del curso.</td><td>respuesta corta</td><td>—</td></tr><tr><td>13</td><td>Un sitio "casi final" de la Clase 7 debería publicarse sin revisarlo de nuevo.</td><td>verdadero/falso</td><td>Verdadero / Falso</td></tr><tr><td>14</td><td>¿Qué debe incluir la presentación además del recorrido del sitio?</td><td>respuesta corta</td><td>—</td></tr></tbody></table>
+</section>
+
+
+<section class="chapter respuestas-chapter" id="respuestas">
+<h1>Respuestas del banco de preguntas</h1>
+<h3>Clase 1 — Clase 1: Definición del proyecto + estructura básica (HTML)</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>A</td></tr><tr><td>2</td><td>A</td></tr><tr><td>3</td><td>Verdadero</td></tr><tr><td>4</td><td>Verdadero</td></tr><tr><td>5</td><td>¿Qué querés mostrar? / ¿A quién? / ¿Qué querés que haga quien lo visite?</td></tr><tr><td>6</td><td>A</td></tr><tr><td>7</td><td>B</td></tr><tr><td>8</td><td>B</td></tr><tr><td>9</td><td>Falso</td></tr><tr><td>10</td><td>C</td></tr><tr><td>11</td><td>Porque orienta el tono, el contenido y el diseño según quién lo va a ver</td></tr><tr><td>12</td><td>A</td></tr><tr><td>13</td><td>B</td></tr><tr><td>14</td><td><code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></td></tr></tbody></table>
+<h3>Clase 2 — Clase 2: Secciones de contenido (inicio, sobre mí/proyecto, galería o servicios)</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>A</td></tr><tr><td>2</td><td>B</td></tr><tr><td>3</td><td>Falso</td></tr><tr><td>4</td><td>A</td></tr><tr><td>5</td><td>Verdadero</td></tr><tr><td>6</td><td>B</td></tr><tr><td>7</td><td>A</td></tr><tr><td>8</td><td>Lo leen los lectores de pantalla (accesibilidad)</td></tr><tr><td>9</td><td>B</td></tr><tr><td>10</td><td>Historia, motivación, qué ofrece y por qué confiar en el proyecto (2-4 frases)</td></tr><tr><td>11</td><td><code>&lt;h1&gt;</code> es el título principal, único por página; <code>&lt;h2&gt;</code> titula cada sección</td></tr><tr><td>12</td><td>No comunica nada real sobre el proyecto ni conecta con quien visita el sitio</td></tr><tr><td>13</td><td>C</td></tr><tr><td>14</td><td>Verdadero</td></tr></tbody></table>
+<h3>Clase 3 — Clase 3: Estilo visual (CSS): colores y tipografía</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>B</td></tr><tr><td>2</td><td>A</td></tr><tr><td>3</td><td>Falso</td></tr><tr><td>4</td><td>Falso</td></tr><tr><td>5</td><td>B</td></tr><tr><td>6</td><td>B</td></tr><tr><td>7</td><td>Para que el contenido se pueda leer bien</td></tr><tr><td>8</td><td>B</td></tr><tr><td>9</td><td>C</td></tr><tr><td>10</td><td>B</td></tr><tr><td>11</td><td>Usa pocos elementos (colores/tipografías) y los repite siempre igual en todo el sitio</td></tr><tr><td>12</td><td>Los estilos no se aplican y la página se ve sin formato (HTML "puro")</td></tr><tr><td>13</td><td>C</td></tr><tr><td>14</td><td>Se aplica a toda la página de una sola vez y es más fácil de mantener coherente</td></tr></tbody></table>
+<h3>Clase 4 — Clase 4: Diseño responsive (celular y computadora)</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>A</td></tr><tr><td>2</td><td>B</td></tr><tr><td>3</td><td>Falso</td></tr><tr><td>4</td><td>Falso</td></tr><tr><td>5</td><td>B</td></tr><tr><td>6</td><td>A</td></tr><tr><td>7</td><td>B</td></tr><tr><td>8</td><td>Que las imágenes no se corten/desborden y que botones/enlaces sean fáciles de tocar</td></tr><tr><td>9</td><td>Falso</td></tr><tr><td>10</td><td>Al ancho de pantalla donde una media query cambia el diseño</td></tr><tr><td>11</td><td>Porque se adapta al ancho disponible en cualquier tamaño de pantalla, sin desbordar</td></tr><tr><td>12</td><td>A</td></tr><tr><td>13</td><td>El celular simula una pantalla de escritorio y las media queries no se aplican como se espera</td></tr><tr><td>14</td><td>Al menos uno chico (celular) y uno grande (computadora)</td></tr></tbody></table>
+<h3>Clase 5 — Clase 5: Banner/logo con IA generativa de imágenes</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>B</td></tr><tr><td>2</td><td>A</td></tr><tr><td>3</td><td>Falso</td></tr><tr><td>4</td><td>Para que el banner combine y sea coherente con el resto del sitio</td></tr><tr><td>5</td><td>Falso</td></tr><tr><td>6</td><td>B</td></tr><tr><td>7</td><td>Para que pese menos y el sitio cargue más rápido</td></tr><tr><td>8</td><td>B</td></tr><tr><td>9</td><td>A</td></tr><tr><td>10</td><td>Para que no se desborde del contenedor en pantallas más chicas</td></tr><tr><td>11</td><td>B</td></tr><tr><td>12</td><td>Cualquier prompt que incluya sujeto, estilo, colores y formato</td></tr><tr><td>13</td><td>Falso</td></tr><tr><td>14</td><td>Puede desbordar el ancho de la pantalla o de su contenedor</td></tr></tbody></table>
+<h3>Clase 6 — Clase 6: Enlaces, redes sociales y contacto</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>B</td></tr><tr><td>2</td><td>A</td></tr><tr><td>3</td><td>Falso</td></tr><tr><td>4</td><td>B</td></tr><tr><td>5</td><td>Falso</td></tr><tr><td>6</td><td>A</td></tr><tr><td>7</td><td>Por seguridad, evita que la pestaña nueva pueda manipular la página original</td></tr><tr><td>8</td><td>A</td></tr><tr><td>9</td><td>En un lugar visible y fácil de encontrar, no escondida al final de un párrafo</td></tr><tr><td>10</td><td>B</td></tr><tr><td>11</td><td>B</td></tr><tr><td>12</td><td>Haciendo clic en cada uno y confirmando que abre el destino correcto (red social, WhatsApp, correo)</td></tr><tr><td>13</td><td>A</td></tr><tr><td>14</td><td>No es obligatorio, un emoji o texto claro también es válido</td></tr></tbody></table>
+<h3>Clase 7 — Clase 7: Ajustes finales y práctica guiada</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>A</td></tr><tr><td>2</td><td>Falso</td></tr><tr><td>3</td><td>A</td></tr><tr><td>4</td><td>Falso</td></tr><tr><td>5</td><td>Que los mismos 2-3 colores se repitan en todo el sitio, sin colores sueltos</td></tr><tr><td>6</td><td>A</td></tr><tr><td>7</td><td>Porque no es contenido real del proyecto y se nota poco terminado</td></tr><tr><td>8</td><td>A</td></tr><tr><td>9</td><td>A</td></tr><tr><td>10</td><td>Cualquier sugerencia específica y accionable, ej. "el texto tiene poco contraste con el fondo"</td></tr><tr><td>11</td><td>Para no pasar por alto errores puntuales en secciones específicas</td></tr><tr><td>12</td><td>Acá se trabaja directo sobre el sitio real de cada uno, no sobre un ejemplo</td></tr><tr><td>13</td><td>B</td></tr><tr><td>14</td><td>Anotarlas en una lista de correcciones y aplicarlas al sitio propio</td></tr></tbody></table>
+<h3>Clase 8 — Clase 8: Publicación y presentación final</h3>
+<table class="respuestas"><thead><tr><th>#</th><th>Respuesta correcta</th></tr></thead><tbody><tr><td>1</td><td>A</td></tr><tr><td>2</td><td>A</td></tr><tr><td>3</td><td>B</td></tr><tr><td>4</td><td>Falso</td></tr><tr><td>5</td><td>A</td></tr><tr><td>6</td><td>Que el archivo se llame <code>index.html</code> y las imágenes estén bien referenciadas</td></tr><tr><td>7</td><td>A</td></tr><tr><td>8</td><td>Porque no requiere cuenta de GitHub ni línea de comandos, es simple para empezar</td></tr><tr><td>9</td><td>GitHub Pages o Vercel</td></tr><tr><td>10</td><td>A</td></tr><tr><td>11</td><td>No se muestran en el sitio publicado, aunque en la computadora local sí se vieran</td></tr><tr><td>12</td><td>Porque convierte la idea inicial de la Clase 1 en un sitio publicado que otros pueden visitar de verdad</td></tr><tr><td>13</td><td>Falso</td></tr><tr><td>14</td><td>Quién sos/tu proyecto, qué aprendiste, y el link para visitarlo</td></tr></tbody></table>
+
+</section>
+
+</body>
+</html>

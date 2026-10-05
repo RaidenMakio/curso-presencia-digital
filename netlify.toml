@@ -1,0 +1,4 @@
+# Netlify ejecuta el build y publica solo netlify-dist (no el repo completo).
+[build]
+  command = "npm run build"
+  publish = "netlify-dist"
